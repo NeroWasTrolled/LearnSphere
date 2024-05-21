@@ -1,0 +1,24 @@
+﻿<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:LearnSphere.View"
+       x:Class="LearnSphere.View.PagePrincipal">
+
+    <FlyoutItem Title="Menu" Icon="menu_icon.png">
+        <ShellContent Title="Home"
+                      Icon="home.png"
+                      Route="PageHome"
+                      ContentTemplate="{DataTemplate views:PageHome}" />
+        <ShellContent Title="Publicar"
+                      Icon="publicar.png"
+                      Route="PagePublicar"
+                      ContentTemplate="{DataTemplate views:PagePublicar}" />
+        <ShellContent Title="Perfil"
+                      Icon="perfil.png"
+                      Route="PagePerfil/{nomeDeUsuario}"
+                      ContentTemplate="{DataTemplate views:PagePerfil}" />
+        <ShellContent Title="Perfil"
+                      Icon="perfil.png"
+                      Route="PageCadastrar"
+                      ContentTemplate="{DataTemplate views:PageCadastrar}" />
+    </FlyoutItem>
+</Shell>

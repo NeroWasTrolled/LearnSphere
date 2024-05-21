@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearnSphere.View.EditPerfilPage"
+             Title="Editar Perfil">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Perfil do Usuário" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" Margin="0,10,0,20" />
+            <Label Text="Nome de usuário:" />
+            <Entry x:Name="entryUsuario" />
+            <Label Text="E-mail:" />
+            <Entry x:Name="entryEmail" />
+            <Label Text="Telefone:" />
+            <Entry x:Name="entryTelefone" />
+            <StackLayout Orientation="Horizontal" Margin="0,20">
+                <Label Text="Se tornar Fornecedor?" VerticalOptions="Center" />
+                <Switch x:Name="switchTipoUsuario" HorizontalOptions="StartAndExpand" />
+            </StackLayout>
+            <Button Text="Salvar" Clicked="Salvar_Clicked" HorizontalOptions="Center" Margin="0,40,0,0" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

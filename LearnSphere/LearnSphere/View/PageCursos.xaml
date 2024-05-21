@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearnSphere.View.PageCursos">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+            <StackLayout Orientation="Horizontal">
+                <Image x:Name="cursoImage" Aspect="AspectFit" WidthRequest="150"/>
+                <StackLayout>
+                    <Label x:Name="cursoNome" FontAttributes="Bold" FontSize="20"/>
+                    <Label x:Name="cursoAutor" FontSize="16"/>
+                    <StackLayout Orientation="Horizontal" x:Name="avaliacaoStack">
+
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+
+
+            <Label x:Name="numeroAvaliacoes" FontSize="14" TextColor="Gray"/>
+
+            <StackLayout x:Name="cursoLayout">
+                <Label x:Name="cursoDescricao" MaxLines="3" LineBreakMode="TailTruncation"/>
+            </StackLayout>
+
+            <Button x:Name="mostrarMaisButton" Text="Mostrar mais" Clicked="MostrarMaisButton_Clicked"/>
+
+            <Label x:Name="cursoPreco" FontSize="24" FontAttributes="Bold"/>
+
+            <Button Text="Comprar agora" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnComprarClicked"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

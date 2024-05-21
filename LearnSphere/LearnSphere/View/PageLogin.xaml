@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearnSphere.View.PageLogin" BackgroundColor="#F0F0F0">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <StackLayout Orientation="Horizontal" Padding="20" Spacing="10">
+            <Image Source="YourImagePath" WidthRequest="40" HeightRequest="40"/>
+            <Label Text="LearnSphere" FontSize="Large" VerticalOptions="Center"/>
+        </StackLayout>
+
+        <!-- Corpo -->
+        <ScrollView Grid.Row="1">
+            <StackLayout Padding="20">
+
+                <!-- Título -->
+                <Label Text="Use os dados da sua conta para entrar:" FontSize="Medium"/>
+
+                <!-- Campos de entrada -->
+                <Entry x:Name="txtLogin" Placeholder="Usuário/Email/Número" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing" Margin="0, 20, 0, 0"/>
+                <Entry x:Name="txtSenhaLogin" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing"/>
+
+                <!-- Botão Entrar -->
+                <Button x:Name="BtnEntrar" Text="ENTRAR" BackgroundColor="WhiteSmoke" TextColor="Black" CornerRadius="20" Clicked="BtnEntrar_Clicked" Margin="0, 20, 0, 10"/>
+
+                <!-- Link para criar conta -->
+                <Label Text="Não tem uma conta? Criar aqui"
+                       TextColor="Blue"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CriarConta_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

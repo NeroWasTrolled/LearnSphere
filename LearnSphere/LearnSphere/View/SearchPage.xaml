@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearnSphere.View.SearchPage" BackgroundColor="White">
+    <StackLayout Padding="20" Spacing="20">
+        <SearchBar x:Name="searchBar" 
+                   Placeholder="Pesquisar cursos..."
+                   WidthRequest="200" />
+        <Picker x:Name="sortPicker"
+                Title="Ordenar por"
+                WidthRequest="200">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Mais recentes</x:String>
+                    <x:String>Mais votados</x:String>
+                    <x:String>Mais vistos</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <ListView x:Name="listView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding .}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

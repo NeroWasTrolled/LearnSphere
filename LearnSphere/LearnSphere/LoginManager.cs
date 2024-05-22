@@ -53,12 +53,10 @@ namespace LearnSphere
 			loggedInUser = usuario;
 		}
 
-        // Em LoginManager.cs
         public static void Logout()
         {
             loggedInUser = null;
         }
-
 
         public static Usuarios GetLoggedInUser()
 		{

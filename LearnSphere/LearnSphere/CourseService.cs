@@ -47,27 +47,34 @@ namespace LearnSphere
 		{
 			try
 			{
-				if (usuario == null || curso == null)
+				// Verifica se o usuário e o curso são válidos
+				if (usuario != null && curso != null)
 				{
-					throw new ArgumentNullException("Usuário e/ou curso são nulos.");
+					// Cria uma nova compra com o ID do curso e do usuário
+					var compra = new Compras
+					{
+						IdCurso = curso.id,
+						IdUsuario = usuario.id
+					};
+
+					// Insere a compra no banco de dados
+					MySQLCon.InserirCompra(compra);
+
+					// Retorna true indicando que a compra foi efetuada com sucesso
+					return true;
 				}
-
-				usuario.CursosAdquiridos.Add(new CursosAdquiridos
+				else
 				{
-					IdUsuario = usuario.id,
-					IdCurso = curso.id
-				});
-
-				MySQLCon.AtualizarUser(usuario);
-
-				return true;
+					// Retorna false se o usuário ou o curso forem nulos
+					return false;
+				}
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine($"Erro ao efetuar compra: {ex.Message}");
+				// Em caso de erro, lança uma exceção e retorna false
+				Console.WriteLine($"Erro ao efetuar a compra: {ex.Message}");
 				return false;
 			}
 		}
-
 	}
 }

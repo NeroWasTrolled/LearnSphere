@@ -14,6 +14,9 @@ namespace LearnSphere.Controller
 		static string conn = @"server=sql.freedb.tech;port=3306;database=freedb_cursos;user=freedb_adminv2;password=K3X59F@xY&@pYB?";
 		public static string StatusMessage { get; set; }
 
+
+		#region Cursos
+
 		public static List<Cursos> ListarCursos()
 		{
 			List<Cursos> listacursos = new List<Cursos>();
@@ -134,8 +137,6 @@ namespace LearnSphere.Controller
 			}
 		}
 
-
-
 		public static void Atualizar(Cursos cursos)
 		{
 			try
@@ -167,29 +168,6 @@ namespace LearnSphere.Controller
 			catch (Exception ex)
 			{
 				StatusMessage = $"Erro ao atualizar curso: {ex.Message}";
-			}
-		}
-
-		public static void Excluir(int cursoId)
-		{
-			try
-			{
-				string sql = "DELETE FROM cursos WHERE id = @id";
-
-				using (MySqlConnection con = new MySqlConnection(conn))
-				{
-					con.Open();
-					using (MySqlCommand cmd = new MySqlCommand(sql, con))
-					{
-						cmd.Parameters.AddWithValue("@id", cursoId);
-						cmd.ExecuteNonQuery();
-					}
-				}
-				StatusMessage = "Curso excluído com sucesso.";
-			}
-			catch (Exception ex)
-			{
-				StatusMessage = $"Erro ao excluir curso: {ex.Message}";
 			}
 		}
 
@@ -238,7 +216,9 @@ namespace LearnSphere.Controller
 			return cursosEncontrados;
 		}
 
-		//Neymar
+		#endregion
+
+		#region Usuários
 
 		public static List<Usuarios> ListarUser()
 		{
@@ -299,20 +279,17 @@ namespace LearnSphere.Controller
                 string sql = "INSERT INTO users(usuario, email, celular, senha, fornecedor) " +
                              "VALUES (@usuario, @email, @celular, @senha, @fornecedor)";
 
-                // Conexão com o banco de dados
                 using (MySqlConnection con = new MySqlConnection(conn))
                 {
                     con.Open();
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
-                        // Adiciona os parâmetros
                         cmd.Parameters.AddWithValue("@usuario", users.usuario);
                         cmd.Parameters.AddWithValue("@email", users.email);
                         cmd.Parameters.AddWithValue("@celular", telefoneFormatado);
                         cmd.Parameters.AddWithValue("@senha", users.senha);
                         cmd.Parameters.AddWithValue("@fornecedor", users.fornecedor);
 
-                        // Executa o comando SQL
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -324,58 +301,6 @@ namespace LearnSphere.Controller
                 StatusMessage = $"Erro ao efetuar cadastro: {ex.Message}";
             }
         }
-
-        public static void AlterarUser(Usuarios users)
-        {
-            try
-            {
-                string sql = "UPDATE users SET usuario = @usuario, email = @email, " +
-                             "celular = @celular, senha = @senha, fornecedor = @fornecedor WHERE id = @id";
-
-                using (MySqlConnection con = new MySqlConnection(conn))
-                {
-                    con.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@usuario", users.usuario);
-                        cmd.Parameters.AddWithValue("@email", users.email);
-                        cmd.Parameters.AddWithValue("@celular", users.celular);
-                        cmd.Parameters.AddWithValue("@senha", users.senha);
-                        cmd.Parameters.AddWithValue("@fornecedor", users.fornecedor);
-                        cmd.Parameters.AddWithValue("@id", users.id);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-
-                StatusMessage = "Usuário atualizado com sucesso.";
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Erro ao atualizar usuário: {ex.Message}";
-            }
-        }
-
-        public static void ExcluirUser(int id)
-		{
-			try
-			{
-				string sql = "DELETE FROM users WHERE id=@id";
-				using (MySqlConnection con = new MySqlConnection(conn))
-				{
-					con.Open();
-					using (MySqlCommand cmd = new MySqlCommand(sql, con))
-					{
-						cmd.Parameters.AddWithValue("@id", id);
-						cmd.ExecuteNonQuery();
-					}
-					StatusMessage = $"Conta Excluída com Sucesso!";
-				}
-			}
-			catch (Exception)
-			{
-				StatusMessage = $"Erro ao efetuar exclusão de conta.";
-			}
-		}
 
 		public static Usuarios LocalizarUser(string email, string user, string senha)
 		{
@@ -425,38 +350,160 @@ namespace LearnSphere.Controller
 			return usuario;
 		}
 
-        public static void AtualizarUser(Usuarios usuario)
-        {
-            try
-            {
-                string sql = "UPDATE users SET usuario = @usuario, email = @email, " +
-                             "celular = @celular, senha = @senha, fornecedor = @fornecedor WHERE id = @id";
+		public static void AtualizarUser(Usuarios usuario)
+		{
+			try
+			{
+				string sql = "UPDATE users SET usuario = @usuario, email = @email, " +
+							 "celular = @celular, senha = @senha, fornecedor = @fornecedor WHERE id = @id";
 
-                using (MySqlConnection con = new MySqlConnection(conn))
-                {
-                    con.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@usuario", usuario.usuario);
-                        cmd.Parameters.AddWithValue("@email", usuario.email);
-                        cmd.Parameters.AddWithValue("@celular", usuario.celular);
-                        cmd.Parameters.AddWithValue("@senha", usuario.senha);
-                        cmd.Parameters.AddWithValue("@fornecedor", usuario.fornecedor); // Certifique-se de que 'fornecedor' é um bool
-                        cmd.Parameters.AddWithValue("@id", usuario.id);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@usuario", usuario.usuario);
+						cmd.Parameters.AddWithValue("@email", usuario.email);
+						cmd.Parameters.AddWithValue("@celular", usuario.celular);
+						cmd.Parameters.AddWithValue("@senha", usuario.senha);
+						cmd.Parameters.AddWithValue("@fornecedor", usuario.fornecedor);
+						cmd.Parameters.AddWithValue("@id", usuario.id);
+						cmd.ExecuteNonQuery();
+					}
+				}
 
-                StatusMessage = "Usuário atualizado com sucesso.";
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Erro ao atualizar usuário: {ex.Message}";
-            }
-        }
+				StatusMessage = "Usuário atualizado com sucesso.";
+			}
+			catch (Exception ex)
+			{
+				StatusMessage = $"Erro ao atualizar usuário: {ex.Message}";
+			}
+		}
+
+		#endregion
+
+		#region Compras
+
+		public static List<Compras> ListarComprasPorUsuario(int idUsuario)
+		{
+			List<Compras> compras = new List<Compras>();
+
+			try
+			{
+				string sql = "SELECT * FROM compras WHERE idusuario = @idUsuario";
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+						using (MySqlDataReader reader = cmd.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								Compras compra = new Compras()
+								{
+									Id = reader.GetInt32("id"),
+									IdCurso = reader.GetInt32("idcurso"),
+									IdUsuario = reader.GetInt32("idusuario")
+								};
+								compras.Add(compra);
+							}
+						}
+					}
+				}
+				StatusMessage = "Compras encontradas com sucesso.";
+			}
+			catch (Exception ex)
+			{
+				StatusMessage = $"Erro ao listar compras: {ex.Message}";
+			}
+
+			return compras;
+		}
+
+		public static List<Cursos> ListarCursosPorUsuario(int idUsuario)
+		{
+			List<Cursos> cursos = new List<Cursos>();
+
+			try
+			{
+				string sql = "SELECT c.* FROM cursos c " +
+							 "INNER JOIN compras co ON c.id = co.idcurso " +
+							 "WHERE co.idusuario = @idUsuario";
+
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+						using (MySqlDataReader reader = cmd.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								Cursos curso = new Cursos()
+								{
+									id = reader.GetInt32("id"),
+									titulo = reader.GetString("titulo"),
+									subtitulo = reader.GetString("subtitulo"),
+									foto = reader.IsDBNull(reader.GetOrdinal("foto")) ? null : (byte[])reader["foto"],
+									desc_principal = reader.GetString("desc_principal"),
+									desc_secundaria = reader.GetString("desc_secundaria"),
+									atualizacao = reader.GetDateTime("atualizacao"),
+									estrelas = reader.GetInt32("estrelas"),
+									criador = reader.GetString("criador"),
+									duracao = reader.GetString("duracao")
+								};
+								cursos.Add(curso);
+							}
+						}
+					}
+				}
+				StatusMessage = "Cursos encontrados com sucesso.";
+			}
+			catch (Exception ex)
+			{
+				StatusMessage = $"Erro ao listar cursos: {ex.Message}";
+			}
+
+			return cursos;
+		}
+
+		// No método InserirCompra em MySQLCon.cs
+
+		public static void InserirCompra(Compras compra)
+		{
+			try
+			{
+				// Inserir os IDs do usuário e do curso na tabela de compras
+				string sql = "INSERT INTO compra (idcurso, iduser) VALUES (@idCurso, @idUsuario)";
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@idCurso", compra.IdCurso);
+						cmd.Parameters.AddWithValue("@idUsuario", compra.IdUsuario);
+						cmd.ExecuteNonQuery();
+					}
+				}
+				StatusMessage = "Compra registrada com sucesso.";
+			}
+			catch (Exception ex)
+			{
+				StatusMessage = $"Erro ao registrar compra: {ex.Message}";
+				throw; 
+			}
+		}
 
 
-        public static bool IsValidEmail(string email)
+
+		#endregion
+
+		//metódos auxiliares
+
+		public static bool IsValidEmail(string email)
 		{
 			try
 			{
@@ -486,92 +533,7 @@ namespace LearnSphere.Controller
 			}
 		}
 
-        public static List<Compras> ListarComprasPorUsuario(int idUsuario)
-        {
-            List<Compras> compras = new List<Compras>();
-
-            try
-            {
-                string sql = "SELECT * FROM compras WHERE idusuario = @idUsuario";
-                using (MySqlConnection con = new MySqlConnection(conn))
-                {
-                    con.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Compras compra = new Compras()
-                                {
-                                    Id = reader.GetInt32("id"),
-                                    IdCurso = reader.GetInt32("idcurso"),
-                                    IdUsuario = reader.GetInt32("idusuario")
-                                };
-                                compras.Add(compra);
-                            }
-                        }
-                    }
-                }
-                StatusMessage = "Compras encontradas com sucesso.";
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Erro ao listar compras: {ex.Message}";
-            }
-
-            return compras;
-        }
-
-        public static List<Cursos> ListarCursosPorUsuario(int idUsuario)
-        {
-            List<Cursos> cursos = new List<Cursos>();
-
-            try
-            {
-                string sql = "SELECT c.* FROM cursos c " +
-                             "INNER JOIN compras co ON c.id = co.idcurso " +
-                             "WHERE co.idusuario = @idUsuario";
-
-                using (MySqlConnection con = new MySqlConnection(conn))
-                {
-                    con.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Cursos curso = new Cursos()
-                                {
-                                    id = reader.GetInt32("id"),
-                                    titulo = reader.GetString("titulo"),
-                                    subtitulo = reader.GetString("subtitulo"),
-                                    foto = reader.IsDBNull(reader.GetOrdinal("foto")) ? null : (byte[])reader["foto"],
-                                    desc_principal = reader.GetString("desc_principal"),
-                                    desc_secundaria = reader.GetString("desc_secundaria"),
-                                    atualizacao = reader.GetDateTime("atualizacao"),
-                                    estrelas = reader.GetInt32("estrelas"),
-                                    criador = reader.GetString("criador"),
-                                    duracao = reader.GetString("duracao")
-                                };
-                                cursos.Add(curso);
-                            }
-                        }
-                    }
-                }
-                StatusMessage = "Cursos encontrados com sucesso.";
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Erro ao listar cursos: {ex.Message}";
-            }
-
-            return cursos;
-        }
-        public static void AtualizarFornecedor(int idUsuario, bool? fornecedor)
+		public static void AtualizarFornecedor(int idUsuario, bool? fornecedor)
         {
             try
             {

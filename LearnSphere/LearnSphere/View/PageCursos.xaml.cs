@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LearnSphere.Controller;
 using LearnSphere.Models;
 
 
@@ -80,22 +81,38 @@ namespace LearnSphere.View
 			}
 		}
 
+		// Dentro do método OnComprarClicked em PageCursos.cs
+
 		private async void OnComprarClicked(object sender, EventArgs e)
 		{
-			var courseService = new CourseService();
-
-			// Chama o método EfetuarCompra do CourseService
-			bool compraEfetuada = await courseService.EfetuarCompra(App.UsuarioLogado, curso);
-
-			if (compraEfetuada)
+			try
 			{
-				// Exibe uma mensagem de sucesso
-				await DisplayAlert("Sucesso", "Compra efetuada com sucesso!", "OK");
+				// Verifica se o usuário está logado
+				if (App.UsuarioLogado != null)
+				{
+					// Cria um objeto Compras com os IDs do usuário e do curso
+					Compras compra = new Compras
+					{
+						IdCurso = curso.id,
+						IdUsuario = App.UsuarioLogado.id
+					};
+
+					// Chama o método InserirCompra no serviço MySQLCon para registrar a compra no banco de dados
+					MySQLCon.InserirCompra(compra);
+
+					// Exibe uma mensagem de sucesso
+					await DisplayAlert("Sucesso", "Compra efetuada com sucesso!", "OK");
+				}
+				else
+				{
+					// Exibe uma mensagem de erro se o usuário não estiver logado
+					await DisplayAlert("Erro", "Usuário não está logado. Faça o login para efetuar a compra.", "OK");
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				// Exibe uma mensagem de erro
-				await DisplayAlert("Erro", "Erro ao efetuar a compra. Tente novamente mais tarde.", "OK");
+				// Exibe uma mensagem de erro em caso de exceção
+				await DisplayAlert("Erro", $"Erro ao efetuar a compra: {ex.Message}", "OK");
 			}
 		}
 	}

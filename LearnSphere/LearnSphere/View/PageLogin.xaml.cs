@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LearnSphere.Models;
+﻿using LearnSphere.Models;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +8,6 @@ namespace LearnSphere.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PageLogin : ContentPage
 	{
-
 		public PageLogin()
 		{
 			InitializeComponent();
@@ -39,7 +34,8 @@ namespace LearnSphere.View
 				Usuarios usuarioLogado = LoginManager.GetLoggedInUser();
 				App.UsuarioLogado = usuarioLogado;
 				await DisplayAlert("Sucesso", "Login bem-sucedido.", "OK");
-				await Navigation.PushAsync(new PageHome());
+
+				Application.Current.MainPage = new PagePrincipal();
 			}
 			else
 			{

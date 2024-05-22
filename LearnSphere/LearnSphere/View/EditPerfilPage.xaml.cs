@@ -5,62 +5,50 @@ using LearnSphere.Models;
 
 namespace LearnSphere.View
 {
-    public partial class EditPerfilPage : ContentPage
-    {
-        private int idUsuario; // Adicione esta variável para armazenar o ID do usuário logado
-        public EditPerfilPage()
-        {
-            InitializeComponent();
-        }
-        public EditPerfilPage(int idUsuario) // Adicione um parâmetro para receber o ID do usuário
-        {
-            InitializeComponent();
-            this.idUsuario = idUsuario; // Armazene o ID do usuário recebido
-            CarregarDadosUsuario(); // Carregue os dados do usuário ao abrir a página
-        }
+	public partial class EditPerfilPage : ContentPage
+	{
+		private Usuarios usuarioLogado;
 
-        private void CarregarDadosUsuario()
-        {
-            // Obter dados do usuário pelo ID
-            Usuarios usuario = MySQLCon.ObterUsuarioPorId(idUsuario);
+		public EditPerfilPage()
+		{
+			InitializeComponent();
+			usuarioLogado = LoginManager.GetLoggedInUser();
+			CarregarDadosUsuario();
+		}
 
-            // Preencher os campos com os dados do usuário
-            entryUsuario.Text = usuario.usuario;
-            entryEmail.Text = usuario.email;
-            entryTelefone.Text = usuario.celular;
+		private void CarregarDadosUsuario()
+		{
+			if (usuarioLogado != null)
+			{
+				entryUsuario.Text = usuarioLogado.usuario;
+				entryEmail.Text = usuarioLogado.email;
+				entryTelefone.Text = usuarioLogado.celular;
+				entrySenha.Text = usuarioLogado.senha;
+				switchTipoUsuario.IsToggled = usuarioLogado.fornecedor;
+			}
+		}
 
-            // Configurar o switch com o tipo de usuário atual
-            switchTipoUsuario.IsToggled = usuario.fornecedor;
-        }
+		private void Salvar_Clicked(object sender, EventArgs e)
+		{
+			if (usuarioLogado != null)
+			{
+				usuarioLogado.usuario = entryUsuario.Text;
+				usuarioLogado.email = entryEmail.Text;
+				usuarioLogado.celular = entryTelefone.Text;
+				usuarioLogado.senha = entrySenha.Text;
+				usuarioLogado.fornecedor = switchTipoUsuario.IsToggled;
 
-        private void Salvar_Clicked(object sender, EventArgs e)
-        {
-            // Obter o valor do switch e convertê-lo para um tipo bool
-            bool fornecedor = switchTipoUsuario.IsToggled;
+				MySQLCon.AtualizarUser(usuarioLogado);
 
-            // Atualizar os dados do usuário com os valores dos campos
-            Usuarios usuario = new Usuarios()
-            {
-                id = idUsuario,
-                usuario = entryUsuario.Text,
-                email = entryEmail.Text,
-                celular = entryTelefone.Text,
-                fornecedor = fornecedor // Atribuir o valor bool diretamente ao campo fornecedor
-            };
+				DisplayAlert("Sucesso", MySQLCon.StatusMessage, "OK");
+			}
+		}
 
-            MySQLCon.AtualizarUser(usuario); // Atualizar os dados do usuário no banco de dados
+		private async void Desconectar_Clicked(object sender, EventArgs e)
+		{
+			LoginManager.Logout();
+			Application.Current.MainPage = new PagePrincipal();
+		}
 
-            // Mostrar uma mensagem de sucesso ou erro
-            DisplayAlert("Sucesso", MySQLCon.StatusMessage, "OK");
-        }
-
-
-        private async void Desconectar_Clicked(object sender, EventArgs e)
-        {
-            // Implemente a lógica para desconectar o usuário (logout)
-            // Por exemplo, você pode limpar os dados de login armazenados localmente
-            // E redirecionar o usuário para a página de login
-            await Navigation.PushAsync(new PageLogin()); // Redirecionar para a página de login
-        }
-    }
+	}
 }

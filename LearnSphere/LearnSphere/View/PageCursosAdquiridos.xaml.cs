@@ -51,19 +51,19 @@ namespace LearnSphere.View
 			}
 		}
 
-		//private async void cursosListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-		//{
-		//	if (e.SelectedItem == null)
-		//		return;
+		////private async void cursosListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+		////{
+		////	if (e.SelectedItem == null)
+		////		return;
 
-		//	// Deselecionar o item
-		//	cursosListView.SelectedItem = null;
+		////	// Deselecionar o item
+		////	cursosListView.SelectedItem = null;
 
-		//	// Obter o curso selecionado
-		//	Cursos cursoSelecionado = (Cursos)e.SelectedItem;
+		////	// Obter o curso selecionado
+		////	Cursos cursoSelecionado = (Cursos)e.SelectedItem;
 
-		//	// Navegar para a página de detalhes do curso
-		//	await Navigation.PushAsync(new PageCursos(cursoSelecionado));
-		//}
+		////	// Navegar para a página de detalhes do curso
+		////	await Navigation.PushAsync(new PageCursos(cursoSelecionado));
+		////}
 	}
 }

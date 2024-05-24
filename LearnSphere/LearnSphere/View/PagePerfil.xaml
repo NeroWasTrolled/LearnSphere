@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LearnSphere.View.PagePerfil" BackgroundColor="White">
     <ScrollView>
@@ -19,19 +18,14 @@
                 <Label x:Name="lblNomeUsuario" Text="Olá, " FontAttributes="Bold" FontSize="20" TextColor="Black" HorizontalOptions="StartAndExpand"/>
 
                 <StackLayout Grid.Row="1" Padding="20" Spacing="20">
-                    <Label Text="Cursos" TextColor="Black" FontSize="20" FontAttributes="Bold"/>
-                    <Label x:Name="lblQuantidadeCursos" TextColor="Black" FontSize="24" FontAttributes="Bold"/>
 
                     <ScrollView Orientation="Horizontal">
-
                         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-
                             <StackLayout>
-                                <ImageButton HorizontalOptions="CenterAndExpand" Source="cursos.png" CornerRadius="50" BackgroundColor="#f0f1f5" Padding="10" HeightRequest="50" WidthRequest="50" />
+                                <ImageButton HorizontalOptions="CenterAndExpand" Source="cursos.png" CornerRadius="50" BackgroundColor="#f0f1f5" Padding="10" HeightRequest="50" WidthRequest="50" Clicked="ImageButton_Clicked"/>
                                 <Label Text="Cursos" FontSize="12" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                             </StackLayout>
                         </StackLayout>
-
                     </ScrollView>
                 </StackLayout>
             </StackLayout>
@@ -42,7 +36,6 @@
                 </Frame>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-
                     <StackLayout>
                         <ImageButton HorizontalOptions="CenterAndExpand" Source="vender.png" CornerRadius="50" BackgroundColor="#f0f1f5" Padding="10" HeightRequest="50" WidthRequest="50" />
                         <Label Text="Vendas" FontSize="12" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>

@@ -422,6 +422,7 @@ namespace LearnSphere.Controller
 			return compras;
 		}
 
+
 		public static List<Cursos> ListarCursosPorUsuario(int idUsuario)
 		{
 			List<Cursos> cursos = new List<Cursos>();
@@ -469,6 +470,55 @@ namespace LearnSphere.Controller
 
 			return cursos;
 		}
+
+		public static List<Cursos> ListarCursosAdquiridosPorUsuario(int idUsuario)
+		{
+			List<Cursos> cursosAdquiridos = new List<Cursos>();
+
+			try
+			{
+				string sql = "SELECT c.* FROM cursos c " +
+							 "INNER JOIN compras co ON c.id = co.idcurso " +
+							 "WHERE co.idusuario = @idUsuario";
+
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+						using (MySqlDataReader reader = cmd.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								Cursos curso = new Cursos()
+								{
+									id = reader.GetInt32("id"),
+									titulo = reader.GetString("titulo"),
+									subtitulo = reader.GetString("subtitulo"),
+									foto = reader.IsDBNull(reader.GetOrdinal("foto")) ? null : (byte[])reader["foto"],
+									desc_principal = reader.GetString("desc_principal"),
+									desc_secundaria = reader.GetString("desc_secundaria"),
+									atualizacao = reader.GetDateTime("atualizacao"),
+									estrelas = reader.GetInt32("estrelas"),
+									criador = reader.GetString("criador"),
+									duracao = reader.GetString("duracao")
+								};
+								cursosAdquiridos.Add(curso);
+							}
+						}
+					}
+				}
+				StatusMessage = "Cursos adquiridos encontrados com sucesso.";
+			}
+			catch (Exception ex)
+			{
+				StatusMessage = $"Erro ao listar cursos adquiridos: {ex.Message}";
+			}
+
+			return cursosAdquiridos;
+		}
+
 
 		// No método InserirCompra em MySQLCon.cs
 
@@ -558,8 +608,54 @@ namespace LearnSphere.Controller
             }
         }
 
+		public static Cursos ObterCursoPorId(int idCurso)
+		{
+			Cursos curso = null;
 
-        public static Usuarios ObterUsuarioPorId(int idUsuario)
+			try
+			{
+				string sql = "SELECT * FROM cursos WHERE id = @idCurso";
+
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@idCurso", idCurso);
+						using (MySqlDataReader reader = cmd.ExecuteReader())
+						{
+							if (reader.Read())
+							{
+								curso = new Cursos()
+								{
+									id = reader.GetInt32("id"),
+									titulo = reader.GetString("titulo"),
+									subtitulo = reader.GetString("subtitulo"),
+									foto = reader.IsDBNull(reader.GetOrdinal("foto")) ? null : (byte[])reader["foto"],
+									desc_principal = reader.GetString("desc_principal"),
+									desc_secundaria = reader.GetString("desc_secundaria"),
+									atualizacao = reader.GetDateTime("atualizacao"),
+									estrelas = reader.GetInt32("estrelas"),
+									criador = reader.GetString("criador"),
+									duracao = reader.GetString("duracao")
+								};
+							}
+						}
+					}
+				}
+				StatusMessage = "Curso encontrado com sucesso.";
+			}
+			catch (Exception ex)
+			{
+				StatusMessage = $"Erro ao obter curso por ID: {ex.Message}";
+			}
+
+			return curso;
+		}
+
+
+
+		public static Usuarios ObterUsuarioPorId(int idUsuario)
         {
             Usuarios usuario = null;
 

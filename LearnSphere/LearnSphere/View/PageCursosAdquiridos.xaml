@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearnSphere.View.PageCursosAdquiridos"
+             Title="Cursos Adquiridos">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="cursosListView"
+                      Margin="15"
+                      IsVisible="False"
+                      RowHeight="120"
+                      SeparatorColor="Black">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame CornerRadius="10"
+                                   Margin="4"
+                                   Padding="5"
+                                   BackgroundColor="#FFFFFF">
+                                <StackLayout Orientation="Horizontal"
+                                             Spacing="10">
+                                    <!-- Imagem do curso -->
+                                    <Image Source="{Binding Imagem}"
+                                           Aspect="AspectFill"
+                                           WidthRequest="100"
+                                           HeightRequest="100"/>
+                                    <!-- Detalhes do curso -->
+                                    <StackLayout Orientation="Vertical"
+                                                 Spacing="5">
+                                        <Label Text="{Binding titulo}"
+                                               FontAttributes="Bold"
+                                               FontSize="18"
+                                               TextColor="#000000" />
+                                        <Label Text="{Binding desc_secundaria}"
+                                               LineBreakMode="TailTruncation"
+                                               FontSize="14"
+                                               TextColor="#666666" />
+                                        <!-- Adicione mais detalhes conforme necessário -->
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label x:Name="lblSemCursos"
+                   Text="Você ainda não adquiriu nenhum curso."
+                   IsVisible="False"
+                   TextColor="Black"
+                   FontSize="16"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

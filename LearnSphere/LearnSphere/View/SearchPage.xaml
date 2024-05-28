@@ -5,24 +5,26 @@
     <StackLayout Padding="20" Spacing="20">
         <SearchBar x:Name="searchBar" 
                    Placeholder="Pesquisar cursos..."
+                   TextChanged="OnSearchBarTextChanged"
                    WidthRequest="200" />
-        <Picker x:Name="sortPicker"
-                Title="Ordenar por"
-                WidthRequest="200">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Mais recentes</x:String>
-                    <x:String>Mais votados</x:String>
-                    <x:String>Mais vistos</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
-        <ListView x:Name="listView">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding .}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ScrollView>
+            <ListView x:Name="cursosListView" Margin="15" ItemSelected="cursosListView_ItemSelected" RowHeight="120" SeparatorColor="Black">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame CornerRadius="10" Margin="4" Padding="5" BackgroundColor="#FFFFFF">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Image Source="{Binding Imagem}" Aspect="AspectFill" WidthRequest="100" HeightRequest="100"/>
+                                    <StackLayout Orientation="Vertical" Spacing="5">
+                                        <Label Text="{Binding titulo}" FontAttributes="Bold" FontSize="18" TextColor="#000000" />
+                                        <Label Text="{Binding desc_secundaria}" LineBreakMode="TailTruncation" FontSize="14" TextColor="#666666" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
     </StackLayout>
 </ContentPage>

@@ -64,7 +64,7 @@ namespace LearnSphere.View
 
 		private async void OnSearchButtonClicked(object sender, EventArgs e)
 		{
-
+			await Navigation.PushAsync(new SearchPage());
 		}
 	}
 }

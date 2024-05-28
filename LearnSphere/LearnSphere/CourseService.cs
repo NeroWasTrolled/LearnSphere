@@ -47,31 +47,25 @@ namespace LearnSphere
 		{
 			try
 			{
-				// Verifica se o usuário e o curso são válidos
 				if (usuario != null && curso != null)
 				{
-					// Cria uma nova compra com o ID do curso e do usuário
 					var compra = new Compras
 					{
 						IdCurso = curso.id,
 						IdUsuario = usuario.id
 					};
 
-					// Insere a compra no banco de dados
 					CCompras.InserirCompra(compra);
 
-					// Retorna true indicando que a compra foi efetuada com sucesso
 					return true;
 				}
 				else
 				{
-					// Retorna false se o usuário ou o curso forem nulos
 					return false;
 				}
 			}
 			catch (Exception ex)
 			{
-				// Em caso de erro, lança uma exceção e retorna false
 				Console.WriteLine($"Erro ao efetuar a compra: {ex.Message}");
 				return false;
 			}

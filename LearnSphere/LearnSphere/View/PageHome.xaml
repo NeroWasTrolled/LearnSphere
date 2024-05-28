@@ -3,14 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LearnSphere.View.PageHome" BackgroundColor="White">
     <Grid>
-        <!-- Definindo as linhas do Grid -->
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Seção do cabeçalho -->
         <StackLayout Grid.Row="0" Spacing="20">
             <StackLayout Orientation="Horizontal">
                 <ImageButton HeightRequest="70" BackgroundColor="#F8F8FF" WidthRequest="70" CornerRadius="50" Source="pesquisar.png" Padding="10" Clicked="OnSearchButtonClicked"/>
@@ -24,7 +22,6 @@
             </StackLayout>
         </StackLayout>
 
-        <!-- Seção do ListView -->
         <ScrollView Grid.Row="2">
             <ListView x:Name="cursosListView" Margin="15" ItemSelected="cursosListView_ItemSelected" RowHeight="120" SeparatorColor="Black">
                 <ListView.ItemTemplate>
@@ -32,13 +29,10 @@
                         <ViewCell>
                             <Frame CornerRadius="10" Margin="4" Padding="5" BackgroundColor="#FFFFFF">
                                 <StackLayout Orientation="Horizontal" Spacing="10">
-                                    <!-- Imagem do curso -->
                                     <Image Source="{Binding Imagem}" Aspect="AspectFill" WidthRequest="100" HeightRequest="100"/>
-                                    <!-- Detalhes do curso -->
                                     <StackLayout Orientation="Vertical" Spacing="5">
                                         <Label Text="{Binding titulo}" FontAttributes="Bold" FontSize="18" TextColor="#000000" />
                                         <Label Text="{Binding desc_secundaria}" LineBreakMode="TailTruncation" FontSize="14" TextColor="#666666" />
-                                        <!-- Adicione mais detalhes conforme necessário -->
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>
@@ -46,7 +40,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
         </ScrollView>
     </Grid>
 </ContentPage>

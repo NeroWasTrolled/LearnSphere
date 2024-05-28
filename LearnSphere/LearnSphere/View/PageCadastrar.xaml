@@ -9,35 +9,28 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Cabeçalho -->
         <StackLayout Orientation="Horizontal" Padding="20" Spacing="10">
             <Image Source="YourImagePath" WidthRequest="40" HeightRequest="40"/>
             <Label Text="LearnSphere" FontSize="Large" VerticalOptions="Center"/>
         </StackLayout>
 
-        <!-- Corpo -->
         <ScrollView Grid.Row="1">
             <StackLayout Padding="20">
 
-                <!-- Título -->
                 <Label Text="Cadastre-se" FontSize="Medium"/>
 
-                <!-- Campos de entrada -->
                 <Entry x:Name="txtusuario" Placeholder="Usuário" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing" Margin="0, 20, 0, 0"/>
                 <Entry x:Name="txtemail" Placeholder="E-mail" Keyboard="Email" ReturnType="Next" ClearButtonVisibility="WhileEditing"/>
+                <Entry x:Name="txtcpf" Placeholder="CPF" Keyboard="Numeric" ReturnType="Next" ClearButtonVisibility="WhileEditing" />
                 <Entry x:Name="txtcelular" Placeholder="Celular" Keyboard="Telephone" ReturnType="Next" ClearButtonVisibility="WhileEditing" />
                 <Entry x:Name="txtsenha" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing"/>
 
-
-                <!-- Nota de senha -->
                 <Label Text="Sua senha precisa ter no mínimo 7 caracteres e deve conter letras e números." 
                        FontSize="Small"
                        Margin="0, 10, 0, 20"/>
 
-                <!-- Botão Cadastrar -->
                 <Button x:Name="BtnCadastrar" Text="CADASTRAR" BackgroundColor="WhiteSmoke" TextColor="Black" CornerRadius="20" Clicked="BtnCadastrar_Clicked" Margin="0, 20, 0, 10"/>
 
-                <!-- Link para login existente-->
                 <Label Text="Já tem uma conta? Acesse aqui"
                        TextColor="Blue"
                        HorizontalOptions="Center">

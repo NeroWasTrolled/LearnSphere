@@ -31,7 +31,7 @@ namespace LearnSphere.View
 					{
 						foreach (var curso in cursos)
 						{
-							curso.CarregarImagem(); // Carregar a imagem para cada curso
+							curso.CarregarImagem(); 
 						}
 						cursosListView.ItemsSource = cursos;
 					}

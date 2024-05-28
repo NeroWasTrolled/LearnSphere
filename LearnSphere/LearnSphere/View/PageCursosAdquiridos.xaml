@@ -8,6 +8,7 @@
             <ListView x:Name="cursosListView"
                       Margin="15"
                       IsVisible="False"
+                      ItemSelected="CursosListView_ItemSelected"
                       RowHeight="120"
                       SeparatorColor="Black">
                 <ListView.ItemTemplate>
@@ -19,12 +20,10 @@
                                    BackgroundColor="#FFFFFF">
                                 <StackLayout Orientation="Horizontal"
                                              Spacing="10">
-                                    <!-- Imagem do curso -->
-                                    <Image Source="{Binding Imagem}"
+                                    <Image Source="{Binding foto}"
                                            Aspect="AspectFill"
                                            WidthRequest="100"
                                            HeightRequest="100"/>
-                                    <!-- Detalhes do curso -->
                                     <StackLayout Orientation="Vertical"
                                                  Spacing="5">
                                         <Label Text="{Binding titulo}"
@@ -35,7 +34,6 @@
                                                LineBreakMode="TailTruncation"
                                                FontSize="14"
                                                TextColor="#666666" />
-                                        <!-- Adicione mais detalhes conforme necessário -->
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>

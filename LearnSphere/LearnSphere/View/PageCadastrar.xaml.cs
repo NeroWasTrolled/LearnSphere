@@ -46,20 +46,33 @@ namespace LearnSphere.View
 				await DisplayAlert("Erro", "A senha deve ter no mínimo 7 caracteres.", "OK");
 				return;
 			}
+			if (!IsValidCPF(txtcpf.Text))
+			{
+				await DisplayAlert("Erro", "Por favor, insira um CPF válido.", "OK");
+				return;
+			}
+
+			if (Users.VerificarCPFCadastrado(txtcpf.Text))
+			{
+				await DisplayAlert("Erro", "CPF já cadastrado.", "OK");
+				return;
+			}
 
 			Usuarios novoUsuario = new Usuarios
 			{
 				usuario = txtusuario.Text,
 				email = txtemail.Text,
 				celular = FormatPhoneNumber(txtcelular.Text),
-				senha = txtsenha.Text
+				senha = txtsenha.Text,
+				cpf = txtcpf.Text
 			};
 
-			MySQLCon.InserirUser(novoUsuario);
+
+			Users.InserirUser(novoUsuario);
 
 			App.UsuarioLogado = novoUsuario;
 
-			await DisplayAlert("Sucesso", MySQLCon.StatusMessage, "OK");
+			await DisplayAlert("Sucesso", Users.StatusMessage, "OK");
 
 			await Navigation.PushAsync(new PageHome());
 		}
@@ -85,6 +98,37 @@ namespace LearnSphere.View
 		private string FormatPhoneNumber(string phoneNumber)
 		{
 			return System.Text.RegularExpressions.Regex.Replace(phoneNumber, @"(\d{2})(\d{5})(\d{4})", "($1) $2-$3");
+		}
+
+		private bool IsValidCPF(string cpf)
+		{
+			cpf = new string(cpf.Where(char.IsDigit).ToArray());
+
+			if (cpf.Length != 11)
+				return false;
+
+			if (cpf.Distinct().Count() == 1)
+				return false;
+
+			int soma = 0;
+			for (int i = 0; i < 9; i++)
+				soma += int.Parse(cpf[i].ToString()) * (10 - i);
+			int resto = soma % 11;
+			int digitoVerificador1 = resto < 2 ? 0 : 11 - resto;
+
+			if (int.Parse(cpf[9].ToString()) != digitoVerificador1)
+				return false;
+
+			soma = 0;
+			for (int i = 0; i < 10; i++)
+				soma += int.Parse(cpf[i].ToString()) * (11 - i);
+			resto = soma % 11;
+			int digitoVerificador2 = resto < 2 ? 0 : 11 - resto;
+
+			if (int.Parse(cpf[10].ToString()) != digitoVerificador2)
+				return false;
+
+			return true;
 		}
 
 		private void LimparCampos()

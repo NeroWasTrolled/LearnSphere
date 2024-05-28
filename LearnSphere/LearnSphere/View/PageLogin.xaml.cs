@@ -27,7 +27,7 @@ namespace LearnSphere.View
 				return;
 			}
 
-			bool loginSucesso = await LoginManager.LocalizarUser(this, txtLogin.Text, null, txtSenhaLogin.Text);
+			bool loginSucesso = await LoginManager.LocalizarUser(this, txtLogin.Text,null, null, txtSenhaLogin.Text);
 
 			if (loginSucesso)
 			{

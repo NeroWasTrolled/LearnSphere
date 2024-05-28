@@ -1,11 +1,9 @@
 ﻿using LearnSphere.Controller;
 using LearnSphere.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using LearnSphere.Controller;
-using LearnSphere.Models;
 using Xamarin.Forms;
-using LearnSphere.View;
 
 namespace LearnSphere
 {
@@ -16,7 +14,7 @@ namespace LearnSphere
 
 		public static bool IsUserLoggedIn => loggedInUser != null;
 
-		public static async Task<bool> LocalizarUser(Page page, string email, string user, string senha)
+		public static async Task<bool> LocalizarUser(Page page, string email, string cpf, string user, string senha)
 		{
 			try
 			{
@@ -26,7 +24,7 @@ namespace LearnSphere
 					return false;
 				}
 
-				Usuarios usuario = MySQLCon.LocalizarUser(email, user, senha);
+				Usuarios usuario = Users.LocalizarUser(email, user, cpf, senha);
 
 				if (usuario != null)
 				{
@@ -36,7 +34,6 @@ namespace LearnSphere
 				}
 				else
 				{
-					await page.DisplayAlert("Erro", "Usuário não encontrado ou senha incorreta.", "OK");
 					return false;
 				}
 			}
@@ -47,20 +44,50 @@ namespace LearnSphere
 			}
 		}
 
-
 		public static void Login(Usuarios usuario)
 		{
 			loggedInUser = usuario;
 		}
 
-        public static void Logout()
-        {
-            loggedInUser = null;
-        }
+		public static void Logout()
+		{
+			loggedInUser = null;
+		}
 
-        public static Usuarios GetLoggedInUser()
+		public static Usuarios GetLoggedInUser()
 		{
 			return loggedInUser;
+		}
+
+		public static int GetLoggedInUserId()
+		{
+			return loggedInUser != null ? loggedInUser.id : -1;
+		}
+
+		public static List<Cursos> ObterCursosAdquiridos()
+		{
+			if (loggedInUser == null)
+			{
+				throw new InvalidOperationException("Nenhum usuário está logado.");
+			}
+
+			return CCompras.ListarCursosAdquiridos(loggedInUser.id);
+		}
+
+		public static void RegistrarCompra(int cursoId)
+		{
+			if (loggedInUser == null)
+			{
+				throw new InvalidOperationException("Nenhum usuário está logado.");
+			}
+
+			var compra = new Compras
+			{
+				IdCurso = cursoId,
+				IdUsuario = loggedInUser.id
+			};
+
+			CCompras.InserirCompra(compra);
 		}
 	}
 }

@@ -117,10 +117,8 @@ namespace LearnSphere.View
 
 		private void dtAtualizacao_DateSelected(object sender, DateChangedEventArgs e)
 		{
-			// Obter a data selecionada
 			DateTime dataSelecionada = e.NewDate;
 
-			// Atribuir a data selecionada diretamente ao campo apropriado do seu objeto Cursos
 			novoCurso.atualizacao = dataSelecionada;
 		}
 	}

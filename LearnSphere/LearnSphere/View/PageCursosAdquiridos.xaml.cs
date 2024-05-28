@@ -2,10 +2,6 @@
 using LearnSphere.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,48 +18,43 @@ namespace LearnSphere.View
 
 		private void CarregarCursosAdquiridos()
 		{
-			// Verificar se há um usuário logado
-			if (App.UsuarioLogado != null)
+			int usuarioId = LoginManager.GetLoggedInUserId();
+			if (usuarioId != -1)
 			{
-				// Obter os cursos adquiridos pelo usuário logado
-				List<Cursos> cursosAdquiridos = MySQLCon.ListarCursosAdquiridosPorUsuario(App.UsuarioLogado.id);
-
-				// Verificar se há cursos adquiridos
-				if (cursosAdquiridos.Count > 0)
+				try
 				{
-					// Exibir os cursos adquiridos na ListView
-					cursosListView.ItemsSource = cursosAdquiridos;
+					List<Cursos> cursosAdquiridos = CCompras.ListarCursosAdquiridos(usuarioId);
+					if (cursosAdquiridos.Count > 0)
+					{
+						cursosListView.ItemsSource = cursosAdquiridos;
+						cursosListView.IsVisible = true;
+						lblSemCursos.IsVisible = false;
+					}
+					else
+					{
+						cursosListView.IsVisible = false;
+						lblSemCursos.IsVisible = true;
+					}
 				}
-				else
+				catch (Exception ex)
 				{
-					// Caso não haja cursos adquiridos, exibir uma mensagem
-					lblSemCursos.Text = "Você ainda não adquiriu nenhum curso.";
-					lblSemCursos.IsVisible = true;
-					cursosListView.IsVisible = false;
+					DisplayAlert("Erro", $"Erro ao carregar cursos adquiridos: {ex.Message}", "OK");
 				}
 			}
 			else
 			{
-				// Caso não haja usuário logado, exibir uma mensagem
-				lblSemCursos.Text = "Faça login para ver seus cursos adquiridos.";
-				lblSemCursos.IsVisible = true;
 				cursosListView.IsVisible = false;
+				lblSemCursos.IsVisible = true;
 			}
 		}
 
-		////private async void cursosListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-		////{
-		////	if (e.SelectedItem == null)
-		////		return;
-
-		////	// Deselecionar o item
-		////	cursosListView.SelectedItem = null;
-
-		////	// Obter o curso selecionado
-		////	Cursos cursoSelecionado = (Cursos)e.SelectedItem;
-
-		////	// Navegar para a página de detalhes do curso
-		////	await Navigation.PushAsync(new PageCursos(cursoSelecionado));
-		////}
+		private void CursosListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+		{
+			if (e.SelectedItem != null)
+			{
+				Cursos curso = e.SelectedItem as Cursos;
+				((ListView)sender).SelectedItem = null;
+			}
+		}
 	}
 }

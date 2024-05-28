@@ -26,8 +26,6 @@ namespace LearnSphere.View
 			}
 		}
 
-
-
 		private async void Perfil_Clicked(object sender, EventArgs e)
 		{
 			await Navigation.PushModalAsync(new EditPerfilPage());

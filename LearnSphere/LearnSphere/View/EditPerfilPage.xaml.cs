@@ -12,6 +12,11 @@ namespace LearnSphere.View
 		public EditPerfilPage()
 		{
 			InitializeComponent();
+		}
+
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
 			usuarioLogado = LoginManager.GetLoggedInUser();
 			CarregarDadosUsuario();
 		}
@@ -24,6 +29,7 @@ namespace LearnSphere.View
 				entryEmail.Text = usuarioLogado.email;
 				entryTelefone.Text = usuarioLogado.celular;
 				entrySenha.Text = usuarioLogado.senha;
+				entryCPF.Text = usuarioLogado.cpf;
 				switchTipoUsuario.IsToggled = usuarioLogado.fornecedor;
 			}
 		}
@@ -36,9 +42,10 @@ namespace LearnSphere.View
 				usuarioLogado.email = entryEmail.Text;
 				usuarioLogado.celular = entryTelefone.Text;
 				usuarioLogado.senha = entrySenha.Text;
+				usuarioLogado.cpf = entryCPF.Text;
 				usuarioLogado.fornecedor = switchTipoUsuario.IsToggled;
 
-				MySQLCon.AtualizarUser(usuarioLogado);
+				Users.AtualizarUser(usuarioLogado);
 
 				DisplayAlert("Sucesso", MySQLCon.StatusMessage, "OK");
 			}
@@ -49,6 +56,5 @@ namespace LearnSphere.View
 			LoginManager.Logout();
 			Application.Current.MainPage = new PagePrincipal();
 		}
-
 	}
 }

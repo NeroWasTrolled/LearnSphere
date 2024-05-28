@@ -37,7 +37,7 @@ namespace LearnSphere
 			{
 				user.Cursos.Add(curso);
 
-				MySQLCon.AtualizarUser(user);
+				Users.AtualizarUser(user);
 
 				await App.Current.MainPage.DisplayAlert("Compra efetuada", "Curso comprado com sucesso!", "OK");
 			}
@@ -58,7 +58,7 @@ namespace LearnSphere
 					};
 
 					// Insere a compra no banco de dados
-					MySQLCon.InserirCompra(compra);
+					CCompras.InserirCompra(compra);
 
 					// Retorna true indicando que a compra foi efetuada com sucesso
 					return true;

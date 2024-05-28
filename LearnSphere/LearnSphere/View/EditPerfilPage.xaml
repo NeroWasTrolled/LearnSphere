@@ -10,6 +10,8 @@
             <Entry x:Name="entryUsuario" />
             <Label Text="E-mail:" />
             <Entry x:Name="entryEmail" />
+            <Label Text="CPF:" />
+            <Entry x:Name="entryCPF" />
             <Label Text="Telefone:" />
             <Entry x:Name="entryTelefone" />
             <Label Text="Senha:" />

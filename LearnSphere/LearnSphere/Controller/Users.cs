@@ -384,8 +384,7 @@ namespace LearnSphere.Controller
 
 		private static bool IsValidCPF(string cpf)
 		{
-			// Validar apenas o formato do CPF
-			string pattern = @"^\d{3}\.\d{3}\.\d{3}-\d{2}$";
+			string pattern = @"^\d{11}$";
 			return Regex.IsMatch(cpf, pattern);
 		}
 

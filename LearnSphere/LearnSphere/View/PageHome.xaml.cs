@@ -3,9 +3,6 @@ using LearnSphere.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,6 +17,12 @@ namespace LearnSphere.View
 			CarregarCursos();
 		}
 
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+			CarregarCursos();
+		}
+
 		private void CarregarCursos()
 		{
 			Device.BeginInvokeOnMainThread(() =>
@@ -31,7 +34,7 @@ namespace LearnSphere.View
 					{
 						foreach (var curso in cursos)
 						{
-							curso.CarregarImagem(); 
+							curso.CarregarImagem();
 						}
 						cursosListView.ItemsSource = cursos;
 					}

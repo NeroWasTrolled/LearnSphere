@@ -18,7 +18,7 @@ namespace LearnSphere.View
 			CarregarCursos();
 		}
 
-		private async void CarregarCursos()
+		private void CarregarCursos()
 		{
 			todosCursos = MySQLCon.ListarCursos();
 			cursosListView.ItemsSource = todosCursos;
@@ -29,6 +29,15 @@ namespace LearnSphere.View
 			var textoPesquisa = searchBar.Text.ToLower();
 			var cursosFiltrados = todosCursos.Where(c => c.titulo.ToLower().Contains(textoPesquisa)).ToList();
 			cursosListView.ItemsSource = cursosFiltrados;
+		}
+
+		private async void cursosListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+		{
+			if (e.SelectedItem is Cursos selectedCurso)
+			{
+				await Navigation.PushAsync(new PageCursos(selectedCurso));
+				cursosListView.SelectedItem = null; 
+			}
 		}
 	}
 }

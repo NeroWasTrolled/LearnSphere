@@ -131,6 +131,11 @@ namespace LearnSphere.View
 			return true;
 		}
 
+		private void OnTogglePasswordVisibility(object sender, EventArgs e)
+		{
+			txtsenha.IsPassword = !txtsenha.IsPassword;
+		}
+
 		private void LimparCampos()
 		{
 			txtusuario.Text = string.Empty;

@@ -34,7 +34,16 @@ namespace LearnSphere.View
 		private async void ImageButton_Clicked(object sender, EventArgs e)
 		{
 			await Navigation.PushAsync(new PageCursosAdquiridos());
+		}
 
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+
+			if (!LoginManager.IsUserLoggedIn)
+			{
+				await Navigation.PushAsync(new PageLogin());
+			}
 		}
 	}
 }

@@ -9,29 +9,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Cabeçalho -->
-        <StackLayout Orientation="Horizontal" Padding="20" Spacing="10">
-            <Image Source="YourImagePath" WidthRequest="40" HeightRequest="40"/>
-            <Label Text="LearnSphere" FontSize="Large" VerticalOptions="Center"/>
+        <StackLayout Orientation="Horizontal" Padding="20" Spacing="10" BackgroundColor="#FFFFFF">
+            <Image Source="Template" WidthRequest="40" HeightRequest="40"/>
+            <Label Text="LearnSphere" FontSize="Large" VerticalOptions="Center" TextColor="#000000"/>
         </StackLayout>
 
-        <!-- Corpo -->
         <ScrollView Grid.Row="1">
             <StackLayout Padding="20">
 
-                <!-- Título -->
-                <Label Text="Use os dados da sua conta para entrar:" FontSize="Medium"/>
+                <Label Text="Use os dados da sua conta para entrar:" FontSize="Medium" TextColor="#4B0082"/>
 
-                <!-- Campos de entrada -->
-                <Entry x:Name="txtLogin" Placeholder="Usuário/Email/Número" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing" Margin="0, 20, 0, 0"/>
-                <Entry x:Name="txtSenhaLogin" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing"/>
+                <Frame CornerRadius="5" Padding="0" BackgroundColor="White" BorderColor="LightGray" HasShadow="False" Margin="0, 20, 0, 0">
+                    <Entry x:Name="txtLogin" Placeholder="Usuário/Email/Número" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing" Margin="10,0"/>
+                </Frame>
+                <Frame CornerRadius="5" Padding="0" BackgroundColor="White" BorderColor="LightGray" HasShadow="False" Margin="0, 10, 0, 0">
+                    <Entry x:Name="txtSenhaLogin" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing" Margin="10,0"/>
+                </Frame>
 
-                <!-- Botão Entrar -->
-                <Button x:Name="BtnEntrar" Text="ENTRAR" BackgroundColor="WhiteSmoke" TextColor="Black" CornerRadius="20" Clicked="BtnEntrar_Clicked" Margin="0, 20, 0, 10"/>
+                <Button x:Name="BtnEntrar" Text="ENTRAR" BackgroundColor="#800080" TextColor="#FFFFFF" CornerRadius="20" Clicked="BtnEntrar_Clicked" Margin="0, 20, 0, 10"/>
 
-                <!-- Link para criar conta -->
                 <Label Text="Não tem uma conta? Criar aqui"
-                       TextColor="Blue"
+                       TextColor="#4B0082"
                        HorizontalOptions="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="CriarConta_Tapped"/>

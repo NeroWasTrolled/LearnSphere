@@ -16,9 +16,5 @@
                       Icon="perfil.png"
                       Route="PagePerfil/{nomeDeUsuario}"
                       ContentTemplate="{DataTemplate views:PagePerfil}" />
-        <ShellContent Title="Perfil"
-                      Icon="perfil.png"
-                      Route="PageCadastrar"
-                      ContentTemplate="{DataTemplate views:PageCadastrar}" />
     </FlyoutItem>
 </Shell>

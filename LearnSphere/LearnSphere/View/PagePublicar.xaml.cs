@@ -20,6 +20,7 @@ namespace LearnSphere.View
 		public PagePublicar()
 		{
 			InitializeComponent();
+
 		}
 
 		public PagePublicar(Cursos curso)
@@ -120,6 +121,32 @@ namespace LearnSphere.View
 			DateTime dataSelecionada = e.NewDate;
 
 			novoCurso.atualizacao = dataSelecionada;
+		}
+
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+
+			// Verificar se o usuário está logado
+			if (!LoginManager.IsUserLoggedIn)
+			{
+				// Se não estiver logado, redirecionar para a página de login
+				await Navigation.PushAsync(new PageLogin());
+				return; // Sair do método após o redirecionamento
+			}
+
+			// Verificar se o usuário é um fornecedor
+			Usuarios usuario = LoginManager.GetLoggedInUser();
+			if (usuario != null && usuario.fornecedor)
+			{
+				// Usuário é um fornecedor, permitir o acesso à página de publicação
+				// Nenhuma ação necessária aqui, o usuário já tem permissão
+				return; // Sair do método após a verificação
+			}
+
+			// Se o usuário não for um fornecedor, exibir mensagem de erro e redirecionar para a PageHome
+			await DisplayAlert("Acesso Negado", "Você precisa ser um provedor para publicar um curso.", "OK");
+			await Navigation.PopToRootAsync(); // Redirecionar para a PageHome
 		}
 	}
 }

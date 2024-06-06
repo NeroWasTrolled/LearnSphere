@@ -156,87 +156,89 @@ namespace LearnSphere.Controller
 			return user;
 		}
 
-		public static void AtualizarUser(Usuarios users)
-		{
-			try
-			{
-				if (!IsValidCPF(users.cpf))
-				{
-					StatusMessage = $"Erro: O CPF '{users.cpf}' não está no formato correto.";
-					return;
-				}
+        public static void AtualizarUser(Usuarios users)
+        {
+            try
+            {
+                if (!IsValidCPF(users.cpf))
+                {
+                    StatusMessage = $"Erro: O CPF '{users.cpf}' não está no formato correto.";
+                    return;
+                }
 
-				string sql = "UPDATE users SET usuario = @usuario, email = @email, " +
-							 "celular = @celular, senha = @senha, cpf = @cpf WHERE id = @id";
-				using (MySqlConnection con = new MySqlConnection(conn))
-				{
-					con.Open();
-					using (MySqlCommand cmd = new MySqlCommand(sql, con))
-					{
-						cmd.Parameters.AddWithValue("@usuario", users.usuario);
-						cmd.Parameters.AddWithValue("@email", users.email);
-						cmd.Parameters.AddWithValue("@celular", users.celular);
-						cmd.Parameters.AddWithValue("@senha", users.senha);
-						cmd.Parameters.AddWithValue("@cpf", users.cpf);
-						cmd.Parameters.AddWithValue("@id", users.id);
-						cmd.ExecuteNonQuery();
-					}
-				}
-				StatusMessage = "Usuário atualizado com sucesso!";
-			}
-			catch (Exception ex)
-			{
-				StatusMessage = $"Erro ao atualizar usuário: {ex.Message}";
-			}
-		}
+                string sql = "UPDATE users SET usuario = @usuario, email = @email, " +
+                             "celular = @celular, senha = @senha, cpf = @cpf, fornecedor = @fornecedor WHERE id = @id";
+                using (MySqlConnection con = new MySqlConnection(conn))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@usuario", users.usuario);
+                        cmd.Parameters.AddWithValue("@email", users.email);
+                        cmd.Parameters.AddWithValue("@celular", users.celular);
+                        cmd.Parameters.AddWithValue("@senha", users.senha);
+                        cmd.Parameters.AddWithValue("@cpf", users.cpf);
+                        cmd.Parameters.AddWithValue("@fornecedor", users.fornecedor);
+                        cmd.Parameters.AddWithValue("@id", users.id);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                StatusMessage = "Usuário atualizado com sucesso!";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Erro ao atualizar usuário: {ex.Message}";
+            }
+        }
 
-		public static Usuarios Login(string usuario, string senha)
-		{
-			Usuarios user = null;
-			try
-			{
-				string sql = "SELECT * FROM users WHERE usuario = @usuario AND senha = @senha";
-				using (MySqlConnection con = new MySqlConnection(conn))
-				{
-					con.Open();
-					using (MySqlCommand cmd = new MySqlCommand(sql, con))
-					{
-						cmd.Parameters.AddWithValue("@usuario", usuario);
-						cmd.Parameters.AddWithValue("@senha", senha);
-						using (MySqlDataReader reader = cmd.ExecuteReader())
-						{
-							if (reader.Read())
-							{
-								user = new Usuarios()
-								{
-									id = reader.GetInt32("id"),
-									usuario = reader.GetString("usuario"),
-									email = reader.GetString("email"),
-									cpf = reader.GetString("cpf"),
-									celular = reader.GetString("celular"),
-									senha = reader.GetString("senha"),
-								};
-							}
-						}
-					}
-				}
-				if (user != null)
-				{
-					StatusMessage = "Login realizado com sucesso.";
-				}
-				else
-				{
-					StatusMessage = "Usuário ou senha incorretos.";
-				}
-			}
-			catch (Exception ex)
-			{
-				StatusMessage = $"Erro ao realizar login: {ex.Message}";
-			}
-			return user;
-		}
+        public static Usuarios Login(string usuario, string senha)
+        {
+            Usuarios user = null;
+            try
+            {
+                string sql = "SELECT * FROM users WHERE usuario = @usuario AND senha = @senha";
+                using (MySqlConnection con = new MySqlConnection(conn))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@usuario", usuario);
+                        cmd.Parameters.AddWithValue("@senha", senha);
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                user = new Usuarios()
+                                {
+                                    id = reader.GetInt32("id"),
+                                    usuario = reader.GetString("usuario"),
+                                    email = reader.GetString("email"),
+                                    cpf = reader.GetString("cpf"),
+                                    celular = reader.GetString("celular"),
+                                    senha = reader.GetString("senha"),
+                                    fornecedor = reader.GetBoolean("fornecedor") // Certifique-se de que o campo fornecedor seja um bool
+                                };
+                            }
+                        }
+                    }
+                }
+                if (user != null)
+                {
+                    StatusMessage = "Login realizado com sucesso.";
+                }
+                else
+                {
+                    StatusMessage = "Usuário ou senha incorretos.";
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Erro ao realizar login: {ex.Message}";
+            }
+            return user;
+        }
 
-		public static void AtualizarFornecedor(int idUsuario, bool? fornecedor)
+        public static void AtualizarFornecedor(int idUsuario, bool? fornecedor)
 		{
 			try
 			{

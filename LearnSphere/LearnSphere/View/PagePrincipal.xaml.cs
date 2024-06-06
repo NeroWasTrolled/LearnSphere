@@ -9,18 +9,12 @@ using Xamarin.Forms.Xaml;
 
 namespace LearnSphere.View
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class PagePrincipal : Shell
-	{
-		public PagePrincipal()
-		{
-			InitializeComponent();
-		}
-
-		private void MenuItem_Clicked(object sender, EventArgs e)
-		{
-
-		}
-
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class PagePrincipal : Shell
+    {
+        public PagePrincipal()
+        {
+            InitializeComponent();
+        }
+    } 
 }

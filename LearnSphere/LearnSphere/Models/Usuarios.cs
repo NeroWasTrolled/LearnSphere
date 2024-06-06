@@ -7,12 +7,12 @@ namespace LearnSphere.Models
 {
 	public class Usuarios
 	{
-		public int id { get; set; }
-		public string usuario { get; set; }
-		public string email { get; set; }
-		public string cpf { get; set; }
-		public string celular { get; set; }
-		public string senha { get; set; }
+        public int id { get; set; }
+        public string usuario { get; set; }
+        public string email { get; set; }
+        public string cpf { get; set; }
+        public string celular { get; set; }
+        public string senha { get; set; }
         public bool fornecedor { get; set; }
 
         public List<Cursos> Cursos { get; set; }

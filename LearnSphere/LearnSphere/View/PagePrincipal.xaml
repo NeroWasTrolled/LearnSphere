@@ -14,7 +14,7 @@
                       ContentTemplate="{DataTemplate views:PagePublicar}" />
         <ShellContent Title="Perfil"
                       Icon="perfil.png"
-                      Route="PagePerfil/{nomeDeUsuario}"
+                      Route="PagePerfil"
                       ContentTemplate="{DataTemplate views:PagePerfil}" />
     </FlyoutItem>
 </Shell>

@@ -4,55 +4,78 @@
              x:Class="LearnSphere.View.PageCarrinho"
              Title="Carrinho">
     <ContentPage.Content>
-        <StackLayout>
-            <ListView x:Name="carrinhoListView"
-                      Margin="15"
-                      IsVisible="False"
-                      RowHeight="120"
-                      SeparatorColor="Black">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame CornerRadius="10"
-                                   Margin="4"
-                                   Padding="5"
-                                   BackgroundColor="#FFFFFF">
-                                <StackLayout Orientation="Horizontal"
-                                             Spacing="10">
-                                    <Image Source="{Binding foto,Converter={StaticResource ByteArrayToImageSourceConverter}}"
-                                           Aspect="AspectFill"
-                                           WidthRequest="100"
-                                           HeightRequest="100"/>
-                                    <StackLayout Orientation="Vertical"
-                                                 Spacing="5">
-                                        <Label Text="{Binding titulo}"
-                                               FontAttributes="Bold"
-                                               FontSize="18"
-                                               TextColor="#000000" />
-                                        <Label Text="{Binding desc_secundaria}"
-                                               LineBreakMode="TailTruncation"
-                                               FontSize="14"
-                                               TextColor="#666666" />
+        <AbsoluteLayout>
+            <!-- ListView and other UI elements -->
+            <StackLayout AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+                <ListView x:Name="carrinhoListView"
+                          Margin="15"
+                          IsVisible="False"
+                          RowHeight="120"
+                          SeparatorColor="Black">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame CornerRadius="10"
+                                       Margin="4"
+                                       Padding="5"
+                                       BackgroundColor="#FFFFFF">
+                                    <StackLayout Orientation="Horizontal"
+                                                 Spacing="10">
+                                        <Image Source="{Binding foto,Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                               Aspect="AspectFill"
+                                               WidthRequest="100"
+                                               HeightRequest="100"/>
+                                        <StackLayout Orientation="Vertical"
+                                                     Spacing="5">
+                                            <Label Text="{Binding titulo}"
+                                                   FontAttributes="Bold"
+                                                   FontSize="18"
+                                                   TextColor="#000000" />
+                                            <Label Text="{Binding desc_secundaria}"
+                                                   LineBreakMode="TailTruncation"
+                                                   FontSize="14"
+                                                   TextColor="#666666" />
+                                        </StackLayout>
                                     </StackLayout>
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Label x:Name="lblSemCursos"
-                   Text="Seu carrinho está vazio."
-                   IsVisible="False"
-                   TextColor="Black"
-                   FontSize="16"
-                   HorizontalOptions="CenterAndExpand"
-                   VerticalOptions="CenterAndExpand"/>
-            <Button x:Name="btnComprarTudo"
-                    Text="Comprar Tudo"
-                    Clicked="OnComprarTudoClicked"
-                    IsVisible="False"
-                    HorizontalOptions="Center"
-                    VerticalOptions="EndAndExpand"/>
-        </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label x:Name="lblSemCursos"
+                       Text="Seu carrinho está vazio."
+                       IsVisible="False"
+                       TextColor="Black"
+                       FontSize="16"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"/>
+                <Button x:Name="btnComprarTudo"
+                        Text="Comprar Tudo"
+                        Clicked="OnComprarTudoClicked"
+                        IsVisible="False"
+                        HorizontalOptions="Center"
+                        VerticalOptions="EndAndExpand"/>
+            </StackLayout>
+
+            <ContentView x:Name="modalPagamento"
+                 BackgroundColor="#80000000"
+                Padding="20"
+                 IsVisible="False"
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+                <StackLayout VerticalOptions="CenterAndExpand">
+                    <Label Text="Escolha o método de pagamento"
+                   FontSize="18"
+                   HorizontalOptions="Center"/>
+                    <Button Text="Pix"
+                    Clicked="OnPixClicked"/>
+                    <Button Text="Cartão"
+                    Clicked="OnCartaoClicked"/>
+                    <Button Text="Cancelar"
+                    Clicked="OnCancelarClicked"/>
+                </StackLayout>
+            </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

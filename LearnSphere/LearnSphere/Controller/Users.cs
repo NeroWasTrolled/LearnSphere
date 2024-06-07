@@ -116,48 +116,50 @@ namespace LearnSphere.Controller
 		}
 
 
-		public static Usuarios LocalizarUser(string email, string usuario, string cpf, string senha)
-		{
-			Usuarios user = null;
-			try
-			{
-				string sql = "SELECT * FROM users WHERE (email = @Email OR usuario = @Usuario OR celular = @Celular OR cpf = @Cpf) AND senha = @Senha";
-				using (MySqlConnection con = new MySqlConnection(conn))
-				{
-					con.Open();
-					using (MySqlCommand cmd = new MySqlCommand(sql, con))
-					{
-						cmd.Parameters.AddWithValue("@Email", email);
-						cmd.Parameters.AddWithValue("@Usuario", usuario);
-						cmd.Parameters.AddWithValue("@Celular", usuario);
-						cmd.Parameters.AddWithValue("@Cpf", cpf); 
-						cmd.Parameters.AddWithValue("@Senha", senha);
-						using (MySqlDataReader reader = cmd.ExecuteReader())
-						{
-							if (reader.Read())
-							{
-								user = new Usuarios()
-								{
-									id = reader.GetInt32("id"),
-									usuario = reader.GetString("usuario"),
-									email = reader.GetString("email"),
-									celular = reader.GetString("celular"),
-									cpf = reader.GetString("cpf"),
-									senha = reader.GetString("senha"),
-								};
-							}
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				StatusMessage = $"Erro ao localizar usuário: {ex.Message}";
-			}
-			return user;
-		}
+        public static Usuarios LocalizarUser(string email, string usuario, string cpf, string senha)
+        {
+            Usuarios user = null;
+            try
+            {
+                string sql = "SELECT * FROM users WHERE (email = @Email OR usuario = @Usuario OR celular = @Celular OR cpf = @Cpf) AND senha = @Senha";
+                using (MySqlConnection con = new MySqlConnection(conn))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@Usuario", usuario);
+                        cmd.Parameters.AddWithValue("@Celular", usuario);
+                        cmd.Parameters.AddWithValue("@Cpf", cpf);
+                        cmd.Parameters.AddWithValue("@Senha", senha);
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                user = new Usuarios()
+                                {
+                                    id = reader.GetInt32("id"),
+                                    usuario = reader.GetString("usuario"),
+                                    email = reader.GetString("email"),
+                                    celular = reader.GetString("celular"),
+                                    cpf = reader.GetString("cpf"),
+                                    senha = reader.GetString("senha"),
+                                    fornecedor = reader.GetBoolean("fornecedor")  // Certifique-se de ler a coluna fornecedor
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Erro ao localizar usuário: {ex.Message}";
+            }
+            return user;
+        }
 
-		public static void AtualizarUser(Usuarios users)
+
+        public static void AtualizarUser(Usuarios users)
 		{
 			try
 			{

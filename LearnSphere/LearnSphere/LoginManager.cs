@@ -54,9 +54,15 @@ namespace LearnSphere
 
 				if (usuario != null)
 				{
+					if (usuario.fornecedor)
+					{
+						usuario.fornecedor = true;
+					}
+
 					Login(usuario);
-					App.UsuarioLogado = usuario; // Atribuir o usuário a App.UsuarioLogado
+					App.UsuarioLogado = usuario;
 					return true;
+
 				}
 				else
 				{

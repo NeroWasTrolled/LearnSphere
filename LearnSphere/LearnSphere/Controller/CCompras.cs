@@ -18,7 +18,7 @@ namespace LearnSphere.Controller
 				if (UsuarioComprouCurso(compra.IdUsuario, compra.IdCurso))
 				{
 					StatusMessage = "Você já comprou este curso.";
-					return;
+					throw new InvalidOperationException("Você já comprou este curso.");
 				}
 
 				string sql = "INSERT INTO compra (idcurso, iduser) VALUES (@idCurso, @idUsuario)";
@@ -71,9 +71,9 @@ namespace LearnSphere.Controller
 
 			try
 			{
-				string sql = @"SELECT c.* FROM cursos c " +
-							 "INNER JOIN compra co ON c.id = co.idcurso " +
-							 "WHERE co.idusuario = @idUsuario";
+				string sql = @"SELECT c.* FROM cursos c 
+                       INNER JOIN compra co ON c.id = co.idcurso 
+                       WHERE co.iduser = @idUsuario"; 
 
 				using (MySqlConnection con = new MySqlConnection(conn))
 				{

@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LearnSphere.View.PageCursosAdquiridos"
-             Title="Cursos Adquiridos">
+             x:Class="LearnSphere.View.PageCarrinho"
+             Title="Carrinho">
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="cursosListView"
+            <ListView x:Name="carrinhoListView"
                       Margin="15"
                       IsVisible="False"
-                      ItemSelected="CursosListView_ItemSelected"
                       RowHeight="120"
                       SeparatorColor="Black">
                 <ListView.ItemTemplate>
@@ -20,7 +19,7 @@
                                    BackgroundColor="#FFFFFF">
                                 <StackLayout Orientation="Horizontal"
                                              Spacing="10">
-                                    <Image Source="{Binding foto,Converter={StaticResource ByteArrayToImageSourceConverter}}" 
+                                    <Image Source="{Binding foto,Converter={StaticResource ByteArrayToImageSourceConverter}}"
                                            Aspect="AspectFill"
                                            WidthRequest="100"
                                            HeightRequest="100"/>
@@ -42,12 +41,18 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Label x:Name="lblSemCursos"
-                   Text="Você ainda não adquiriu nenhum curso."
+                   Text="Seu carrinho está vazio."
                    IsVisible="False"
                    TextColor="Black"
                    FontSize="16"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"/>
+            <Button x:Name="btnComprarTudo"
+                    Text="Comprar Tudo"
+                    Clicked="OnComprarTudoClicked"
+                    IsVisible="False"
+                    HorizontalOptions="Center"
+                    VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

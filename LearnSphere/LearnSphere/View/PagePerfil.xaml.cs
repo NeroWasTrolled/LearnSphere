@@ -45,5 +45,10 @@ namespace LearnSphere.View
 				await Navigation.PushAsync(new PageLogin());
 			}
 		}
+
+		private async void Carrinho_Clicked(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new PageCarrinho());
+		}
 	}
 }

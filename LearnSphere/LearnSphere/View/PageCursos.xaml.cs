@@ -6,8 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using LearnSphere.Controller;
 using LearnSphere.Models;
-
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,8 +28,31 @@ namespace LearnSphere.View
 			cursoAutor.Text = curso.criador;
 
 			LimitarDescricao();
-
 			FillStarRating(curso.estrelas);
+			VerificarCompra();
+		}
+
+		private async void VerificarCompra()
+		{
+			if (App.UsuarioLogado != null)
+			{
+				try
+				{
+					bool jaComprado = CCarrinho.VerificarCompra(App.UsuarioLogado.id, curso.id);
+					if (jaComprado)
+					{
+						ButtonComprar.IsVisible = false;
+					}
+					else
+					{
+						ButtonComprar.IsVisible = true;
+					}
+				}
+				catch (Exception ex)
+				{
+					await DisplayAlert("Erro", $"Erro ao verificar compra: {ex.Message}", "OK");
+				}
+			}
 		}
 
 		private void LimitarDescricao()
@@ -87,24 +108,30 @@ namespace LearnSphere.View
 			{
 				if (App.UsuarioLogado != null)
 				{
-					Compras compra = new Compras
+					Carrinho carrinho = new Carrinho
 					{
 						IdCurso = curso.id,
 						IdUsuario = App.UsuarioLogado.id
 					};
 
-					CCompras.InserirCompra(compra);
-
-					await DisplayAlert("Sucesso", "Compra efetuada com sucesso!", "OK");
+					try
+					{
+						CCarrinho.InserirNoCarrinho(carrinho);
+						await DisplayAlert("Sucesso", "Curso adicionado ao carrinho!", "OK");
+					}
+					catch (Exception ex)
+					{
+						await DisplayAlert("Erro", $"Erro ao adicionar ao carrinho: {ex.Message}", "OK");
+					}
 				}
 				else
 				{
-					await DisplayAlert("Erro", "Usuário não está logado. Faça o login para efetuar a compra.", "OK");
+					await DisplayAlert("Erro", "Usuário não está logado. Faça o login para adicionar ao carrinho.", "OK");
 				}
 			}
 			catch (Exception ex)
 			{
-				await DisplayAlert("Erro", $"Erro ao efetuar a compra: {ex.Message}", "OK");
+				await DisplayAlert("Erro", $"Erro ao adicionar ao carrinho: {ex.Message}", "OK");
 			}
 		}
 	}

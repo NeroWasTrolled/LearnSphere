@@ -11,24 +11,17 @@
                     <Label x:Name="cursoNome" FontAttributes="Bold" FontSize="20"/>
                     <Label x:Name="cursoAutor" FontSize="16"/>
                     <StackLayout Orientation="Horizontal" x:Name="avaliacaoStack">
-
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
 
-
-
             <Label x:Name="numeroAvaliacoes" FontSize="14" TextColor="Gray"/>
-
             <StackLayout x:Name="cursoLayout">
                 <Label x:Name="cursoDescricao" MaxLines="3" LineBreakMode="TailTruncation"/>
             </StackLayout>
-
             <Button x:Name="mostrarMaisButton" Text="Mostrar mais" Clicked="MostrarMaisButton_Clicked"/>
-
             <Label x:Name="cursoPreco" FontSize="24" FontAttributes="Bold"/>
-
-            <Button Text="Comprar agora" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnComprarClicked"/>
+            <Button x:Name="ButtonComprar" Text="Comprar agora" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnComprarClicked"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

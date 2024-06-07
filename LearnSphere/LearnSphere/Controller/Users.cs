@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace LearnSphere.Controller
 {
@@ -156,89 +157,87 @@ namespace LearnSphere.Controller
 			return user;
 		}
 
-        public static void AtualizarUser(Usuarios users)
-        {
-            try
-            {
-                if (!IsValidCPF(users.cpf))
-                {
-                    StatusMessage = $"Erro: O CPF '{users.cpf}' não está no formato correto.";
-                    return;
-                }
+		public static void AtualizarUser(Usuarios users)
+		{
+			try
+			{
+				if (!IsValidCPF(users.cpf))
+				{
+					StatusMessage = $"Erro: O CPF '{users.cpf}' não está no formato correto.";
+					return;
+				}
 
-                string sql = "UPDATE users SET usuario = @usuario, email = @email, " +
-                             "celular = @celular, senha = @senha, cpf = @cpf, fornecedor = @fornecedor WHERE id = @id";
-                using (MySqlConnection con = new MySqlConnection(conn))
-                {
-                    con.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@usuario", users.usuario);
-                        cmd.Parameters.AddWithValue("@email", users.email);
-                        cmd.Parameters.AddWithValue("@celular", users.celular);
-                        cmd.Parameters.AddWithValue("@senha", users.senha);
-                        cmd.Parameters.AddWithValue("@cpf", users.cpf);
-                        cmd.Parameters.AddWithValue("@fornecedor", users.fornecedor);
-                        cmd.Parameters.AddWithValue("@id", users.id);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                StatusMessage = "Usuário atualizado com sucesso!";
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Erro ao atualizar usuário: {ex.Message}";
-            }
-        }
+				string sql = "UPDATE users SET usuario = @usuario, email = @email, " +
+							 "celular = @celular, senha = @senha, cpf = @cpf, fornecedor = @fornecedor WHERE id = @id";
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@usuario", users.usuario);
+						cmd.Parameters.AddWithValue("@email", users.email);
+						cmd.Parameters.AddWithValue("@celular", users.celular);
+						cmd.Parameters.AddWithValue("@senha", users.senha);
+						cmd.Parameters.AddWithValue("@cpf", users.cpf);
+						cmd.Parameters.AddWithValue("@fornecedor", users.fornecedor);
+						cmd.Parameters.AddWithValue("@id", users.id);
+						cmd.ExecuteNonQuery();
+					}
+				}
+				StatusMessage = "Usuário atualizado com sucesso!";
+			}
+			catch (Exception ex)
+			{
+				StatusMessage = $"Erro ao atualizar usuário: {ex.Message}";
+			}
+		}
 
-        public static Usuarios Login(string usuario, string senha)
-        {
-            Usuarios user = null;
-            try
-            {
-                string sql = "SELECT * FROM users WHERE usuario = @usuario AND senha = @senha";
-                using (MySqlConnection con = new MySqlConnection(conn))
-                {
-                    con.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@usuario", usuario);
-                        cmd.Parameters.AddWithValue("@senha", senha);
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                user = new Usuarios()
-                                {
-                                    id = reader.GetInt32("id"),
-                                    usuario = reader.GetString("usuario"),
-                                    email = reader.GetString("email"),
-                                    cpf = reader.GetString("cpf"),
-                                    celular = reader.GetString("celular"),
-                                    senha = reader.GetString("senha"),
-                                    fornecedor = reader.GetBoolean("fornecedor") // Certifique-se de que o campo fornecedor seja um bool
-                                };
-                            }
-                        }
-                    }
-                }
-                if (user != null)
-                {
-                    StatusMessage = "Login realizado com sucesso.";
-                }
-                else
-                {
-                    StatusMessage = "Usuário ou senha incorretos.";
-                }
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Erro ao realizar login: {ex.Message}";
-            }
-            return user;
-        }
+		public static async Task<Usuarios> RealizarLogin(string email, string senha)
+		{
+			Usuarios usuario = null;
 
-        public static void AtualizarFornecedor(int idUsuario, bool? fornecedor)
+			try
+			{
+				string sql = "SELECT id, nome, email, fornecedor FROM usuarios WHERE email = @Email AND senha = @Senha";
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@Email", email);
+						cmd.Parameters.AddWithValue("@Senha", senha);
+
+						using (MySqlDataReader reader = cmd.ExecuteReader())
+						{
+							if (reader.Read())
+							{
+								usuario = new Usuarios
+								{
+									id = reader.GetInt32("id"),
+									usuario = reader.GetString("nome"),
+									email = reader.GetString("email"),
+									fornecedor = reader.GetBoolean("fornecedor")
+								};
+								Console.WriteLine($"Login bem-sucedido: Fornecedor = {usuario.fornecedor}");
+							}
+						}
+					}
+				}
+
+				if (usuario != null)
+				{
+					App.UsuarioLogado = usuario;
+				}
+			}
+			catch (Exception ex)
+			{
+				await App.Current.MainPage.DisplayAlert("Erro", $"Erro ao fazer login: {ex.Message}", "OK");
+			}
+
+			return usuario;
+		}
+
+		public static void AtualizarFornecedor(int idUsuario, bool? fornecedor)
 		{
 			try
 			{

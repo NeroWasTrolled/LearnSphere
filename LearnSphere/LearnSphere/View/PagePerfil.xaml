@@ -37,7 +37,7 @@
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                     <StackLayout>
-                        <ImageButton HorizontalOptions="CenterAndExpand" Source="vender.png" CornerRadius="50" BackgroundColor="#f0f1f5" Padding="10" HeightRequest="50" WidthRequest="50" />
+                        <ImageButton x:Name="Carrinho" HorizontalOptions="CenterAndExpand" Source="vender.png" CornerRadius="50" BackgroundColor="#f0f1f5" Padding="10" HeightRequest="50" WidthRequest="50" Clicked="Carrinho_Clicked" />
                         <Label Text="Vendas" FontSize="12" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                     </StackLayout>
                 </StackLayout>

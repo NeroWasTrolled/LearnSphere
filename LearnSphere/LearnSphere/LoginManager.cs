@@ -1,5 +1,6 @@
 ﻿using LearnSphere.Controller;
 using LearnSphere.Models;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -39,34 +40,36 @@ namespace LearnSphere
             return user != null && user.fornecedor;
         }
 
-        public static async Task<bool> LocalizarUser(Page page, string email, string cpf, string user, string senha)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(user) && string.IsNullOrEmpty(senha))
-                {
-                    await page.DisplayAlert("Erro", "Por favor, forneça o e-mail, nome de usuário ou número de celular.", "OK");
-                    return false;
-                }
+		public static async Task<bool> LocalizarUser(Page page, string email, string cpf, string user, string senha)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(user) && string.IsNullOrEmpty(senha))
+				{
+					await page.DisplayAlert("Erro", "Por favor, forneça o e-mail, nome de usuário ou número de celular.", "OK");
+					return false;
+				}
 
-                Usuarios usuario = Users.LocalizarUser(email, user, cpf, senha);
+				Usuarios usuario = Users.LocalizarUser(email, user, cpf, senha);
 
-                if (usuario != null)
-                {
-                    Login(usuario);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                await page.DisplayAlert("Erro", $"Erro ao efetuar login: {ex.Message}", "OK");
-                return false;
-            }
-        }
+				if (usuario != null)
+				{
+					Login(usuario);
+					App.UsuarioLogado = usuario; // Atribuir o usuário a App.UsuarioLogado
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			catch (Exception ex)
+			{
+				await page.DisplayAlert("Erro", $"Erro ao efetuar login: {ex.Message}", "OK");
+				return false;
+			}
+		}
+
 
 		public static List<Cursos> ObterCursosAdquiridos()
 		{

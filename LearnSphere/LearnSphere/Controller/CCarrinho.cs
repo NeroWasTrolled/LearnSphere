@@ -28,7 +28,30 @@ namespace LearnSphere.Controller
 			}
 			catch (Exception ex)
 			{
-				throw new Exception($"Erro ao adicionar ao carrinho: {ex.Message}");
+				throw new Exception("Erro ao inserir no carrinho: " + ex.Message);
+			}
+		}
+
+		public static bool VerificarCompra(int idUsuario, int idCurso)
+		{
+			try
+			{
+				string sql = "SELECT COUNT(*) FROM compra WHERE iduser = @idUsuario AND idcurso = @idCurso";
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+						cmd.Parameters.AddWithValue("@idCurso", idCurso);
+						int count = Convert.ToInt32(cmd.ExecuteScalar());
+						return count > 0;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Erro ao verificar compra: " + ex.Message);
 			}
 		}
 
@@ -79,13 +102,11 @@ namespace LearnSphere.Controller
 			return cursosNoCarrinho;
 		}
 
-		public static bool VerificarCompra(int idUsuario, int idCurso)
+		public static bool VerificarNoCarrinho(int idUsuario, int idCurso)
 		{
-			bool jaComprado = false;
-
 			try
 			{
-				string sql = "SELECT COUNT(*) FROM compra WHERE iduser = @idUsuario AND idcurso = @idCurso";
+				string sql = "SELECT COUNT(*) FROM carrinho WHERE iduser = @idUsuario AND idcurso = @idCurso";
 				using (MySqlConnection con = new MySqlConnection(conn))
 				{
 					con.Open();
@@ -93,18 +114,39 @@ namespace LearnSphere.Controller
 					{
 						cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
 						cmd.Parameters.AddWithValue("@idCurso", idCurso);
-						jaComprado = Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+						int count = Convert.ToInt32(cmd.ExecuteScalar());
+						return count > 0;
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				throw new Exception($"Erro ao verificar compra: {ex.Message}");
+				throw new Exception("Erro ao verificar no carrinho: " + ex.Message);
 			}
-
-			return jaComprado;
 		}
-	
+
+		public static void RemoverDoCarrinho(int idUsuario, int idCurso)
+		{
+			try
+			{
+				string sql = "DELETE FROM carrinho WHERE iduser = @idUsuario AND idcurso = @idCurso";
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+						cmd.Parameters.AddWithValue("@idCurso", idCurso);
+						cmd.ExecuteNonQuery();
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Erro ao remover do carrinho: " + ex.Message);
+			}
+		}
+
 		public static void TransferirDoCarrinhoParaCompras(int usuarioId)
 		{
 			try

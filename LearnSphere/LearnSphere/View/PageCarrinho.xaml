@@ -60,21 +60,30 @@
 
             <ContentView x:Name="modalPagamento"
                  BackgroundColor="#80000000"
-                Padding="20"
+                 Padding="20"
                  IsVisible="False"
                  AbsoluteLayout.LayoutFlags="All"
                  AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
-                <StackLayout VerticalOptions="CenterAndExpand">
-                    <Label Text="Escolha o método de pagamento"
-                   FontSize="18"
-                   HorizontalOptions="Center"/>
-                    <Button Text="Pix"
-                    Clicked="OnPixClicked"/>
-                    <Button Text="Cartão"
-                    Clicked="OnCartaoClicked"/>
-                    <Button Text="Cancelar"
-                    Clicked="OnCancelarClicked"/>
-                </StackLayout>
+                <Frame CornerRadius="20"
+                       BackgroundColor="White"
+                       Padding="20"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label Text="Escolha o método de pagamento"
+                               FontSize="18"
+                               HorizontalOptions="Center"/>
+                        <Button Text="Pix"
+                                Clicked="OnPixClicked"
+                                Margin="10,0"/>
+                        <Button Text="Cartão"
+                                Clicked="OnCartaoClicked"
+                                Margin="10,0"/>
+                        <Button Text="Cancelar"
+                                Clicked="OnCancelarClicked"
+                                Margin="10,0"/>
+                    </StackLayout>
+                </Frame>
             </ContentView>
         </AbsoluteLayout>
     </ContentPage.Content>

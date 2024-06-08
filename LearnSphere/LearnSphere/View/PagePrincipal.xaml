@@ -17,4 +17,5 @@
                       Route="PagePerfil"
                       ContentTemplate="{DataTemplate views:PagePerfil}" />
     </FlyoutItem>
+    
 </Shell>

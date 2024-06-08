@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LearnSphere.Controller;
-using LearnSphere.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using LearnSphere.Controller;
+using LearnSphere.Models;
 
 namespace LearnSphere.View
 {
@@ -42,10 +38,15 @@ namespace LearnSphere.View
 					if (jaComprado)
 					{
 						ButtonComprar.IsVisible = false;
+						ButtonAdicionarCarrinho.IsVisible = false;
+						ButtonRemoverCarrinho.IsVisible = false;
 					}
 					else
 					{
+						bool noCarrinho = CCarrinho.VerificarNoCarrinho(App.UsuarioLogado.id, curso.id);
 						ButtonComprar.IsVisible = true;
+						ButtonAdicionarCarrinho.IsVisible = !noCarrinho;
+						ButtonRemoverCarrinho.IsVisible = noCarrinho;
 					}
 				}
 				catch (Exception ex)
@@ -102,7 +103,7 @@ namespace LearnSphere.View
 			}
 		}
 
-		private async void OnComprarClicked(object sender, EventArgs e)
+		private async void OnAdicionarCarrinhoClicked(object sender, EventArgs e)
 		{
 			try
 			{
@@ -118,6 +119,7 @@ namespace LearnSphere.View
 					{
 						CCarrinho.InserirNoCarrinho(carrinho);
 						await DisplayAlert("Sucesso", "Curso adicionado ao carrinho!", "OK");
+						VerificarCompra();
 					}
 					catch (Exception ex)
 					{
@@ -132,6 +134,69 @@ namespace LearnSphere.View
 			catch (Exception ex)
 			{
 				await DisplayAlert("Erro", $"Erro ao adicionar ao carrinho: {ex.Message}", "OK");
+			}
+		}
+
+		private async void OnRemoverCarrinhoClicked(object sender, EventArgs e)
+		{
+			try
+			{
+				if (App.UsuarioLogado != null)
+				{
+					try
+					{
+						CCarrinho.RemoverDoCarrinho(App.UsuarioLogado.id, curso.id);
+						await DisplayAlert("Sucesso", "Curso removido do carrinho!", "OK");
+						VerificarCompra();
+					}
+					catch (Exception ex)
+					{
+						await DisplayAlert("Erro", $"Erro ao remover do carrinho: {ex.Message}", "OK");
+					}
+				}
+				else
+				{
+					await DisplayAlert("Erro", "Usuário não está logado. Faça o login para remover do carrinho.", "OK");
+				}
+			}
+			catch (Exception ex)
+			{
+				await DisplayAlert("Erro", $"Erro ao remover do carrinho: {ex.Message}", "OK");
+			}
+		}
+
+		private async void OnComprarClicked(object sender, EventArgs e)
+		{
+			try
+			{
+				if (App.UsuarioLogado != null)
+				{
+					Compras compra = new Compras
+					{
+						IdCurso = curso.id,
+						IdUsuario = App.UsuarioLogado.id
+					};
+
+					try
+					{
+						CCompras.InserirCompra(compra);
+						CCarrinho.RemoverDoCarrinho(App.UsuarioLogado.id, curso.id);
+						await DisplayAlert("Sucesso", "Compra realizada com sucesso!", "OK");
+						await Navigation.PopAsync();
+					}
+					catch (Exception ex)
+					{
+						await DisplayAlert("Erro", $"Erro ao realizar a compra: {ex.Message}", "OK");
+					}
+				}
+				else
+				{
+					await DisplayAlert("Erro", "Usuário não está logado. Faça o login para comprar.", "OK");
+				}
+			}
+			catch (Exception ex)
+			{
+				await DisplayAlert("Erro", $"Erro ao realizar a compra: {ex.Message}", "OK");
 			}
 		}
 	}

@@ -21,7 +21,12 @@
             </StackLayout>
             <Button x:Name="mostrarMaisButton" Text="Mostrar mais" Clicked="MostrarMaisButton_Clicked"/>
             <Label x:Name="cursoPreco" FontSize="24" FontAttributes="Bold"/>
-            <Button x:Name="ButtonComprar" Text="Comprar agora" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnComprarClicked"/>
+
+            <Button x:Name="ButtonAdicionarCarrinho" Text="Adicionar ao Carrinho" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnAdicionarCarrinhoClicked"/>
+
+            <Button x:Name="ButtonRemoverCarrinho" Text="Remover do Carrinho" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnRemoverCarrinhoClicked" IsVisible="False"/>
+
+            <Button x:Name="ButtonComprar" Text="Comprar Agora" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnComprarClicked"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

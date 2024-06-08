@@ -5,11 +5,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
-            <Style x:Key="ToolbarButtonStyle" TargetType="ToolbarItem">
-                <Setter Property="IconImageSource" Value="pesquisar.png"/>
-                <Setter Property="Order" Value="Primary"/>
-                <Setter Property="Priority" Value="0"/>
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

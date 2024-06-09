@@ -69,5 +69,10 @@ namespace LearnSphere.View
 		{
 			await Navigation.PushAsync(new SearchPage());
 		}
-	}
+
+        private async void OnCartClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PageCarrinho());
+        }
+    }
 }

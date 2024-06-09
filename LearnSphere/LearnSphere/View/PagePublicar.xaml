@@ -1,69 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LearnSphere.View"
              x:Class="LearnSphere.View.PagePublicar">
-    <Grid>
-        <ScrollView>
-            <StackLayout Grid.Row="1" Spacing="0">
-                <StackLayout Padding="20" Spacing="0" BackgroundColor="#F8F8FF">
-                    <AbsoluteLayout>
-                        <Frame CornerRadius="20" WidthRequest="200" HeightRequest="50"
-                            AbsoluteLayout.LayoutFlags="PositionProportional"
-                            AbsoluteLayout.LayoutBounds="0,0,AutoSize,AutoSize">
-                            <Entry x:Name="txtTitulo" Placeholder="TÍTULO" FontAttributes="Bold" FontSize="20"/>
-                        </Frame>
-                    </AbsoluteLayout>
-                    <Entry x:Name="txtSubtitulo" Placeholder="SubTitulo [OPCIONAL]" FontSize="20"/>
-                    <StackLayout Padding="30" Spacing="0" IsVisible="True" IsEnabled="True">
-                        <StackLayout Orientation="Horizontal" x:Name="rattingBar" HorizontalOptions="Center">
-                            <Label Text="★" FontSize="30" x:Name="star1" StyleId="star1">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                            <Label Text="★" FontSize="30" x:Name="star2" StyleId="star2">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                            <Label Text="★" FontSize="30" x:Name="star3" StyleId="star3">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                            <Label Text="★" FontSize="30" x:Name="star4" StyleId="star4">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                            <Label Text="★" FontSize="30" x:Name="star5" StyleId="star5">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                        </StackLayout>
-                        <Label Text="Avalie o Curso" HorizontalTextAlignment="Center" FontSize="10" FontAttributes="Bold"/>
-                    </StackLayout>
-                    <StackLayout>
-                        <Entry x:Name="txtAutor" Placeholder="Autor" FontSize="12" />
-                    </StackLayout>
-                    <Image x:Name="imagemFoto" Aspect="AspectFit" HeightRequest="300" WidthRequest="500" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Data de Publicação:" FontSize="12"/>
-                        <DatePicker x:Name="dtAtualizacao" DateSelected="dtAtualizacao_DateSelected" FontSize="12"/>
-                    </StackLayout>
-                    <Editor x:Name="txtDesc" Placeholder="Descrição detalhada" HeightRequest="100"/>
-                    <Entry x:Name="txtDescSecundaria" Placeholder="Descrição Resumida" FontSize="12"/>
-                    <Entry x:Name="txtDuracao" Placeholder="Duração" FontSize="12"/>
+    <ContentPage.Content>
+        <Grid>
+            <ScrollView>
+                <StackLayout Padding="10">
+                    <!-- Imagem de Capa do Curso -->
+                    <Frame CornerRadius="10" BorderColor="Gray" Padding="0">
+                        <Image x:Name="imagemFoto" Aspect="AspectFill" HeightRequest="200" WidthRequest="300"/>
+                    </Frame>
 
+                    <!-- Botão para Inserir Imagem -->
+                    <Button Text="Inserir Foto" Clicked="btnFoto_Clicked" BackgroundColor="#6495ED" TextColor="White" FontAttributes="Bold" Margin="0,10,0,10"/>
 
-                    <ImageButton Grid.Column="0" HeightRequest="50" WidthRequest="50" BackgroundColor="#F8F8FF" CornerRadius="25" Source="foto.png" Padding="10" Clicked="btnFoto_Clicked"/>
-                    <Label Grid.Column="0" Text="Inserir Foto" HorizontalOptions="Center" TextColor="#6495ED"/>
+                    <!-- Título do Curso -->
+                    <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
+                        <Entry x:Name="txtTitulo" Placeholder="TÍTULO" FontAttributes="Bold" FontSize="20" Margin="10"/>
+                    </Frame>
 
-                    <ImageButton Grid.Column="1" HeightRequest="50" WidthRequest="50" BackgroundColor="#F8F8FF" CornerRadius="25" Source="publicar.png" Padding="10" Clicked="btnPublicar_Clicked"/>
-                    <Label Grid.Column="1" Text="Publicar Curso" HorizontalOptions="Center" TextColor="#6495ED"/>
+                    <!-- Subtítulo do Curso -->
+                    <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
+                        <Entry x:Name="txtSubtitulo" Placeholder="SubTítulo [OPCIONAL]" FontSize="18" Margin="10"/>
+                    </Frame>
+
+                    <!-- Autor -->
+                    <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
+                        <Entry x:Name="txtAutor" Placeholder="Autor" FontSize="16" Margin="10"/>
+                    </Frame>
+
+                    <!-- Data de Publicação -->
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                        <Label Text="Data de Publicação:" VerticalOptions="Center"/>
+                        <DatePicker x:Name="dtAtualizacao" DateSelected="dtAtualizacao_DateSelected"/>
+                    </StackLayout>
+
+                    <!-- Descrição Detalhada -->
+                    <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
+                        <Editor x:Name="txtDesc" Placeholder="Descrição detalhada" HeightRequest="100" Margin="10"/>
+                    </Frame>
+
+                    <!-- Descrição Resumida -->
+                    <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
+                        <Entry x:Name="txtDescSecundaria" Placeholder="Descrição Resumida" FontSize="16" Margin="10"/>
+                    </Frame>
+
+                    <!-- Duração -->
+                    <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
+                        <Entry x:Name="txtDuracao" Placeholder="Duração" FontSize="16" Margin="10"/>
+                    </Frame>
+
+                    <!-- Botão para Publicar o Curso -->
+                    <Button Text="Publicar Curso" Clicked="btnPublicar_Clicked" BackgroundColor="#6495ED" TextColor="White" FontAttributes="Bold" Margin="0,10,0,0"/>
                 </StackLayout>
-            </StackLayout>
-        </ScrollView>
-    </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

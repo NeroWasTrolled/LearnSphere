@@ -20,28 +20,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackLayout Grid.Row="0" Spacing="20">
-            <StackLayout Orientation="Horizontal">
-                <ImageButton HeightRequest="70" BackgroundColor="#F8F8FF" WidthRequest="70" CornerRadius="50" Source="pesquisar.png" Padding="10" Clicked="OnSearchButtonClicked"/>
+        <StackLayout Grid.Row="0" Spacing="8" Padding="16">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <ImageButton HeightRequest="40" WidthRequest="40" CornerRadius="20" BackgroundColor="Transparent" Source="pesquisar.png" Clicked="OnSearchButtonClicked"/>
             </StackLayout>
 
-            <StackLayout HeightRequest="200" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+            <StackLayout HeightRequest="160" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
                 <Grid>
-                    <Image Source="fluxo.png" Aspect="AspectFill" HorizontalOptions="FillAndExpand"/>
                     <Image Source="fluxo.png" Aspect="AspectFill" HorizontalOptions="FillAndExpand"/>
                 </Grid>
             </StackLayout>
         </StackLayout>
 
         <ScrollView Grid.Row="2">
-            <ListView x:Name="cursosListView" Margin="15" ItemSelected="cursosListView_ItemSelected" RowHeight="120" SeparatorColor="Black">
+            <ListView x:Name="cursosListView" Margin="16" ItemSelected="cursosListView_ItemSelected" RowHeight="100" SeparatorColor="Transparent" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Frame CornerRadius="10" Margin="4" Padding="5" BackgroundColor="#FFFFFF">
-                                <StackLayout Orientation="Horizontal" Spacing="10">
-                                    <Image Source="{Binding Imagem}" Aspect="AspectFill" WidthRequest="100" HeightRequest="100"/>
-                                    <StackLayout Orientation="Vertical" Spacing="5">
+                            <Frame CornerRadius="8" Margin="4" Padding="8" BackgroundColor="#FFFFFF" HasShadow="True">
+                                <StackLayout Orientation="Horizontal" Spacing="8">
+                                    <Image Source="{Binding Imagem}" Aspect="AspectFill" WidthRequest="80" HeightRequest="80"/>
+                                    <StackLayout Orientation="Vertical" Spacing="4" VerticalOptions="CenterAndExpand">
                                         <Label Text="{Binding titulo}" FontAttributes="Bold" FontSize="18" TextColor="#000000" />
                                         <Label Text="{Binding desc_secundaria}" LineBreakMode="TailTruncation" FontSize="14" TextColor="#666666" />
                                     </StackLayout>

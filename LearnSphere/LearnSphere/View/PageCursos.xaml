@@ -5,45 +5,36 @@
 
     <ScrollView>
         <StackLayout Padding="20">
-            <!-- Imagem de Capa do Curso -->
             <Frame CornerRadius="10" BorderColor="Gray" Padding="0">
                 <Image x:Name="cursoImage" Aspect="AspectFill" HeightRequest="200" WidthRequest="300"/>
             </Frame>
 
-            <!-- Título do Curso -->
             <Label Text="TÍTULO" FontAttributes="Bold" FontSize="20"/>
             <Label x:Name="cursoNome" FontSize="20" FontAttributes="Bold" Margin="10,0"/>
 
-            <!-- Subtítulo do Curso -->
             <Label Text="SubTítulo [OPCIONAL]" FontAttributes="Bold" FontSize="18"/>
             <Label x:Name="cursoSubtitulo" FontSize="18" Margin="10,0"/>
 
-            <!-- Autor -->
             <Label Text="Autor" FontAttributes="Bold" FontSize="16"/>
             <Label x:Name="cursoAutor" FontSize="16" Margin="10,0"/>
 
-            <!-- Data de Publicação -->
             <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
                 <Label Text="Data de Publicação:" VerticalOptions="Center" FontAttributes="Bold"/>
                 <Label x:Name="cursoData" VerticalOptions="Center" Margin="10,0"/>
             </StackLayout>
 
-            <!-- Descrição do Curso com Mostrar Mais/Menos -->
             <StackLayout x:Name="cursoLayout">
                 <Label Text="Descrição" FontAttributes="Bold" FontSize="16"/>
                 <Label x:Name="cursoDescricao" LineBreakMode="TailTruncation" MaxLines="3"/>
                 <Label x:Name="mostrarMaisLabel" Text="Mostrar mais" FontAttributes="Bold" TextColor="#6495ED"/>
             </StackLayout>
 
-            <!-- Descrição Resumida -->
             <Label Text="Descrição Resumida" FontAttributes="Bold" FontSize="16"/>
             <Label x:Name="cursoDescSecundaria" FontSize="16" Margin="10,0"/>
 
-            <!-- Duração -->
             <Label Text="Duração" FontAttributes="Bold" FontSize="16"/>
             <Label x:Name="cursoDuracao" FontSize="16" Margin="10,0"/>
 
-            <!-- Botões de Ação -->
             <Button x:Name="ButtonAdicionarCarrinho" Text="Adicionar ao Carrinho" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnAdicionarCarrinhoClicked"/>
             <Button x:Name="ButtonRemoverCarrinho" Text="Remover do Carrinho" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnRemoverCarrinhoClicked" IsVisible="False"/>
             <Button x:Name="ButtonComprar" Text="Comprar Agora" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnComprarClicked"/>

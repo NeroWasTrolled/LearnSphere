@@ -1,47 +1,48 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LearnSphere.View.PageCadastrar" BackgroundColor="#F0F0F0">
-    
-    <StackLayout>
-        <StackLayout Orientation="Horizontal" Padding="20" Spacing="10" BackgroundColor="#FFFFFF">
-            <Image Source="Template" WidthRequest="40" HeightRequest="40"/>
-            <Label Text="LearnSphere" FontSize="Large" VerticalOptions="Center" TextColor="#000000"/>
+             x:Class="LearnSphere.View.PageCadastrar"
+             BackgroundColor="#800080"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header with Logo and App Name -->
+        <StackLayout BackgroundColor="White" Padding="16" Spacing="8" Grid.Row="0">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Spacing="8">
+                <Image Source="Template" WidthRequest="40" HeightRequest="40"/>
+                <Label Text="LearnSphere" FontSize="24" VerticalOptions="Center" TextColor="#000000"/>
+            </StackLayout>
         </StackLayout>
 
-        <ScrollView>
-            <StackLayout Padding="20">
-                <Label Text="Cadastre-se" FontSize="Medium" TextColor="#4B0082"/>
-
-                <Frame CornerRadius="5" Padding="0" BackgroundColor="#FFFFFF" BorderColor="#D3D3D3" HasShadow="False" Margin="0, 20, 0, 0">
-                    <Entry x:Name="txtusuario" Placeholder="Usuário" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing" Margin="10,0"/>
+        <!-- Register Form -->
+        <ScrollView Grid.Row="1">
+            <StackLayout Padding="16" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="20">
+                <Frame BackgroundColor="White" CornerRadius="16" Padding="16" WidthRequest="300">
+                    <StackLayout Spacing="20">
+                        <Label Text="Cadastre-se" FontSize="16" TextColor="#800080" HorizontalOptions="Center"/>
+                        <Entry x:Name="txtusuario" Placeholder="Usuário" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing"/>
+                        <Entry x:Name="txtemail" Placeholder="E-mail" Keyboard="Email" ReturnType="Next" ClearButtonVisibility="WhileEditing"/>
+                        <Entry x:Name="txtcpf" Placeholder="CPF" Keyboard="Numeric" ReturnType="Next" ClearButtonVisibility="WhileEditing"/>
+                        <Entry x:Name="txtcelular" Placeholder="Celular" Keyboard="Telephone" ReturnType="Next" ClearButtonVisibility="WhileEditing"/>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                            <Entry x:Name="txtsenha" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing" HorizontalOptions="FillAndExpand"/>
+                            <ImageButton Source="eye_icon.png" BackgroundColor="Transparent" Clicked="OnTogglePasswordVisibility" WidthRequest="24" HeightRequest="24"/>
+                        </StackLayout>
+                        <Label Text="Sua senha precisa ter no mínimo 7 caracteres e deve conter letras e números." FontSize="12" TextColor="Gray"/>
+                        <Button x:Name="BtnCadastrar" Text="CADASTRAR" BackgroundColor="#800080" TextColor="White" CornerRadius="16" Clicked="BtnCadastrar_Clicked"/>
+                        <Label Text="Já tem uma conta? Acesse aqui" TextColor="#800080" HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Login_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
                 </Frame>
-                <Frame CornerRadius="5" Padding="0" BackgroundColor="#FFFFFF" BorderColor="LightGray" HasShadow="False" Margin="0, 10, 0, 0">
-                    <Entry x:Name="txtemail" Placeholder="E-mail" Keyboard="Email" ReturnType="Next" ClearButtonVisibility="WhileEditing" Margin="10,0"/>
-                </Frame>
-                <Frame CornerRadius="5" Padding="0" BackgroundColor="#FFFFFF" BorderColor="LightGray" HasShadow="False" Margin="0, 10, 0, 0">
-                    <Entry x:Name="txtcpf" Placeholder="CPF" Keyboard="Numeric" ReturnType="Next" ClearButtonVisibility="WhileEditing" Margin="10,0"/>
-                </Frame>
-                <Frame CornerRadius="5" Padding="0" BackgroundColor="#FFFFFF" BorderColor="LightGray" HasShadow="False" Margin="0, 10, 0, 0">
-                    <Entry x:Name="txtcelular" Placeholder="Celular" Keyboard="Telephone" ReturnType="Next" ClearButtonVisibility="WhileEditing" Margin="10,0"/>
-                </Frame>
-                <Frame CornerRadius="5" Padding="0" BackgroundColor="#FFFFFF" BorderColor="LightGray" HasShadow="False" Margin="0, 10, 0, 0">
-                    <Entry x:Name="txtsenha" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing" Margin="10,0"/>
-                </Frame>
-
-                <Label Text="Sua senha precisa ter no mínimo 7 caracteres e deve conter letras e números." 
-                       FontSize="Small"
-                       Margin="0, 10, 0, 20" TextColor="Gray"/>
-                <Button x:Name="BtnCadastrar" Text="CADASTRAR" BackgroundColor="#800080" TextColor="#FFFFFF" CornerRadius="20" Clicked="BtnCadastrar_Clicked" Margin="0, 20, 0, 10"/>
-
-                <Label Text="Já tem uma conta? Acesse aqui"
-                       TextColor="#4B0082"
-                       HorizontalOptions="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer x:Name="Login" Tapped="Login_Tapped"/>
-                    </Label.GestureRecognizers>
-                </Label>
-
             </StackLayout>
         </ScrollView>
-    </StackLayout>
+    </Grid>
 </ContentPage>

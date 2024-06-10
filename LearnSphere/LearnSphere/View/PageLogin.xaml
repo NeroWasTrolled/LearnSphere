@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LearnSphere.View.PageLogin" BackgroundColor="#F0F0F0">
+             x:Class="LearnSphere.View.PageLogin"
+             BackgroundColor="#800080"
+             NavigationPage.HasNavigationBar="False">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -9,33 +11,33 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackLayout Orientation="Horizontal" Padding="20" Spacing="10" BackgroundColor="#FFFFFF">
-            <Image Source="Template" WidthRequest="40" HeightRequest="40"/>
-            <Label Text="LearnSphere" FontSize="Large" VerticalOptions="Center" TextColor="#000000"/>
+        <!-- Header with Logo and App Name -->
+        <StackLayout BackgroundColor="White" Padding="16" Spacing="8" Grid.Row="0">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Spacing="8">
+                <Image Source="Template" WidthRequest="40" HeightRequest="40"/>
+                <Label Text="LearnSphere" FontSize="24" VerticalOptions="Center" TextColor="#000000"/>
+            </StackLayout>
         </StackLayout>
 
+        <!-- Login Form -->
         <ScrollView Grid.Row="1">
-            <StackLayout Padding="20">
-
-                <Label Text="Use os dados da sua conta para entrar:" FontSize="Medium" TextColor="#4B0082"/>
-
-                <Frame CornerRadius="5" Padding="0" BackgroundColor="White" BorderColor="LightGray" HasShadow="False" Margin="0, 20, 0, 0">
-                    <Entry x:Name="txtLogin" Placeholder="Usuário/Email/Número" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing" Margin="10,0"/>
+            <StackLayout Padding="16" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="20">
+                <Frame BackgroundColor="White" CornerRadius="16" Padding="16" WidthRequest="300">
+                    <StackLayout Spacing="20">
+                        <Label Text="Use os dados da sua conta para entrar:" FontSize="16" TextColor="#800080" HorizontalOptions="Center"/>
+                        <Entry x:Name="txtLogin" Placeholder="Usuário/Email/Número" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing"/>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                            <Entry x:Name="txtSenhaLogin" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing" HorizontalOptions="FillAndExpand"/>
+                            <ImageButton Source="eye_icon.png" BackgroundColor="Transparent" Clicked="OnTogglePasswordVisibility" WidthRequest="24" HeightRequest="24"/>
+                        </StackLayout>
+                        <Button x:Name="BtnEntrar" Text="ENTRAR" BackgroundColor="#800080" TextColor="White" CornerRadius="16" Clicked="BtnEntrar_Clicked"/>
+                        <Label Text="Não tem uma conta? Criar aqui" TextColor="#800080" HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="CriarConta_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
                 </Frame>
-                <Frame CornerRadius="5" Padding="0" BackgroundColor="White" BorderColor="LightGray" HasShadow="False" Margin="0, 10, 0, 0">
-                    <Entry x:Name="txtSenhaLogin" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing" Margin="10,0"/>
-                </Frame>
-
-                <Button x:Name="BtnEntrar" Text="ENTRAR" BackgroundColor="#800080" TextColor="#FFFFFF" CornerRadius="20" Clicked="BtnEntrar_Clicked" Margin="0, 20, 0, 10"/>
-
-                <Label Text="Não tem uma conta? Criar aqui"
-                       TextColor="#4B0082"
-                       HorizontalOptions="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="CriarConta_Tapped"/>
-                    </Label.GestureRecognizers>
-                </Label>
-
             </StackLayout>
         </ScrollView>
     </Grid>

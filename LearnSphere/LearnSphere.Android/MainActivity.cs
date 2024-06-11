@@ -1,8 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.OS;
 using Android.Runtime;
-using Android.Views;
+using Android.OS;
 using Xamarin.Forms.Platform.Android;
 
 namespace LearnSphere.Droid
@@ -10,21 +9,25 @@ namespace LearnSphere.Droid
     [Activity(Label = "LearnSphere", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
-		protected override void OnCreate(Bundle savedInstanceState)
-		{
-			TabLayoutResource = Resource.Layout.Tabbar;
-			ToolbarResource = Resource.Layout.Toolbar;
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            TabLayoutResource = Resource.Layout.Tabbar;
+            ToolbarResource = Resource.Layout.Toolbar;
 
-			base.OnCreate(savedInstanceState);
+            base.OnCreate(savedInstanceState);
 
-			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-			LoadApplication(new App());
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            LoadApplication(new App());
 
-			// Change status bar color
-			Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#4B0082"));
-		}
-
-		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+            // Set StatusBar Color
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            {
+                Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#7469B6"));
+                Window.SetNavigationBarColor(Android.Graphics.Color.ParseColor("#7469B6"));
+            }
+        }
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);

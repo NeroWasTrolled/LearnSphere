@@ -1,28 +1,19 @@
 ﻿<Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:LearnSphere.Converters"
              x:Class="LearnSphere.App">
     <Application.Resources>
-        <ResourceDictionary>
-            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
-        </ResourceDictionary>
+        <!-- Application ResourceDictionary -->
+            <ResourceDictionary>
+                <Color x:Key="PrimaryColor">#7469B6</Color>
+                <Color x:Key="BackgroundColor">#EEEBEF</Color>
+                <Color x:Key="TextColor">#151515</Color>
+                <Color x:Key="SecondaryColor">#E1AFD1</Color>
+                <Color x:Key="TertiaryColor">#AD88C6</Color>
 
-        <ResourceDictionary>
-            <Color x:Key="PrimaryColor">#800080</Color>
-            <Color x:Key="PrimaryDarkColor">#4B0082</Color>
-            <Color x:Key="AccentColor">#FF00FF</Color>
-
-            <Style TargetType="Shell">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryColor}" />
-                <Setter Property="Shell.ForegroundColor" Value="White" />
-                <Setter Property="Shell.TitleColor" Value="White" />
-                <Setter Property="Shell.DisabledColor" Value="#B0B0B0" />
-                <Setter Property="Shell.UnselectedColor" Value="White" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource PrimaryColor}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White" />
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#D3D3D3" />
-                <Setter Property="Shell.TabBarTitleColor" Value="White" />
-            </Style>
-        </ResourceDictionary>
-    </Application.Resources>
+                <Style TargetType="NavigationPage">
+                    <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
+                    <Setter Property="BarTextColor" Value="White" />
+                </Style>
+            </ResourceDictionary>
+        </Application.Resources>
 </Application>

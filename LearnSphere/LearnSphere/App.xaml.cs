@@ -12,8 +12,8 @@ namespace LearnSphere
     {
         public static Usuarios UsuarioLogado { set; get; }
 
-        public static String DbName;
-        public static String DbPath;
+        public static string DbName;
+        public static string DbPath;
 
         public App()
         {
@@ -24,7 +24,7 @@ namespace LearnSphere
             Routing.RegisterRoute(nameof(PagePublicar), typeof(PagePublicar));
             Routing.RegisterRoute(nameof(PagePerfil), typeof(PagePerfil));
 
-            MainPage = new PagePrincipal();
+            MainPage = new NavigationPage(new PagePrincipal());
         }
 
         public App(string dbPath, string dbName)
@@ -32,7 +32,7 @@ namespace LearnSphere
             InitializeComponent();
             App.DbName = dbName;
             App.DbPath = dbPath;
-            MainPage = new PagePrincipal();
+            MainPage = new NavigationPage(new PagePrincipal());
         }
 
         protected override void OnStart()
@@ -53,12 +53,12 @@ namespace LearnSphere
             if (navigationPage != null)
             {
                 var allowedPagesWithoutLogin = new HashSet<Type>
-            {
-                typeof(PageHome),
-                typeof(PagePrincipal),
-                typeof(SearchPage),
-                typeof(PageCursos)
-            };
+                {
+                    typeof(PageHome),
+                    typeof(PagePrincipal),
+                    typeof(SearchPage),
+                    typeof(PageCursos)
+                };
 
                 if (allowedPagesWithoutLogin.Contains(page.GetType()))
                 {
@@ -69,7 +69,7 @@ namespace LearnSphere
                     if (page is PagePublicar && !LoginManager.IsUserFornecedor())
                     {
                         await Application.Current.MainPage.DisplayAlert("Acesso Negado", "Você precisa ser um provedor para publicar um curso.", "OK");
-                        await Shell.Current.GoToAsync("//PageHome");
+                        await navigationPage.PopToRootAsync();
                     }
                     else
                     {
@@ -79,7 +79,7 @@ namespace LearnSphere
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert("Acesso Negado", "Você precisa estar logado para acessar essa página.", "OK");
-                    await Shell.Current.GoToAsync("//PageLogin");
+                    await navigationPage.PushAsync(new PageLogin());
                 }
             }
         }

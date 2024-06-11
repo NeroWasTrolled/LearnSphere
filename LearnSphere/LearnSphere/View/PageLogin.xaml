@@ -2,9 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LearnSphere.View.PageLogin"
-             BackgroundColor="#800080"
-             NavigationPage.HasNavigationBar="False"
-             Title="Login">
+             BackgroundColor="#7469B6"
+             NavigationPage.HasNavigationBar="False">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -12,16 +11,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header with Logo and App Name -->
-        <StackLayout BackgroundColor="White" Padding="16" Spacing="8" Grid.Row="0" HorizontalOptions="FillAndExpand">
-            <Image Source="LearnSphere.png" HeightRequest="60" HorizontalOptions="Center"/>
+        <StackLayout BackgroundColor="White" Padding="20" Spacing="10" Grid.Row="0">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Image Source="LearnSphere" WidthRequest="120" HeightRequest="120"/>
+            </StackLayout>
         </StackLayout>
 
-        <!-- Login Form -->
         <ScrollView Grid.Row="1">
-            <StackLayout Padding="16" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                <Frame BackgroundColor="White" CornerRadius="20" Padding="16" WidthRequest="300">
-                    <StackLayout Spacing="16">
+            <StackLayout Padding="20" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Frame BackgroundColor="White" CornerRadius="20" Padding="20" WidthRequest="300">
+                    <StackLayout Spacing="20">
                         <Label Text="Use os dados da sua conta para entrar:" FontSize="16" TextColor="#800080" HorizontalOptions="Center"/>
                         <Entry x:Name="txtLogin" Placeholder="Usuário/Email/Número" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing" />
                         <Entry x:Name="txtSenhaLogin" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing"/>

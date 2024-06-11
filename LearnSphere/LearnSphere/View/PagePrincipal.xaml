@@ -1,18 +1,20 @@
 ﻿<Shell xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:LearnSphere.View"
-       x:Class="LearnSphere.View.PagePrincipal">
+       x:Class="LearnSphere.View.PagePrincipal"
+       Shell.NavBarIsVisible="False"
+       BackgroundColor="#EEEBEF"
+       Title="LearnSphere">
 
     <TabBar>
-        <Tab Title="Home" Icon="home.png">
-            <ShellContent Route="PageHome" ContentTemplate="{DataTemplate views:PageHome}" />
-        </Tab>
-        <Tab Title="Publicar" Icon="publicar.png">
-            <ShellContent Route="PagePublicar" ContentTemplate="{DataTemplate views:PagePublicar}" />
-        </Tab>
-        <Tab Title="Perfil" Icon="perfil.png">
-            <ShellContent Route="PagePerfil" ContentTemplate="{DataTemplate views:PagePerfil}" />
-        </Tab>
+        <ShellContent Title="Home"
+                      Icon="home.png"
+                      ContentTemplate="{DataTemplate views:PageHome}" />
+        <ShellContent Title="Publicar"
+                      Icon="publicar.png"
+                      ContentTemplate="{DataTemplate views:PagePublicar}" />
+        <ShellContent Title="Perfil"
+                      Icon="perfil.png"
+                      ContentTemplate="{DataTemplate views:PagePerfil}" />
     </TabBar>
-
 </Shell>

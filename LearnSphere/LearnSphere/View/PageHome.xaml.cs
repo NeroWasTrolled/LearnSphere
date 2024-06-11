@@ -16,13 +16,14 @@ namespace LearnSphere.View
 			CarregarCursos();
 		}
 
-		protected override void OnAppearing()
-		{
-			base.OnAppearing();
-			CarregarCursos();
-		}
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            CarregarCursos();
+            await Shell.Current.Navigation.PopToRootAsync();
+        }
 
-		private void CarregarCursos()
+        private void CarregarCursos()
 		{
 			Device.BeginInvokeOnMainThread(() =>
 			{

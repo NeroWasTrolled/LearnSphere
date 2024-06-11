@@ -6,21 +6,19 @@ using Xamarin.Essentials;
 using LearnSphere.Models;
 using LearnSphere.Controller;
 using System.Collections.Generic;
-using LearnSphere.Controller;
-using LearnSphere.Models;
 
 namespace LearnSphere.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PagePublicar : ContentPage
 	{
-		private int star;
 		private Cursos novoCurso;
 		private List<Cursos> listaCursos;
+
 		public PagePublicar()
 		{
 			InitializeComponent();
-
+			VerificarLoginEPermissao();
 		}
 
 		public PagePublicar(Cursos curso)
@@ -28,28 +26,22 @@ namespace LearnSphere.View
 			InitializeComponent();
 			listaCursos = new List<Cursos>();
 			novoCurso = new Cursos();
-
+			VerificarLoginEPermissao();
 		}
 
-		private void Reset()
+		private async void VerificarLoginEPermissao()
 		{
-			ChangeTextColor(5, Color.Gray);
-		}
-
-		private void ChangeTextColor(int starcount, Color color)
-		{
-			for (int i = 1; i <= starcount; i++)
+			if (!LoginManager.IsUserLoggedIn)
 			{
-				(FindByName($"star{i}") as Label).TextColor = color;
-				star = i;
+				await Shell.Current.GoToAsync($"{nameof(PageLogin)}");
+				return;
 			}
-		}
 
-		private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-		{
-			Reset();
-			Label clicked = sender as Label;
-			ChangeTextColor(Convert.ToInt32(clicked.StyleId.Substring(4, 1)), Color.Yellow);
+			if (!LoginManager.IsUserFornecedor())
+			{
+				await DisplayAlert("Acesso Negado", "Você precisa ser um provedor para publicar um curso.", "OK");
+				await Shell.Current.GoToAsync($"//{nameof(PageHome)}");
+			}
 		}
 
 		private async void btnFoto_Clicked(object sender, EventArgs e)
@@ -93,9 +85,9 @@ namespace LearnSphere.View
 				foto = fotoBytes,
 				desc_principal = txtDesc.Text,
 				desc_secundaria = txtDescSecundaria.Text,
-				estrelas = star,
 				criador = txtAutor.Text,
 				duracao = txtDuracao.Text,
+				atualizacao = dtAtualizacao.Date
 			};
 
 			MySQLCon.Inserir(novoCurso);
@@ -112,7 +104,6 @@ namespace LearnSphere.View
 					return File.ReadAllBytes(filePath);
 				}
 			}
-
 			return null;
 		}
 
@@ -122,22 +113,10 @@ namespace LearnSphere.View
 
 			novoCurso.atualizacao = dataSelecionada;
 		}
-
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-
-            if (!LoginManager.IsUserLoggedIn)
-            {
-                await Shell.Current.GoToAsync($"{nameof(PageLogin)}");
-                return;
-            }
-
-            if (!LoginManager.IsUserFornecedor())
-            {
-                await DisplayAlert("Acesso Negado", "Você precisa ser um provedor para publicar um curso.", "OK");
-                await Shell.Current.GoToAsync($"//{nameof(PageHome)}");
-            }
-        }
-    }
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+			VerificarLoginEPermissao();
+		}
+	}
 }

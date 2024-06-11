@@ -10,25 +10,21 @@ namespace LearnSphere.Droid
     [Activity(Label = "LearnSphere", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            Xamarin.Forms.Forms.Init(this, savedInstanceState);
+		protected override void OnCreate(Bundle savedInstanceState)
+		{
+			TabLayoutResource = Resource.Layout.Tabbar;
+			ToolbarResource = Resource.Layout.Toolbar;
 
-            // Definir a cor da barra de status e da barra de navegação
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-            {
-                Window.DecorView.SystemUiVisibility = (StatusBarVisibility)(
-                    SystemUiFlags.LayoutStable | SystemUiFlags.LayoutFullscreen | SystemUiFlags.LightStatusBar);
-                Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#800080")); // Roxo
-                Window.SetNavigationBarColor(Android.Graphics.Color.ParseColor("#800080")); // Roxo
-            }
+			base.OnCreate(savedInstanceState);
 
-            LoadApplication(new App());
-        }
+			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+			LoadApplication(new App());
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+			// Change status bar color
+			Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#4B0082"));
+		}
+
+		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);

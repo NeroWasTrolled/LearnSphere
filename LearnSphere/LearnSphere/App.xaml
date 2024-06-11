@@ -8,9 +8,20 @@
         </ResourceDictionary>
 
         <ResourceDictionary>
-            <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="#800080" />
-                <Setter Property="BarTextColor" Value="White" />
+            <Color x:Key="PrimaryColor">#800080</Color>
+            <Color x:Key="PrimaryDarkColor">#4B0082</Color>
+            <Color x:Key="AccentColor">#FF00FF</Color>
+
+            <Style TargetType="Shell">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B0B0B0" />
+                <Setter Property="Shell.UnselectedColor" Value="White" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#D3D3D3" />
+                <Setter Property="Shell.TabBarTitleColor" Value="White" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

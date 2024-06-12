@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using LearnSphere.Controller;
 using LearnSphere.Models;
 using Xamarin.Forms;
@@ -28,27 +29,52 @@ namespace LearnSphere.View
 
 		private async void Perfil_Clicked(object sender, EventArgs e)
 		{
-			await Navigation.PushModalAsync(new EditPerfilPage());
+			try
+			{
+				await Shell.Current.GoToAsync($"{nameof(EditPerfilPage)}");
+			}
+			catch (Exception ex)
+			{
+				await DisplayAlert("Erro", $"Erro ao navegar para EditPerfilPage: {ex.Message}", "OK");
+			}
 		}
 
 		private async void ImageButton_Clicked(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new PageCursosAdquiridos());
+			try
+			{
+				await Shell.Current.GoToAsync($"{nameof(PageCursosAdquiridos)}");
+			}
+			catch (Exception ex)
+			{
+				await DisplayAlert("Erro", $"Erro ao navegar para PageCursosAdquiridos: {ex.Message}", "OK");
+			}
+		}
+
+		private async Task VerificarLogin()
+		{
+			if (!LoginManager.IsUserLoggedIn)
+			{
+				await Shell.Current.GoToAsync($"{nameof(PageLogin)}");
+			}
 		}
 
 		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
-
-			if (!LoginManager.IsUserLoggedIn)
-			{
-				await Navigation.PushAsync(new PageLogin());
-			}
+			await VerificarLogin();
 		}
 
 		private async void Carrinho_Clicked(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new PageCarrinho());
+			try
+			{
+				await Shell.Current.GoToAsync($"{nameof(PageCarrinho)}");
+			}
+			catch (Exception ex)
+			{
+				await DisplayAlert("Erro", $"Erro ao navegar para PageCarrinho: {ex.Message}", "OK");
+			}
 		}
 	}
 }

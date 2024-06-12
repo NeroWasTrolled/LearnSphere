@@ -6,12 +6,14 @@ using Xamarin.Essentials;
 using LearnSphere.Models;
 using LearnSphere.Controller;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LearnSphere.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PagePublicar : ContentPage
 	{
+		private int star;
 		private Cursos novoCurso;
 		private List<Cursos> listaCursos;
 
@@ -29,7 +31,7 @@ namespace LearnSphere.View
 			VerificarLoginEPermissao();
 		}
 
-		private async void VerificarLoginEPermissao()
+		private async Task VerificarLoginEPermissao()
 		{
 			if (!LoginManager.IsUserLoggedIn)
 			{
@@ -42,6 +44,27 @@ namespace LearnSphere.View
 				await DisplayAlert("Acesso Negado", "Você precisa ser um provedor para publicar um curso.", "OK");
 				await Shell.Current.GoToAsync($"//{nameof(PageHome)}");
 			}
+		}
+
+		private void Reset()
+		{
+			ChangeTextColor(5, Color.Gray);
+		}
+
+		private void ChangeTextColor(int starcount, Color color)
+		{
+			for (int i = 1; i <= starcount; i++)
+			{
+				(FindByName($"star{i}") as Label).TextColor = color;
+				star = i;
+			}
+		}
+
+		private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+		{
+			Reset();
+			Label clicked = sender as Label;
+			ChangeTextColor(Convert.ToInt32(clicked.StyleId.Substring(4, 1)), Color.Yellow);
 		}
 
 		private async void btnFoto_Clicked(object sender, EventArgs e)
@@ -85,6 +108,7 @@ namespace LearnSphere.View
 				foto = fotoBytes,
 				desc_principal = txtDesc.Text,
 				desc_secundaria = txtDescSecundaria.Text,
+				estrelas = star,
 				criador = txtAutor.Text,
 				duracao = txtDuracao.Text,
 				atualizacao = dtAtualizacao.Date
@@ -104,19 +128,20 @@ namespace LearnSphere.View
 					return File.ReadAllBytes(filePath);
 				}
 			}
+
 			return null;
 		}
 
 		private void dtAtualizacao_DateSelected(object sender, DateChangedEventArgs e)
 		{
 			DateTime dataSelecionada = e.NewDate;
-
 			novoCurso.atualizacao = dataSelecionada;
 		}
+
 		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
-			VerificarLoginEPermissao();
+			await VerificarLoginEPermissao();
 		}
 	}
 }

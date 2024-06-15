@@ -11,7 +11,7 @@ namespace LearnSphere.Controller
 {
 	public class Users
 	{
-		static string conn = @"server=sql.freedb.tech;port=3306;database=freedb_cursos;user=freedb_adminv2;password=K3X59F@xY&@pYB?";
+		static string conn = @"server=sql10.freesqldatabase.com;port=3306;database=sql10714026;user=sql10714026;password=pf5lL1idAD";
 		public static string StatusMessage { get; set; }
 
 		public static List<Usuarios> ListarUser()
@@ -62,28 +62,24 @@ namespace LearnSphere.Controller
 		{
 			try
 			{
-				// Verifique se o email está no formato correto
 				if (!IsValidEmail(users.email))
 				{
 					StatusMessage = $"Erro: O email '{users.email}' não está no formato correto.";
 					return;
 				}
 
-				// Verifique se a senha é forte o suficiente
 				if (!IsStrongPassword(users.senha))
 				{
 					StatusMessage = "Erro: A senha deve conter pelo menos uma letra e um número.";
 					return;
 				}
 
-				// Verifique se o CPF está no formato correto
 				if (!IsValidCPF(users.cpf))
 				{
 					StatusMessage = $"Erro: O CPF '{users.cpf}' não está no formato correto.";
 					return;
 				}
 
-				// Formate o CPF para XXX.XXX.XXX-XX
 				string cpfFormatado = users.cpf.Replace(".", "").Replace("-", "");
 
 				string sql = "INSERT INTO users(usuario, email, celular, senha, cpf, fornecedor) " +
@@ -97,7 +93,7 @@ namespace LearnSphere.Controller
 						cmd.Parameters.AddWithValue("@email", users.email);
 						cmd.Parameters.AddWithValue("@celular", users.celular);
 						cmd.Parameters.AddWithValue("@senha", users.senha);
-						cmd.Parameters.AddWithValue("@cpf", cpfFormatado); // Use o CPF formatado
+						cmd.Parameters.AddWithValue("@cpf", cpfFormatado); 
 						cmd.Parameters.AddWithValue("@fornecedor", users.fornecedor);
 						cmd.ExecuteNonQuery();
 					}
@@ -106,12 +102,10 @@ namespace LearnSphere.Controller
 			}
 			catch (MySqlException ex)
 			{
-				// Capture exceções específicas do MySQL
 				StatusMessage = $"Erro no cadastro de Usuário: {ex.Message}";
 			}
 			catch (Exception ex)
 			{
-				// Capture outras exceções
 				StatusMessage = $"Erro no cadastro de Usuário: {ex.Message}";
 			}
 		}
@@ -145,7 +139,7 @@ namespace LearnSphere.Controller
                                     celular = reader.GetString("celular"),
                                     cpf = reader.GetString("cpf"),
                                     senha = reader.GetString("senha"),
-                                    fornecedor = reader.GetBoolean("fornecedor")  // Certifique-se de ler a coluna fornecedor
+                                    fornecedor = reader.GetBoolean("fornecedor")
                                 };
                             }
                         }

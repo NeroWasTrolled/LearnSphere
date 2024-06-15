@@ -21,7 +21,6 @@ namespace LearnSphere.Models
 
 		public ImageSource Imagem { get; set; }
 
-		// Método para converter o array de bytes em uma imagem
 		public void CarregarImagem()
 		{
 			if (foto != null && foto.Length > 0)
@@ -30,7 +29,6 @@ namespace LearnSphere.Models
 			}
 			else
 			{
-				// Se não houver imagem, definir Imagem como nulo ou uma imagem padrão
 				Imagem = ImageSource.FromFile("imagem_padrao.png");
 			}
 		}

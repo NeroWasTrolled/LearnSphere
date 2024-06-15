@@ -11,7 +11,7 @@ namespace LearnSphere.Controller
 {
 	public class MySQLCon
 	{
-		static string conn = @"server=sql.freedb.tech;port=3306;database=freedb_cursos;user=freedb_adminv2;password=K3X59F@xY&@pYB?";
+		static string conn = @"server=sql10.freesqldatabase.com;port=3306;database=sql10714026;user=sql10714026;password=pf5lL1idAD";
 		public static string StatusMessage { get; set; }
 
 		public static List<Cursos> ListarCursos()
@@ -257,5 +257,56 @@ namespace LearnSphere.Controller
 
 			return curso;
 		}
-    }
+
+		public static List<Cursos> ListarCursosPorFornecedor(int fornecedorId)
+		{
+			List<Cursos> listacursos = new List<Cursos>();
+			try
+			{
+				string sql = "SELECT * FROM cursos WHERE fornecedor_id = @fornecedorId";
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@fornecedorId", fornecedorId);
+						using (MySqlDataReader reader = cmd.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								Cursos cursos = new Cursos()
+								{
+									id = reader.GetInt32("id"),
+									titulo = reader.GetString("titulo"),
+									subtitulo = reader.GetString("subtitulo"),
+									foto = reader.IsDBNull(reader.GetOrdinal("foto")) ? null : (byte[])reader["foto"],
+									desc_principal = reader.GetString("desc_principal"),
+									desc_secundaria = reader.GetString("desc_secundaria"),
+									atualizacao = reader.GetDateTime("atualizacao"),
+									estrelas = reader.GetInt32("estrelas"),
+									criador = reader.GetString("criador"),
+									duracao = reader.GetString("duracao")
+								};
+								listacursos.Add(cursos);
+							}
+						}
+					}
+				}
+				if (listacursos.Count > 0)
+				{
+					StatusMessage = "Cursos encontrados.";
+				}
+				else
+				{
+					StatusMessage = "Nenhum Curso encontrado.";
+				}
+			}
+			catch (Exception ex)
+			{
+				StatusMessage = $"Erro ao listar Cursos: {ex.Message}";
+			}
+			return listacursos;
+		}
+
+	}
 }

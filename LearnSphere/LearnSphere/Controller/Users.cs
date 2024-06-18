@@ -36,6 +36,8 @@ namespace LearnSphere.Controller
 									email = reader.GetString("email"),
 									celular = reader.GetString("celular"),
 									senha = reader.GetString("senha"),
+									cpf = reader.GetString("cpf"),
+									fornecedor = reader.GetBoolean("fornecedor")
 								};
 								listarusers.Add(user);
 							}
@@ -44,16 +46,16 @@ namespace LearnSphere.Controller
 				}
 				if (listarusers.Count > 0)
 				{
-					StatusMessage = "Úsuario encontrado.";
+					StatusMessage = "Usuário encontrado.";
 				}
 				else
 				{
-					StatusMessage = "Nenhum Úsuario encontrado.";
+					StatusMessage = "Nenhum usuário encontrado.";
 				}
 			}
 			catch (Exception ex)
 			{
-				StatusMessage = $"Erro ao listar Úsuario: {ex.Message}";
+				StatusMessage = $"Erro ao listar usuários: {ex.Message}";
 			}
 			return listarusers;
 		}
@@ -80,7 +82,9 @@ namespace LearnSphere.Controller
 					return;
 				}
 
+				// Formatar CPF e número de celular corretamente
 				string cpfFormatado = users.cpf.Replace(".", "").Replace("-", "");
+				string celularFormatado = users.celular.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
 
 				string sql = "INSERT INTO users(usuario, email, celular, senha, cpf, fornecedor) " +
 							 "VALUES (@usuario, @email, @celular, @senha, @cpf, @fornecedor)";
@@ -91,9 +95,9 @@ namespace LearnSphere.Controller
 					{
 						cmd.Parameters.AddWithValue("@usuario", users.usuario);
 						cmd.Parameters.AddWithValue("@email", users.email);
-						cmd.Parameters.AddWithValue("@celular", users.celular);
+						cmd.Parameters.AddWithValue("@celular", celularFormatado);
 						cmd.Parameters.AddWithValue("@senha", users.senha);
-						cmd.Parameters.AddWithValue("@cpf", cpfFormatado); 
+						cmd.Parameters.AddWithValue("@cpf", cpfFormatado);
 						cmd.Parameters.AddWithValue("@fornecedor", users.fornecedor);
 						cmd.ExecuteNonQuery();
 					}
@@ -110,51 +114,49 @@ namespace LearnSphere.Controller
 			}
 		}
 
+		public static Usuarios LocalizarUser(string email, string usuario, string cpf, string senha)
+		{
+			Usuarios user = null;
+			try
+			{
+				string sql = "SELECT * FROM users WHERE (email = @Email OR usuario = @Usuario OR celular = @Celular OR cpf = @Cpf) AND senha = @Senha";
+				using (MySqlConnection con = new MySqlConnection(conn))
+				{
+					con.Open();
+					using (MySqlCommand cmd = new MySqlCommand(sql, con))
+					{
+						cmd.Parameters.AddWithValue("@Email", email);
+						cmd.Parameters.AddWithValue("@Usuario", usuario);
+						cmd.Parameters.AddWithValue("@Celular", usuario);
+						cmd.Parameters.AddWithValue("@Cpf", cpf);
+						cmd.Parameters.AddWithValue("@Senha", senha);
+						using (MySqlDataReader reader = cmd.ExecuteReader())
+						{
+							if (reader.Read())
+							{
+								user = new Usuarios()
+								{
+									id = reader.GetInt32("id"),
+									usuario = reader.GetString("usuario"),
+									email = reader.GetString("email"),
+									celular = reader.GetString("celular"),
+									cpf = reader.GetString("cpf"),
+									senha = reader.GetString("senha"),
+									fornecedor = reader.GetBoolean("fornecedor")
+								};
+							}
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				StatusMessage = $"Erro ao localizar usuário: {ex.Message}";
+			}
+			return user;
+		}
 
-        public static Usuarios LocalizarUser(string email, string usuario, string cpf, string senha)
-        {
-            Usuarios user = null;
-            try
-            {
-                string sql = "SELECT * FROM users WHERE (email = @Email OR usuario = @Usuario OR celular = @Celular OR cpf = @Cpf) AND senha = @Senha";
-                using (MySqlConnection con = new MySqlConnection(conn))
-                {
-                    con.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@Email", email);
-                        cmd.Parameters.AddWithValue("@Usuario", usuario);
-                        cmd.Parameters.AddWithValue("@Celular", usuario);
-                        cmd.Parameters.AddWithValue("@Cpf", cpf);
-                        cmd.Parameters.AddWithValue("@Senha", senha);
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                user = new Usuarios()
-                                {
-                                    id = reader.GetInt32("id"),
-                                    usuario = reader.GetString("usuario"),
-                                    email = reader.GetString("email"),
-                                    celular = reader.GetString("celular"),
-                                    cpf = reader.GetString("cpf"),
-                                    senha = reader.GetString("senha"),
-                                    fornecedor = reader.GetBoolean("fornecedor")
-                                };
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Erro ao localizar usuário: {ex.Message}";
-            }
-            return user;
-        }
-
-
-        public static void AtualizarUser(Usuarios users)
+		public static void AtualizarUser(Usuarios users)
 		{
 			try
 			{
@@ -195,7 +197,7 @@ namespace LearnSphere.Controller
 
 			try
 			{
-				string sql = "SELECT id, nome, email, fornecedor FROM usuarios WHERE email = @Email AND senha = @Senha";
+				string sql = "SELECT id, usuario, email, fornecedor FROM users WHERE email = @Email AND senha = @Senha";
 				using (MySqlConnection con = new MySqlConnection(conn))
 				{
 					con.Open();
@@ -211,7 +213,7 @@ namespace LearnSphere.Controller
 								usuario = new Usuarios
 								{
 									id = reader.GetInt32("id"),
-									usuario = reader.GetString("nome"),
+									usuario = reader.GetString("usuario"),
 									email = reader.GetString("email"),
 									fornecedor = reader.GetBoolean("fornecedor")
 								};
@@ -283,7 +285,8 @@ namespace LearnSphere.Controller
 									email = reader.GetString("email"),
 									cpf = reader.GetString("cpf"),
 									celular = reader.GetString("celular"),
-									senha = reader.GetString("senha")
+									senha = reader.GetString("senha"),
+									fornecedor = reader.GetBoolean("fornecedor")
 								};
 							}
 						}
@@ -435,6 +438,5 @@ namespace LearnSphere.Controller
 
 			return cpf.EndsWith(digito);
 		}
-
 	}
 }

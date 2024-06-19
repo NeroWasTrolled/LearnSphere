@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LearnSphere.View.PageCadastrar"
              BackgroundColor="#7469B6"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             Title="Cadastro">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -11,24 +12,24 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackLayout BackgroundColor="White" Padding="20" Spacing="10" Grid.Row="0">
+        <StackLayout BackgroundColor="White" Padding="10" Spacing="5" Grid.Row="0">
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                <Image Source="LearnSphere" WidthRequest="120" HeightRequest="120"/>
+                <Image Source="LearnSphere" WidthRequest="80" HeightRequest="80"/>
             </StackLayout>
         </StackLayout>
 
         <ScrollView Grid.Row="1">
-            <StackLayout Padding="20" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                <Frame BackgroundColor="White" CornerRadius="20" Padding="20" WidthRequest="300">
-                    <StackLayout Spacing="20">
-                        <Label Text="Cadastre-se" FontSize="16" TextColor="#800080" HorizontalOptions="Center"/>
+            <StackLayout Padding="10" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Frame BackgroundColor="White" CornerRadius="15" Padding="10" WidthRequest="250">
+                    <StackLayout Spacing="10">
+                        <Label Text="Cadastre-se" FontSize="14" TextColor="#800080" HorizontalOptions="Center"/>
                         <Entry x:Name="txtusuario" Placeholder="Usuário" Keyboard="Text" ReturnType="Next" ClearButtonVisibility="WhileEditing" />
                         <Entry x:Name="txtemail" Placeholder="E-mail" Keyboard="Email" ReturnType="Next" ClearButtonVisibility="WhileEditing" />
                         <Entry x:Name="txtcpf" Placeholder="CPF" Keyboard="Numeric" ReturnType="Next" ClearButtonVisibility="WhileEditing" />
                         <Entry x:Name="txtcelular" Placeholder="Celular" Keyboard="Telephone" ReturnType="Next" ClearButtonVisibility="WhileEditing" />
                         <Entry x:Name="txtsenha" Placeholder="Senha" Keyboard="Text" ReturnType="Next" IsPassword="True" ClearButtonVisibility="WhileEditing"/>
-                        <Button x:Name="BtnCadastrar" Text="CADASTRAR" BackgroundColor="#800080" TextColor="White" Clicked="BtnCadastrar_Clicked"/>
-                        <Label Text="Já tem uma conta? Acesse aqui" TextColor="#800080" HorizontalOptions="Center">
+                        <Button x:Name="BtnCadastrar" Text="CADASTRAR" BackgroundColor="#800080" TextColor="White" FontSize="14" Clicked="BtnCadastrar_Clicked"/>
+                        <Label Text="Já tem uma conta? Acesse aqui" TextColor="#800080" HorizontalOptions="Center" FontSize="12">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Login_Tapped"/>
                             </Label.GestureRecognizers>

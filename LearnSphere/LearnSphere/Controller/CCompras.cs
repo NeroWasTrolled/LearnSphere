@@ -72,8 +72,8 @@ namespace LearnSphere.Controller
 			try
 			{
 				string sql = @"SELECT c.* FROM cursos c 
-                       INNER JOIN compra co ON c.id = co.idcurso 
-                       WHERE co.iduser = @idUsuario"; 
+                               INNER JOIN compra co ON c.id = co.idcurso 
+                               WHERE co.iduser = @idUsuario";
 
 				using (MySqlConnection con = new MySqlConnection(conn))
 				{

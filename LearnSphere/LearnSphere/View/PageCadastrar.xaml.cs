@@ -13,8 +13,8 @@ namespace LearnSphere.View
 		public PageCadastrar()
 		{
 			InitializeComponent();
-			NavigationPage.SetHasBackButton(this, false); // Desabilita o botão de volta
-			NavigationPage.SetHasNavigationBar(this, false); // Desabilita a barra de navegação
+			NavigationPage.SetHasBackButton(this, false); 
+			NavigationPage.SetHasNavigationBar(this, false); 
 		}
 
 		private async void BtnCadastrar_Clicked(object sender, EventArgs e)

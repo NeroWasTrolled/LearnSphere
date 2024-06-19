@@ -211,7 +211,7 @@ namespace LearnSphere.Controller
 			}
 
 			return cursosEncontrados;
-		}		
+		}
 
 		public static Cursos ObterCursoPorId(int idCurso)
 		{

@@ -82,7 +82,6 @@ namespace LearnSphere.Controller
 					return;
 				}
 
-				// Formatar CPF e número de celular corretamente
 				string cpfFormatado = users.cpf.Replace(".", "").Replace("-", "");
 				string celularFormatado = users.celular.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
 
@@ -440,3 +439,5 @@ namespace LearnSphere.Controller
 		}
 	}
 }
+
+

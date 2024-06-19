@@ -19,7 +19,6 @@ namespace LearnSphere.View
             InitializeComponent();
             this.curso = curso;
 
-            // Inicializa os elementos da página com os dados do curso
             cursoImage.Source = ImageSource.FromStream(() => new MemoryStream(curso.foto));
             cursoNome.Text = curso.titulo;
             cursoSubtitulo.Text = curso.subtitulo;
@@ -31,7 +30,6 @@ namespace LearnSphere.View
             LimitarDescricao();
             VerificarCompra();
 
-            // Adicionar o TapGestureRecognizer ao Label
             var tapGesture = new TapGestureRecognizer();
             tapGesture.Tapped += MostrarMaisLabel_Tapped;
             mostrarMaisLabel.GestureRecognizers.Add(tapGesture);

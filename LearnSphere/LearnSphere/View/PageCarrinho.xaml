@@ -5,7 +5,6 @@
              Title="Carrinho">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <!-- ListView and other UI elements -->
             <StackLayout AbsoluteLayout.LayoutFlags="All"
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
                 <ListView x:Name="carrinhoListView"

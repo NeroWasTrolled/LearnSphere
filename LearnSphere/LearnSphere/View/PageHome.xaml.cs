@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Threading.Tasks;
 
 namespace LearnSphere.View
 {
@@ -14,19 +13,18 @@ namespace LearnSphere.View
 		public PageHome()
 		{
 			InitializeComponent();
-			_ = CarregarCursos();  // Use _ = para ignorar o retorno da Task
+			CarregarCursos();
 		}
 
-		protected override async void OnAppearing()
+		protected override void OnAppearing()
 		{
 			base.OnAppearing();
-			await CarregarCursos();
-			await Shell.Current.Navigation.PopToRootAsync();
+			CarregarCursos();
 		}
 
-		private async Task CarregarCursos()
+		private void CarregarCursos()
 		{
-			await Device.InvokeOnMainThreadAsync(() =>
+			Device.BeginInvokeOnMainThread(() =>
 			{
 				try
 				{

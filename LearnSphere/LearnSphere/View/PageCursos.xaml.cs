@@ -26,6 +26,7 @@ namespace LearnSphere.View
             cursoData.Text = curso.atualizacao.ToString("dd/MM/yyyy");
             cursoDescSecundaria.Text = curso.desc_secundaria;
             cursoDuracao.Text = curso.duracao;
+            cursoPreco.Text = curso.preco.ToString("C");
 
             LimitarDescricao();
             VerificarCompra();
@@ -42,11 +43,11 @@ namespace LearnSphere.View
                 try
                 {
                     bool jaComprado = CCarrinho.VerificarCompra(App.UsuarioLogado.id, curso.id);
+                    bool isAdmin = App.UsuarioLogado.admin;
+
                     if (jaComprado)
                     {
-                        ButtonComprar.IsVisible = false;
-                        ButtonAdicionarCarrinho.IsVisible = false;
-                        ButtonRemoverCarrinho.IsVisible = false;
+                        MostrarConteudoComprado();
                     }
                     else
                     {
@@ -54,6 +55,11 @@ namespace LearnSphere.View
                         ButtonComprar.IsVisible = true;
                         ButtonAdicionarCarrinho.IsVisible = !noCarrinho;
                         ButtonRemoverCarrinho.IsVisible = noCarrinho;
+
+                        if (isAdmin)
+                        {
+                            MostrarOpcoesAdmin();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -173,6 +179,7 @@ namespace LearnSphere.View
                     {
                         CCompras.InserirCompra(compra);
                         CCarrinho.RemoverDoCarrinho(App.UsuarioLogado.id, curso.id);
+                        MostrarConteudoComprado();
                         await DisplayAlert("Sucesso", "Compra realizada com sucesso!", "OK");
                         await Navigation.PopAsync();
                     }
@@ -190,6 +197,73 @@ namespace LearnSphere.View
             {
                 await DisplayAlert("Erro", $"Erro ao realizar a compra: {ex.Message}", "OK");
             }
+        }
+
+        private void MostrarConteudoComprado()
+        {
+            cursoConteudoLayout.IsVisible = true;
+            cursoConteudo.Text = curso.conteudo;
+            ButtonAdicionarCarrinho.IsVisible = false;
+            ButtonRemoverCarrinho.IsVisible = false;
+            ButtonComprar.IsVisible = false;
+        }
+
+        private void MostrarOpcoesAdmin()
+        {
+            ButtonAdicionarCarrinho.IsVisible = false;
+            ButtonRemoverCarrinho.IsVisible = false;
+            ButtonComprar.IsVisible = false;
+
+            Button btnPublicar = new Button
+            {
+                Text = "Publicar",
+                BackgroundColor = Color.Green,
+                TextColor = Color.White
+            };
+            btnPublicar.Clicked += async (sender, e) =>
+            {
+                try
+                {
+                    curso.publicado = true;
+                    MySQLCon.Atualizar(curso);
+                    await DisplayAlert("Sucesso", "Curso publicado com sucesso!", "OK");
+                    await Navigation.PopAsync();
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Erro", $"Erro ao publicar o curso: {ex.Message}", "OK");
+                }
+            };
+
+            Button btnRemover = new Button
+            {
+                Text = "Remover",
+                BackgroundColor = Color.Red,
+                TextColor = Color.White
+            };
+            btnRemover.Clicked += async (sender, e) =>
+            {
+                try
+                {
+                    curso.publicado = false;
+                    MySQLCon.Atualizar(curso);
+                    await DisplayAlert("Removido", "Curso removido da plataforma.", "OK");
+                    await Navigation.PopAsync();
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Erro", $"Erro ao remover o curso: {ex.Message}", "OK");
+                }
+            };
+
+            StackLayout adminLayout = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                HorizontalOptions = LayoutOptions.Center,
+                Children = { btnPublicar, btnRemover }
+            };
+
+            cursoLayout.Children.Add(adminLayout);
         }
     }
 }

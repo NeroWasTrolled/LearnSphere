@@ -1,11 +1,13 @@
-﻿using LearnSphere.Models;
-using LearnSphere.Controller;
-using System;
+﻿using LearnSphere.Controller;
+using LearnSphere.Models;
 using System.Collections.Generic;
+using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace LearnSphere.View
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageValidarCurso : ContentPage
     {
         public PageValidarCurso()
@@ -27,33 +29,11 @@ namespace LearnSphere.View
             }
         }
 
-        private async void OnCursoTapped(object sender, ItemTappedEventArgs e)
+        private async void ListViewCursos_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item is Cursos curso)
             {
-                bool publicar = await DisplayAlert("Publicar Curso", $"Deseja publicar o curso {curso.titulo}?", "Sim", "Não");
-                if (publicar)
-                {
-                    try
-                    {
-                        MySQLCon.AtualizarPublicacaoCurso(curso.id, true);
-                        CarregarCursosNaoPublicados();
-                        await DisplayAlert("Sucesso", "Curso publicado com sucesso.", "OK");
-                    }
-                    catch (Exception ex)
-                    {
-                        await DisplayAlert("Erro", $"Erro ao publicar curso: {ex.Message}", "OK");
-                    }
-                }
-            }
-        }
-
-        private void OnSwitchToggled(object sender, ToggledEventArgs e)
-        {
-            if (sender is Switch toggleSwitch && toggleSwitch.BindingContext is Cursos curso)
-            {
-                MySQLCon.AtualizarPublicacaoCurso(curso.id, toggleSwitch.IsToggled);
-                CarregarCursosNaoPublicados();
+                await Navigation.PushAsync(new PageCursosValidar(curso));
             }
         }
     }

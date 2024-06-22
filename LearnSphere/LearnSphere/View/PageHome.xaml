@@ -39,6 +39,7 @@
                                     <StackLayout Orientation="Vertical" Spacing="4" VerticalOptions="CenterAndExpand">
                                         <Label Text="{Binding titulo}" FontAttributes="Bold" FontSize="18" TextColor="#000000" />
                                         <Label Text="{Binding desc_secundaria}" LineBreakMode="TailTruncation" FontSize="14" TextColor="#666666" />
+                                        <Label Text="{Binding preco, StringFormat='Preço: {0:C}'}" FontSize="16" />
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>

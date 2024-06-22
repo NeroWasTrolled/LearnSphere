@@ -81,6 +81,12 @@ namespace LearnSphere
         {
             try
             {
+                if (!IsValidEmail(email))
+                {
+                    await page.DisplayAlert("Erro", "Formato de email incorreto.", "OK");
+                    return false;
+                }
+
                 Usuarios usuario = await Users.RealizarLogin(email, senha);
                 if (usuario != null)
                 {
@@ -92,6 +98,19 @@ namespace LearnSphere
             catch (Exception ex)
             {
                 await page.DisplayAlert("Erro", $"Erro ao efetuar login: {ex.Message}", "OK");
+                return false;
+            }
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
                 return false;
             }
         }

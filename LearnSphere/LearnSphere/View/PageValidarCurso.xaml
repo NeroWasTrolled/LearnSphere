@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout Padding="20">
             <Label Text="Cursos para Validação" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" Margin="0,10,0,20" />
-            <ListView x:Name="listViewCursos" ItemTapped="OnCursoTapped">
+            <ListView x:Name="listViewCursos" ItemTapped="ListViewCursos_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -14,7 +14,6 @@
                                 <Label Text="{Binding titulo}" FontAttributes="Bold" FontSize="16" />
                                 <Label Text="{Binding subtitulo}" FontSize="14" />
                                 <Label Text="{Binding criador}" FontSize="14" />
-                                <Switch IsToggled="{Binding publicado}" Toggled="OnSwitchToggled" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

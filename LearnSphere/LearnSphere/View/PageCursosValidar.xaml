@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LearnSphere.View.PageCursos">
-
+             x:Class="LearnSphere.View.PageCursosValidar"
+             Title="Validar Curso">
     <ScrollView>
         <StackLayout Padding="20">
             <Frame CornerRadius="10" BorderColor="Gray" Padding="0">
@@ -35,20 +35,8 @@
             <Label Text="Duração" FontAttributes="Bold" FontSize="16"/>
             <Label x:Name="cursoDuracao" FontSize="16" Margin="10,0"/>
 
-            <!-- Novo campo para o preço -->
-            <Label Text="Preço" FontAttributes="Bold" FontSize="16"/>
-            <Label x:Name="cursoPreco" FontSize="16" Margin="10,0"/>
-
-            <!-- Botões de compra -->
-            <Button x:Name="ButtonAdicionarCarrinho" Text="Adicionar ao Carrinho" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnAdicionarCarrinhoClicked"/>
-            <Button x:Name="ButtonRemoverCarrinho" Text="Remover do Carrinho" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnRemoverCarrinhoClicked" IsVisible="False"/>
-            <Button x:Name="ButtonComprar" Text="Comprar Agora" BackgroundColor="#FF5733" TextColor="#fff" Clicked="OnComprarClicked"/>
-
-            <!-- Novo campo para o conteúdo do curso -->
-            <StackLayout x:Name="cursoConteudoLayout" IsVisible="False">
-                <Label Text="Conteúdo" FontAttributes="Bold" FontSize="16"/>
-                <Label x:Name="cursoConteudo" FontSize="16" Margin="10,0"/>
-            </StackLayout>
+            <Button x:Name="ButtonPublicar" Text="Publicar" BackgroundColor="Green" TextColor="White" Clicked="OnPublicarClicked"/>
+            <Button x:Name="ButtonRemover" Text="Remover" BackgroundColor="Red" TextColor="White" Clicked="OnRemoverClicked"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

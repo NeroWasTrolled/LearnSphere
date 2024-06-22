@@ -232,6 +232,28 @@ namespace LearnSphere.Controller
             }
         }
 
+        public static void RemoverCurso(int idCurso)
+        {
+            try
+            {
+                string sql = "DELETE FROM cursos WHERE id = @idCurso";
+                using (MySqlConnection con = new MySqlConnection(conn))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idCurso", idCurso);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                StatusMessage = "Curso removido com sucesso.";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Erro ao remover curso: {ex.Message}";
+            }
+        }
+
         public static List<Cursos> Localizar(string nome)
         {
             List<Cursos> cursosEncontrados = new List<Cursos>();

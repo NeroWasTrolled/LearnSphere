@@ -1,10 +1,11 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LearnSphere.View.PagePerfil" BackgroundColor="White">
+             x:Class="LearnSphere.View.PagePerfil"
+             BackgroundColor="White">
     <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -18,7 +19,6 @@
                 <Label x:Name="lblNomeUsuario" Text="Olá, " FontAttributes="Bold" FontSize="20" TextColor="Black" HorizontalOptions="StartAndExpand"/>
 
                 <StackLayout Grid.Row="1" Padding="20" Spacing="20">
-
                     <ScrollView Orientation="Horizontal">
                         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                             <StackLayout>
@@ -39,6 +39,11 @@
                     <StackLayout>
                         <ImageButton x:Name="Carrinho" HorizontalOptions="CenterAndExpand" Source="vender.png" CornerRadius="50" BackgroundColor="#f0f1f5" Padding="10" HeightRequest="50" WidthRequest="50" Clicked="Carrinho_Clicked" />
                         <Label Text="Vendas" FontSize="12" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                    </StackLayout>
+                    <!-- Botão do Administrador -->
+                    <StackLayout x:Name="adminStackLayout" IsVisible="False" Margin="20,0,0,0">
+                        <ImageButton x:Name="Admin" HorizontalOptions="CenterAndExpand" Source="admin.png" CornerRadius="50" BackgroundColor="#f0f1f5" Padding="10" HeightRequest="50" WidthRequest="50" Clicked="Admin_Clicked"/>
+                        <Label Text="Admin" FontSize="12" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

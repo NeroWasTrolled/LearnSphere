@@ -5,58 +5,58 @@ using System;
 
 namespace LearnSphere.View
 {
-	public partial class EditPerfilPage : ContentPage
-	{
-		private Usuarios usuarioLogado;
+    public partial class EditPerfilPage : ContentPage
+    {
+        private Usuarios usuarioLogado;
 
-		public EditPerfilPage()
-		{
-			InitializeComponent();
-		}
+        public EditPerfilPage()
+        {
+            InitializeComponent();
+        }
 
-		protected override void OnAppearing()
-		{
-			base.OnAppearing();
-			usuarioLogado = LoginManager.GetLoggedInUser();
-			CarregarDadosUsuario();
-		}
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            usuarioLogado = LoginManager.GetLoggedInUser();
+            CarregarDadosUsuario();
+        }
 
-		private void CarregarDadosUsuario()
-		{
-			if (App.UsuarioLogado != null)
-			{
-				entryUsuario.Text = App.UsuarioLogado.usuario;
-				entryEmail.Text = App.UsuarioLogado.email;
-				entryTelefone.Text = App.UsuarioLogado.celular;
-				entrySenha.Text = App.UsuarioLogado.senha;
-				entryCPF.Text = App.UsuarioLogado.cpf;
+        private void CarregarDadosUsuario()
+        {
+            if (App.UsuarioLogado != null)
+            {
+                entryUsuario.Text = App.UsuarioLogado.usuario;
+                entryEmail.Text = App.UsuarioLogado.email;
+                entryTelefone.Text = App.UsuarioLogado.celular;
+                entrySenha.Text = App.UsuarioLogado.senha;
+                entryCPF.Text = App.UsuarioLogado.cpf;
 
-				FornecedorSwitch.IsToggled = App.UsuarioLogado.fornecedor;
-				Console.WriteLine($"CarregarDadosUsuario: Fornecedor = {App.UsuarioLogado.fornecedor}");
-			}
-		}
+                FornecedorSwitch.IsToggled = App.UsuarioLogado.fornecedor;
+                Console.WriteLine($"CarregarDadosUsuario: Fornecedor = {App.UsuarioLogado.fornecedor}");
+            }
+        }
 
-		private void Salvar_Clicked(object sender, EventArgs e)
-		{
-			if (usuarioLogado != null)
-			{
-				usuarioLogado.usuario = entryUsuario.Text;
-				usuarioLogado.email = entryEmail.Text;
-				usuarioLogado.celular = entryTelefone.Text;
-				usuarioLogado.senha = entrySenha.Text;
-				usuarioLogado.cpf = entryCPF.Text;
-				usuarioLogado.fornecedor = FornecedorSwitch.IsToggled;
+        private void Salvar_Clicked(object sender, EventArgs e)
+        {
+            if (usuarioLogado != null)
+            {
+                usuarioLogado.usuario = entryUsuario.Text;
+                usuarioLogado.email = entryEmail.Text;
+                usuarioLogado.celular = entryTelefone.Text;
+                usuarioLogado.senha = entrySenha.Text;
+                usuarioLogado.cpf = entryCPF.Text;
+                usuarioLogado.fornecedor = FornecedorSwitch.IsToggled;
 
-				Users.AtualizarUser(usuarioLogado);
+                Users.AtualizarUser(usuarioLogado);
 
-				DisplayAlert("Sucesso", Users.StatusMessage, "OK");
-			}
-		}
+                DisplayAlert("Sucesso", Users.StatusMessage, "OK");
+            }
+        }
 
-		private async void Desconectar_Clicked(object sender, EventArgs e)
-		{
-			LoginManager.Logout();
-			Application.Current.MainPage = new PagePrincipal();
-		}
-	}
+        private async void Desconectar_Clicked(object sender, EventArgs e)
+        {
+            LoginManager.Logout();
+            Application.Current.MainPage = new PagePrincipal();
+        }
+    }
 }

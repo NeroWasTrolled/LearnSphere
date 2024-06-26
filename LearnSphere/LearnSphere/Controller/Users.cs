@@ -11,7 +11,7 @@ namespace LearnSphere.Controller
 {
 	public class Users
 	{
-		static string conn = @"server=sql10.freesqldatabase.com;port=3306;database=sql10714026;user=sql10714026;password=pf5lL1idAD";
+		static string conn = @"server=sql.freedb.tech;port=3306;database=freedb_tcccursos;user=freedb_GabrielF;password=WJxZ6@6frNm2WQb";
 		public static string StatusMessage { get; set; }
 
 		public static List<Usuarios> ListarUser()
@@ -113,49 +113,77 @@ namespace LearnSphere.Controller
 			}
 		}
 
-		public static Usuarios LocalizarUser(string email, string usuario, string cpf, string senha)
-		{
-			Usuarios user = null;
-			try
-			{
-				string sql = "SELECT * FROM users WHERE (email = @Email OR usuario = @Usuario OR celular = @Celular OR cpf = @Cpf) AND senha = @Senha";
-				using (MySqlConnection con = new MySqlConnection(conn))
-				{
-					con.Open();
-					using (MySqlCommand cmd = new MySqlCommand(sql, con))
-					{
-						cmd.Parameters.AddWithValue("@Email", email);
-						cmd.Parameters.AddWithValue("@Usuario", usuario);
-						cmd.Parameters.AddWithValue("@Celular", usuario);
-						cmd.Parameters.AddWithValue("@Cpf", cpf);
-						cmd.Parameters.AddWithValue("@Senha", senha);
-						using (MySqlDataReader reader = cmd.ExecuteReader())
-						{
-							if (reader.Read())
-							{
-								user = new Usuarios()
-								{
-									id = reader.GetInt32("id"),
-									usuario = reader.GetString("usuario"),
-									email = reader.GetString("email"),
-									celular = reader.GetString("celular"),
-									cpf = reader.GetString("cpf"),
-									senha = reader.GetString("senha"),
-									fornecedor = reader.GetBoolean("fornecedor")
-								};
-							}
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				StatusMessage = $"Erro ao localizar usuário: {ex.Message}";
-			}
-			return user;
-		}
+        public static Usuarios LocalizarUser(string email, string user, string cpf, string senha)
+        {
+            Usuarios usuario = null;
+            string sql = "SELECT * FROM users WHERE (email = @Email OR usuario = @User OR cpf = @CPF) AND senha = @Senha";
+            using (MySqlConnection con = new MySqlConnection(conn))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@User", user);
+                    cmd.Parameters.AddWithValue("@CPF", cpf);
+                    cmd.Parameters.AddWithValue("@Senha", senha);
 
-		public static void AtualizarUser(Usuarios users)
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            usuario = new Usuarios()
+                            {
+                                id = reader.GetInt32("id"),
+                                usuario = reader.GetString("usuario"),
+                                email = reader.GetString("email"),
+                                senha = reader.GetString("senha"),
+                                cpf = reader.GetString("cpf"),
+                                celular = reader.GetString("celular"),
+                                fornecedor = reader.GetBoolean("fornecedor"),
+                                admin = reader.GetBoolean("admin") // Carregar campo admin
+                            };
+                        }
+                    }
+                }
+            }
+            return usuario;
+        }
+
+        public static async Task<Usuarios> RealizarLogin(string email, string senha)
+        {
+            Usuarios usuario = null;
+            string sql = "SELECT * FROM users WHERE email = @Email AND senha = @Senha";
+            using (MySqlConnection con = new MySqlConnection(conn))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Senha", senha);
+
+                    using (MySqlDataReader reader = await cmd.ExecuteReaderAsync())
+                    {
+                        if (reader.Read())
+                        {
+                            usuario = new Usuarios()
+                            {
+                                id = reader.GetInt32("id"),
+                                usuario = reader.GetString("usuario"),
+                                email = reader.GetString("email"),
+                                senha = reader.GetString("senha"),
+                                cpf = reader.GetString("cpf"),
+                                celular = reader.GetString("celular"),
+                                fornecedor = reader.GetBoolean("fornecedor"),
+                                admin = reader.GetBoolean("admin") // Carregar campo admin
+                            };
+                        }
+                    }
+                }
+            }
+            return usuario;
+        }
+
+        public static void AtualizarUser(Usuarios users)
 		{
 			try
 			{
@@ -188,51 +216,6 @@ namespace LearnSphere.Controller
 			{
 				StatusMessage = $"Erro ao atualizar usuário: {ex.Message}";
 			}
-		}
-
-		public static async Task<Usuarios> RealizarLogin(string email, string senha)
-		{
-			Usuarios usuario = null;
-
-			try
-			{
-				string sql = "SELECT id, usuario, email, fornecedor FROM users WHERE email = @Email AND senha = @Senha";
-				using (MySqlConnection con = new MySqlConnection(conn))
-				{
-					con.Open();
-					using (MySqlCommand cmd = new MySqlCommand(sql, con))
-					{
-						cmd.Parameters.AddWithValue("@Email", email);
-						cmd.Parameters.AddWithValue("@Senha", senha);
-
-						using (MySqlDataReader reader = cmd.ExecuteReader())
-						{
-							if (reader.Read())
-							{
-								usuario = new Usuarios
-								{
-									id = reader.GetInt32("id"),
-									usuario = reader.GetString("usuario"),
-									email = reader.GetString("email"),
-									fornecedor = reader.GetBoolean("fornecedor")
-								};
-								Console.WriteLine($"Login bem-sucedido: Fornecedor = {usuario.fornecedor}");
-							}
-						}
-					}
-				}
-
-				if (usuario != null)
-				{
-					App.UsuarioLogado = usuario;
-				}
-			}
-			catch (Exception ex)
-			{
-				await App.Current.MainPage.DisplayAlert("Erro", $"Erro ao fazer login: {ex.Message}", "OK");
-			}
-
-			return usuario;
 		}
 
 		public static void AtualizarFornecedor(int idUsuario, bool? fornecedor)

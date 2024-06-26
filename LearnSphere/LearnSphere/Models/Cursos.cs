@@ -8,18 +8,22 @@ namespace LearnSphere.Models
 {
 	public class Cursos
 	{
-		public int id { get; set; }
-		public string titulo { get; set; }
-		public string subtitulo { get; set; }
-		public byte[] foto { get; set; }
-		public string desc_principal { get; set; }
-		public string desc_secundaria { get; set; }
-		public DateTime atualizacao { get; set; }
-		public int estrelas { get; set; }
-		public string criador { get; set; }
-		public string duracao { get; set; }
+        public int id { get; set; }
+        public string titulo { get; set; }
+        public string subtitulo { get; set; }
+        public byte[] foto { get; set; }
+        public string desc_principal { get; set; }
+        public string desc_secundaria { get; set; }
+        public DateTime atualizacao { get; set; }
+        public int estrelas { get; set; }
+        public string criador { get; set; }
+        public string duracao { get; set; }
+        public decimal preco { get; set; } 
+        public string conteudo { get; set; } 
+        public bool publicado { get; set; } 
+        public int fornecedorid { get; set; }
 
-		public ImageSource Imagem { get; set; }
+        public ImageSource Imagem { get; set; }
 
 		public void CarregarImagem()
 		{

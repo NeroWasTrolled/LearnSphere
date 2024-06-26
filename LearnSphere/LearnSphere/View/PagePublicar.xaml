@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:LearnSphere.View"
              x:Class="LearnSphere.View.PagePublicar">
     <ContentPage.Content>
         <Grid>
@@ -49,6 +48,16 @@
                     <!-- Duração -->
                     <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
                         <Entry x:Name="txtDuracao" Placeholder="Duração" FontSize="16" Margin="10"/>
+                    </Frame>
+
+                    <!-- Preço -->
+                    <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
+                        <Entry x:Name="txtPreco" Placeholder="Preço" FontSize="16" Margin="10" Keyboard="Numeric"/>
+                    </Frame>
+
+                    <!-- Conteúdo -->
+                    <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
+                        <Entry x:Name="txtConteudo" Placeholder="Link do Conteúdo (YouTube)" FontSize="16" Margin="10"/>
                     </Frame>
 
                     <!-- Botão para Publicar o Curso -->

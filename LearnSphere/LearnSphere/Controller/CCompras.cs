@@ -8,8 +8,8 @@ namespace LearnSphere.Controller
 {
 	public class CCompras
 	{
-		static string conn = @"server=sql10.freesqldatabase.com;port=3306;database=sql10714026;user=sql10714026;password=pf5lL1idAD";
-		public static string StatusMessage { get; set; }
+        static string conn = @"server=sql.freedb.tech;port=3306;database=freedb_tcccursos;user=freedb_GabrielF;password=WJxZ6@6frNm2WQb";
+        public static string StatusMessage { get; set; }
 
 		public static void InserirCompra(Compras compra)
 		{

@@ -8,9 +8,9 @@ namespace LearnSphere.Controller
 {
 	public class CCarrinho
 	{
-		static string conn = @"server=sql10.freesqldatabase.com;port=3306;database=sql10714026;user=sql10714026;password=pf5lL1idAD";
+        static string conn = @"server=sql.freedb.tech;port=3306;database=freedb_tcccursos;user=freedb_GabrielF;password=WJxZ6@6frNm2WQb";
 
-		public static void InserirNoCarrinho(Carrinho carrinho)
+        public static void InserirNoCarrinho(Carrinho carrinho)
 		{
 			try
 			{

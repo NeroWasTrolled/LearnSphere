@@ -1,6 +1,7 @@
 ﻿using LearnSphere.Controller;
 using LearnSphere.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -22,7 +23,13 @@ namespace LearnSphere.View
 			CarregarCursos();
 		}
 
-		private void CarregarCursos()
+        private async void CarregarCursosDisponiveis()
+        {
+            List<Cursos> cursosDisponiveis = MySQLCon.ListarCursosDisponiveis();
+            cursosListView.ItemsSource = cursosDisponiveis;
+        }
+
+        private void CarregarCursos()
 		{
 			Device.BeginInvokeOnMainThread(() =>
 			{

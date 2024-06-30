@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-06-30T19:50:53.141Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0" etag="i6j80zKSnsMqeuhjPOD9" version="24.6.4" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-30T19:51:11.550Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0" etag="GeLQdUoic7uq2z3prjCq" version="24.6.4" type="github">
   <diagram name="Página-1" id="gYhum7ljytBpoa15r5p-">
     <mxGraphModel dx="1893" dy="623" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -152,7 +152,7 @@
         <mxCell id="szAPvRcOX-W8D8LGKe1C-1" value="Fazer compra pelo Carrinho" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="150" y="990" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="szAPvRcOX-W8D8LGKe1C-4" value="Remove o Curso" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="szAPvRcOX-W8D8LGKe1C-4" value="Remover Curso" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="610" y="940" width="140" height="70" as="geometry" />
         </mxCell>
       </root>

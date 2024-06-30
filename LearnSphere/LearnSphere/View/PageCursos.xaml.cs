@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using LearnSphere.Controller;
 using LearnSphere.Models;
+using Xamarin.Essentials;
 
 namespace LearnSphere.View
 {
@@ -26,7 +27,7 @@ namespace LearnSphere.View
             cursoData.Text = curso.atualizacao.ToString("dd/MM/yyyy");
             cursoDescSecundaria.Text = curso.desc_secundaria;
             cursoDuracao.Text = curso.duracao;
-            cursoPreco.Text = curso.preco.ToString("C");
+            cursoPreco.Text = $"R$ {curso.preco:F2}";
 
             LimitarDescricao();
             VerificarCompra();
@@ -43,11 +44,15 @@ namespace LearnSphere.View
                 try
                 {
                     bool jaComprado = CCarrinho.VerificarCompra(App.UsuarioLogado.id, curso.id);
-                    bool isAdmin = App.UsuarioLogado.admin;
-
                     if (jaComprado)
                     {
-                        MostrarConteudoComprado();
+                        ButtonComprar.IsVisible = false;
+                        ButtonAdicionarCarrinho.IsVisible = false;
+                        ButtonRemoverCarrinho.IsVisible = false;
+                        cursoPreco.IsVisible = false;
+
+                        cursoConteudoLayout.IsVisible = true;
+                        cursoConteudo.Text = curso.conteudo;
                     }
                     else
                     {
@@ -55,11 +60,7 @@ namespace LearnSphere.View
                         ButtonComprar.IsVisible = true;
                         ButtonAdicionarCarrinho.IsVisible = !noCarrinho;
                         ButtonRemoverCarrinho.IsVisible = noCarrinho;
-
-                        if (isAdmin)
-                        {
-                            MostrarOpcoesAdmin();
-                        }
+                        cursoConteudoLayout.IsVisible = false;
                     }
                 }
                 catch (Exception ex)
@@ -179,7 +180,6 @@ namespace LearnSphere.View
                     {
                         CCompras.InserirCompra(compra);
                         CCarrinho.RemoverDoCarrinho(App.UsuarioLogado.id, curso.id);
-                        MostrarConteudoComprado();
                         await DisplayAlert("Sucesso", "Compra realizada com sucesso!", "OK");
                         await Navigation.PopAsync();
                     }
@@ -199,71 +199,12 @@ namespace LearnSphere.View
             }
         }
 
-        private void MostrarConteudoComprado()
+        private async void OnConteudoTapped(object sender, EventArgs e)
         {
-            cursoConteudoLayout.IsVisible = true;
-            cursoConteudo.Text = curso.conteudo;
-            ButtonAdicionarCarrinho.IsVisible = false;
-            ButtonRemoverCarrinho.IsVisible = false;
-            ButtonComprar.IsVisible = false;
-        }
-
-        private void MostrarOpcoesAdmin()
-        {
-            ButtonAdicionarCarrinho.IsVisible = false;
-            ButtonRemoverCarrinho.IsVisible = false;
-            ButtonComprar.IsVisible = false;
-
-            Button btnPublicar = new Button
+            if (!string.IsNullOrEmpty(curso.conteudo))
             {
-                Text = "Publicar",
-                BackgroundColor = Color.Green,
-                TextColor = Color.White
-            };
-            btnPublicar.Clicked += async (sender, e) =>
-            {
-                try
-                {
-                    curso.publicado = true;
-                    MySQLCon.Atualizar(curso);
-                    await DisplayAlert("Sucesso", "Curso publicado com sucesso!", "OK");
-                    await Navigation.PopAsync();
-                }
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Erro", $"Erro ao publicar o curso: {ex.Message}", "OK");
-                }
-            };
-
-            Button btnRemover = new Button
-            {
-                Text = "Remover",
-                BackgroundColor = Color.Red,
-                TextColor = Color.White
-            };
-            btnRemover.Clicked += async (sender, e) =>
-            {
-                try
-                {
-                    curso.publicado = false;
-                    MySQLCon.Atualizar(curso);
-                    await DisplayAlert("Removido", "Curso removido da plataforma.", "OK");
-                    await Navigation.PopAsync();
-                }
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Erro", $"Erro ao remover o curso: {ex.Message}", "OK");
-                }
-            };
-
-            StackLayout adminLayout = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                HorizontalOptions = LayoutOptions.Center,
-                Children = { btnPublicar, btnRemover }
-            };
-
-            cursoLayout.Children.Add(adminLayout);
+                await Launcher.OpenAsync(new Uri(curso.conteudo));
+            }
         }
     }
 }

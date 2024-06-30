@@ -11,92 +11,98 @@ namespace LearnSphere.View
 	public partial class PageCadastrar : ContentPage
 	{
 		public PageCadastrar()
-		{
-			InitializeComponent();
-			NavigationPage.SetHasBackButton(this, false); 
-			NavigationPage.SetHasNavigationBar(this, false); 
-		}
+        {
+            InitializeComponent();
+            NavigationPage.SetHasBackButton(this, false); 
+            NavigationPage.SetHasNavigationBar(this, false); 
+        }
 
-		private async void BtnCadastrar_Clicked(object sender, EventArgs e)
-		{
-			if (string.IsNullOrWhiteSpace(txtusuario.Text) ||
-				string.IsNullOrWhiteSpace(txtemail.Text) ||
-				string.IsNullOrWhiteSpace(txtcelular.Text) ||
-				string.IsNullOrWhiteSpace(txtsenha.Text))
-			{
-				await DisplayAlert("Erro", "Por favor, preencha todos os campos.", "OK");
-				return;
-			}
+        private async void BtnCadastrar_Clicked(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtusuario.Text) ||
+                string.IsNullOrWhiteSpace(txtemail.Text) ||
+                string.IsNullOrWhiteSpace(txtcelular.Text) ||
+                string.IsNullOrWhiteSpace(txtsenha.Text))
+            {
+                await DisplayAlert("Erro", "Por favor, preencha todos os campos.", "OK");
+                return;
+            }
 
-			if (!IsValidEmail(txtemail.Text))
-			{
-				await DisplayAlert("Erro", "Por favor, insira um email válido.", "OK");
-				return;
-			}
+            if (!IsValidEmail(txtemail.Text))
+            {
+                await DisplayAlert("Erro", "Por favor, insira um email válido.", "OK");
+                return;
+            }
 
-			if (!IsValidPhoneNumber(txtcelular.Text))
-			{
-				await DisplayAlert("Erro", "Por favor, insira um número de celular válido.", "OK");
-				return;
-			}
+            if (!IsValidPhoneNumber(txtcelular.Text))
+            {
+                await DisplayAlert("Erro", "Por favor, insira um número de celular válido.", "OK");
+                return;
+            }
 
-			if (txtsenha.Text.Length < 7)
-			{
-				await DisplayAlert("Erro", "A senha deve ter no mínimo 7 caracteres.", "OK");
-				return;
-			}
-			if (!IsValidCPF(txtcpf.Text))
-			{
-				await DisplayAlert("Erro", "Por favor, insira um CPF válido.", "OK");
-				return;
-			}
+            if (txtsenha.Text.Length < 7)
+            {
+                await DisplayAlert("Erro", "A senha deve ter no mínimo 7 caracteres.", "OK");
+                return;
+            }
+            if (!IsValidCPF(txtcpf.Text))
+            {
+                await DisplayAlert("Erro", "Por favor, insira um CPF válido.", "OK");
+                return;
+            }
 
-			if (Users.VerificarCPFCadastrado(txtcpf.Text))
-			{
-				await DisplayAlert("Erro", "CPF já cadastrado.", "OK");
-				return;
-			}
+            if (Users.VerificarCPFCadastrado(txtcpf.Text))
+            {
+                await DisplayAlert("Erro", "CPF já cadastrado.", "OK");
+                return;
+            }
 
-			Usuarios novoUsuario = new Usuarios
-			{
-				usuario = txtusuario.Text,
-				email = txtemail.Text,
-				celular = FormatPhoneNumber(txtcelular.Text),
-				senha = txtsenha.Text,
-				cpf = txtcpf.Text
-			};
+            Usuarios novoUsuario = new Usuarios
+            {
+                usuario = txtusuario.Text,
+                email = txtemail.Text,
+                celular = FormatPhoneNumber(txtcelular.Text),
+                senha = txtsenha.Text,
+                cpf = txtcpf.Text
+            };
 
-			Users.InserirUser(novoUsuario);
+            try
+            {
+                Users.InserirUser(novoUsuario);
+                LoginManager.Login(novoUsuario); // Loga o usuário automaticamente após o cadastro
+                await DisplayAlert("Sucesso", Users.StatusMessage, "OK");
 
-			App.UsuarioLogado = novoUsuario;
+                // Redireciona para a PageHome após o cadastro
+                Application.Current.MainPage = new PagePrincipal();
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Erro", $"Erro ao cadastrar: {ex.Message}", "OK");
+            }
+        }
 
-			await DisplayAlert("Sucesso", Users.StatusMessage, "OK");
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
-			await Navigation.PushAsync(new PageHome());
-		}
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            return System.Text.RegularExpressions.Regex.IsMatch(phoneNumber, @"^\d{11}$");
+        }
 
-		private bool IsValidEmail(string email)
-		{
-			try
-			{
-				var addr = new System.Net.Mail.MailAddress(email);
-				return addr.Address == email;
-			}
-			catch
-			{
-				return false;
-			}
-		}
-
-		private bool IsValidPhoneNumber(string phoneNumber)
-		{
-			return System.Text.RegularExpressions.Regex.IsMatch(phoneNumber, @"^\d{11}$");
-		}
-
-		private string FormatPhoneNumber(string phoneNumber)
-		{
-			return System.Text.RegularExpressions.Regex.Replace(phoneNumber, @"(\d{2})(\d{5})(\d{4})", "($1) $2-$3");
-		}
+        private string FormatPhoneNumber(string phoneNumber)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(phoneNumber, @"(\d{2})(\d{5})(\d{4})", "($1) $2-$3");
+        }
 
 		private bool IsValidCPF(string cpf)
 		{
@@ -129,22 +135,23 @@ namespace LearnSphere.View
 			return true;
 		}
 
-		private void OnTogglePasswordVisibility(object sender, EventArgs e)
-		{
-			txtsenha.IsPassword = !txtsenha.IsPassword;
-		}
+        private void OnTogglePasswordVisibility(object sender, EventArgs e)
+        {
+            txtsenha.IsPassword = !txtsenha.IsPassword;
+        }
 
-		private void LimparCampos()
-		{
-			txtusuario.Text = string.Empty;
-			txtemail.Text = string.Empty;
-			txtcelular.Text = string.Empty;
-			txtsenha.Text = string.Empty;
-		}
+        private void LimparCampos()
+        {
+            txtusuario.Text = string.Empty;
+            txtemail.Text = string.Empty;
+            txtcelular.Text = string.Empty;
+            txtsenha.Text = string.Empty;
+        }
 
-		private async void Login_Tapped(object sender, EventArgs e)
-		{
-			await Navigation.PushAsync(new PageLogin());
-		}
-	}
+        private async void Login_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PageLogin());
+        }
+    }
 }
+

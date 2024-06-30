@@ -11,7 +11,8 @@
                           Margin="15"
                           IsVisible="False"
                           RowHeight="120"
-                          SeparatorColor="Black">
+                          SeparatorColor="Black"
+                          ItemSelected="CarrinhoListView_ItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -35,6 +36,12 @@
                                                    LineBreakMode="TailTruncation"
                                                    FontSize="14"
                                                    TextColor="#666666" />
+                                            <Label Text="{Binding preco, StringFormat='R$ {0:F2}'}"
+                                                   FontAttributes="Bold"
+                                                   FontSize="16"
+                                                   TextColor="#000000" />
+                                            <Button Text="Comprar"
+                                                    Clicked="OnComprarCursoClicked" />
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

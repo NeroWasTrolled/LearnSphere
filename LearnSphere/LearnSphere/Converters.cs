@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace LearnSphere.Converters
 {
-	public class ByteArrayToImageSourceConverter : IValueConverter
-	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			if (value is byte[] imageBytes && imageBytes.Length > 0)
-			{
-				return ImageSource.FromStream(() => new System.IO.MemoryStream(imageBytes));
-			}
+    public class ByteArrayToImageSourceConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is byte[] byteArray && byteArray.Length > 0)
+            {
+                return ImageSource.FromStream(() => new MemoryStream(byteArray));
+            }
+            return null;
+        }
 
-			return null;
-		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

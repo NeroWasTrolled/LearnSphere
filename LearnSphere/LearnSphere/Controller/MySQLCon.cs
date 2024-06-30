@@ -444,5 +444,59 @@ namespace LearnSphere.Controller
             }
             return listacursos;
         }
+
+        public static List<Cursos> ListarCursosNoCarrinho(int usuarioId)
+        {
+            List<Cursos> listacursos = new List<Cursos>();
+            try
+            {
+                string sql = "SELECT c.*, cr.* FROM cursos c INNER JOIN carrinho cr ON c.id = cr.IdCurso WHERE cr.IdUsuario = @usuarioId";
+                using (MySqlConnection con = new MySqlConnection(conn))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@usuarioId", usuarioId);
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Cursos curso = new Cursos
+                                {
+                                    id = reader.GetInt32("id"),
+                                    titulo = reader.GetString("titulo"),
+                                    subtitulo = reader.GetString("subtitulo"),
+                                    foto = reader.IsDBNull(reader.GetOrdinal("foto")) ? null : (byte[])reader["foto"],
+                                    desc_principal = reader.GetString("desc_principal"),
+                                    desc_secundaria = reader.GetString("desc_secundaria"),
+                                    atualizacao = reader.GetDateTime("atualizacao"),
+                                    estrelas = reader.GetInt32("estrelas"),
+                                    criador = reader.GetString("criador"),
+                                    duracao = reader.GetString("duracao"),
+                                    preco = reader.GetDecimal("preco"), // Certifique-se de que o preço está sendo recuperado corretamente
+                                    conteudo = reader.GetString("conteudo"),
+                                    publicado = reader.GetBoolean("publicado"),
+                                    fornecedorid = reader.GetInt32("fornecedorid")
+                                };
+                                listacursos.Add(curso);
+                            }
+                        }
+                    }
+                }
+                if (listacursos.Count > 0)
+                {
+                    StatusMessage = "Cursos encontrados.";
+                }
+                else
+                {
+                    StatusMessage = "Nenhum curso encontrado.";
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Erro ao listar cursos no carrinho: {ex.Message}";
+            }
+            return listacursos;
+        }
     }
 }

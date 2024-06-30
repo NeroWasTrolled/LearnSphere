@@ -49,6 +49,8 @@ namespace LearnSphere.View
             {
                 await Navigation.PushAsync(new PageLogin());
             }
+
+            AtualizarDadosUsuario();
         }
 
         private async void Carrinho_Clicked(object sender, EventArgs e)

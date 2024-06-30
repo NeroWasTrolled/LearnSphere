@@ -1,19 +1,21 @@
 ﻿<Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:LearnSphere.Converters"
              x:Class="LearnSphere.App">
     <Application.Resources>
-        <!-- Application ResourceDictionary -->
-            <ResourceDictionary>
-                <Color x:Key="PrimaryColor">#7469B6</Color>
-                <Color x:Key="BackgroundColor">#EEEBEF</Color>
-                <Color x:Key="TextColor">#151515</Color>
-                <Color x:Key="SecondaryColor">#E1AFD1</Color>
-                <Color x:Key="TertiaryColor">#AD88C6</Color>
+        <ResourceDictionary>
+            <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+            <!-- Application ResourceDictionary -->
+            <Color x:Key="PrimaryColor">#7469B6</Color>
+            <Color x:Key="BackgroundColor">#EEEBEF</Color>
+            <Color x:Key="TextColor">#151515</Color>
+            <Color x:Key="SecondaryColor">#E1AFD1</Color>
+            <Color x:Key="TertiaryColor">#AD88C6</Color>
 
-                <Style TargetType="NavigationPage">
-                    <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
-                    <Setter Property="BarTextColor" Value="White" />
-                </Style>
-            </ResourceDictionary>
-        </Application.Resources>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

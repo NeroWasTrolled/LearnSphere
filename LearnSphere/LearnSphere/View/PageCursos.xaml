@@ -47,7 +47,11 @@
             <!-- Novo campo para o conteúdo do curso -->
             <StackLayout x:Name="cursoConteudoLayout" IsVisible="False">
                 <Label Text="Conteúdo" FontAttributes="Bold" FontSize="16"/>
-                <Label x:Name="cursoConteudo" FontSize="16" Margin="10,0"/>
+                <Label x:Name="cursoConteudo" FontSize="16" Margin="10,0" TextColor="Blue" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnConteudoTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
             </StackLayout>
         </StackLayout>
     </ScrollView>

@@ -70,5 +70,10 @@ namespace LearnSphere
 				}
 			}
 		}
-	}
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

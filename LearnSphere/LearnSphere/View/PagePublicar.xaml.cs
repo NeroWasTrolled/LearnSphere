@@ -33,16 +33,17 @@ namespace LearnSphere.View
         {
             if (!LoginManager.IsUserLoggedIn)
             {
-                await Shell.Current.GoToAsync($"{nameof(PageLogin)}");
+                await Navigation.PushAsync(new PageLogin());
                 return;
             }
 
             if (!LoginManager.IsUserFornecedor())
             {
                 await DisplayAlert("Acesso Negado", "Você precisa ser um provedor para publicar um curso.", "OK");
-                await Shell.Current.GoToAsync($"//{nameof(PageHome)}");
+                await Navigation.PushAsync(new PageHome());
             }
         }
+
 
         private async void btnFoto_Clicked(object sender, EventArgs e)
         {

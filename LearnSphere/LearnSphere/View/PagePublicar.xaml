@@ -1,66 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LearnSphere.View.PagePublicar">
+             x:Class="LearnSphere.View.PagePublicar"
+             Title="Publicação">
     <ContentPage.Content>
         <Grid>
             <ScrollView>
                 <StackLayout Padding="10">
-                    <!-- Imagem de Capa do Curso -->
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="0">
                         <Image x:Name="imagemFoto" Aspect="AspectFill" HeightRequest="200" WidthRequest="300"/>
                     </Frame>
 
-                    <!-- Botão para Inserir Imagem -->
-                    <Button Text="Inserir Foto" Clicked="btnFoto_Clicked" BackgroundColor="#6495ED" TextColor="White" FontAttributes="Bold" Margin="0,10,0,10"/>
+                    <Button Text="Inserir Foto" Clicked="btnFoto_Clicked" BackgroundColor="#800080" TextColor="White" FontAttributes="Bold" Margin="0,10,0,10"/>
 
-                    <!-- Título do Curso -->
                     <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
                         <Entry x:Name="txtTitulo" Placeholder="TÍTULO" FontAttributes="Bold" FontSize="20" Margin="10"/>
                     </Frame>
 
-                    <!-- Subtítulo do Curso -->
                     <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
                         <Entry x:Name="txtSubtitulo" Placeholder="SubTítulo [OPCIONAL]" FontSize="18" Margin="10"/>
                     </Frame>
 
-                    <!-- Autor -->
                     <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
                         <Entry x:Name="txtAutor" Placeholder="Autor" FontSize="16" Margin="10"/>
                     </Frame>
 
-                    <!-- Data de Publicação -->
                     <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
                         <Label Text="Data de Publicação:" VerticalOptions="Center"/>
                         <DatePicker x:Name="dtAtualizacao" DateSelected="dtAtualizacao_DateSelected"/>
                     </StackLayout>
 
-                    <!-- Descrição Detalhada -->
                     <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
                         <Editor x:Name="txtDesc" Placeholder="Descrição detalhada" HeightRequest="100" Margin="10"/>
                     </Frame>
 
-                    <!-- Descrição Resumida -->
                     <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
                         <Entry x:Name="txtDescSecundaria" Placeholder="Descrição Resumida" FontSize="16" Margin="10"/>
                     </Frame>
 
-                    <!-- Duração -->
                     <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
                         <Entry x:Name="txtDuracao" Placeholder="Duração" FontSize="16" Margin="10"/>
                     </Frame>
 
-                    <!-- Preço -->
                     <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
                         <Entry x:Name="txtPreco" Placeholder="Preço" FontSize="16" Margin="10" Keyboard="Numeric"/>
                     </Frame>
 
-                    <!-- Conteúdo -->
                     <Frame BorderColor="Gray" CornerRadius="10" Padding="0">
                         <Entry x:Name="txtConteudo" Placeholder="Link do Conteúdo (YouTube)" FontSize="16" Margin="10"/>
                     </Frame>
 
-                    <!-- Botão para Publicar o Curso -->
                     <Button Text="Publicar Curso" Clicked="btnPublicar_Clicked" BackgroundColor="#6495ED" TextColor="White" FontAttributes="Bold" Margin="0,10,0,0"/>
                 </StackLayout>
             </ScrollView>

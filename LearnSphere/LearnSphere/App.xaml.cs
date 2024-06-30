@@ -22,9 +22,9 @@ namespace LearnSphere
 			Routing.RegisterRoute(nameof(PagePerfil), typeof(PagePerfil));
 			Routing.RegisterRoute(nameof(SearchPage), typeof(SearchPage));
 			Routing.RegisterRoute(nameof(PageCursos), typeof(PageCursos));
-			Routing.RegisterRoute(nameof(EditPerfilPage), typeof(EditPerfilPage));  // Certifique-se de adicionar esta linha
-			Routing.RegisterRoute(nameof(PageCursosAdquiridos), typeof(PageCursosAdquiridos));  // Certifique-se de adicionar esta linha
-			Routing.RegisterRoute(nameof(PageCarrinho), typeof(PageCarrinho));  // Certifique-se de adicionar esta linha
+			Routing.RegisterRoute(nameof(EditPerfilPage), typeof(EditPerfilPage)); 
+			Routing.RegisterRoute(nameof(PageCursosAdquiridos), typeof(PageCursosAdquiridos)); 
+			Routing.RegisterRoute(nameof(PageCarrinho), typeof(PageCarrinho)); 
 
 			MainPage = new PagePrincipal();
 		}
@@ -70,10 +70,5 @@ namespace LearnSphere
 				}
 			}
 		}
-
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-
-        }
     }
 }

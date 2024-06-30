@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
 using Android.OS;
+using Android.Runtime;
 using Xamarin.Forms.Platform.Android;
 
 namespace LearnSphere.Droid
@@ -20,13 +20,13 @@ namespace LearnSphere.Droid
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
 
-            // Set StatusBar Color
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
                 Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#7469B6"));
                 Window.SetNavigationBarColor(Android.Graphics.Color.ParseColor("#7469B6"));
             }
         }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);

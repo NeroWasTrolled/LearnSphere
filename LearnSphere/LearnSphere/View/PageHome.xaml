@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LearnSphere.View.PageHome"
              BackgroundColor="White"
-             NavigationPage.HasNavigationBar="True">
+             NavigationPage.HasNavigationBar="True"
+            Title="Tela inicial">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="cart.png"

@@ -40,10 +40,9 @@ namespace LearnSphere.View
             if (!LoginManager.IsUserFornecedor())
             {
                 await DisplayAlert("Acesso Negado", "Você precisa ser um provedor para publicar um curso.", "OK");
-                await Navigation.PushAsync(new PageHome());
+                await Navigation.PopToRootAsync(); // Use PopToRootAsync() to navigate back to the root
             }
         }
-
 
         private async void btnFoto_Clicked(object sender, EventArgs e)
         {

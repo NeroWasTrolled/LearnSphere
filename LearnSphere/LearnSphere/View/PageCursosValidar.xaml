@@ -35,7 +35,7 @@
             <Label Text="Duração" FontAttributes="Bold" FontSize="16"/>
             <Label x:Name="cursoDuracao" FontSize="16" Margin="10,0"/>
 
-            <Button x:Name="ButtonPublicar" Text="Publicar" BackgroundColor="Green" TextColor="White" Clicked="OnPublicarClicked"/>
+            <Button x:Name="ButtonPublicar" Text="Publicar" BackgroundColor="#800080" TextColor="White" Clicked="OnPublicarClicked"/>
             <Button x:Name="ButtonRemover" Text="Remover" BackgroundColor="Red" TextColor="White" Clicked="OnRemoverClicked"/>
         </StackLayout>
     </ScrollView>

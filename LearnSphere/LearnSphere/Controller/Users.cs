@@ -140,7 +140,7 @@ namespace LearnSphere.Controller
                                 cpf = reader.GetString("cpf"),
                                 celular = reader.GetString("celular"),
                                 fornecedor = reader.GetBoolean("fornecedor"),
-                                admin = reader.GetBoolean("admin") // Carregar campo admin
+                                admin = reader.GetBoolean("admin") 
                             };
                         }
                     }
@@ -174,7 +174,7 @@ namespace LearnSphere.Controller
                                 cpf = reader.GetString("cpf"),
                                 celular = reader.GetString("celular"),
                                 fornecedor = reader.GetBoolean("fornecedor"),
-                                admin = reader.GetBoolean("admin") // Carregar campo admin
+                                admin = reader.GetBoolean("admin") 
                             };
                         }
                     }

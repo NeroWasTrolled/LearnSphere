@@ -5,7 +5,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
-            <!-- Application ResourceDictionary -->
             <Color x:Key="PrimaryColor">#7469B6</Color>
             <Color x:Key="BackgroundColor">#EEEBEF</Color>
             <Color x:Key="TextColor">#151515</Color>

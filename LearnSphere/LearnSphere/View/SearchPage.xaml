@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:LearnSphere.Converters"
-             x:Class="LearnSphere.View.SearchPage" BackgroundColor="White">
+             x:Class="LearnSphere.View.SearchPage" BackgroundColor="White"
+             Title="Pesquisa">
     <StackLayout Padding="20" Spacing="20">
         <SearchBar x:Name="searchBar" 
                    Placeholder="Pesquisar cursos..."

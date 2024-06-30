@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LearnSphere.View.PageLogin"
              BackgroundColor="#7469B6"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             Title="Login">
 
     <Grid>
         <Grid.RowDefinitions>

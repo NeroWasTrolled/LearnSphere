@@ -473,7 +473,7 @@ namespace LearnSphere.Controller
                                     estrelas = reader.GetInt32("estrelas"),
                                     criador = reader.GetString("criador"),
                                     duracao = reader.GetString("duracao"),
-                                    preco = reader.GetDecimal("preco"), // Certifique-se de que o preço está sendo recuperado corretamente
+                                    preco = reader.GetDecimal("preco"), 
                                     conteudo = reader.GetString("conteudo"),
                                     publicado = reader.GetBoolean("publicado"),
                                     fornecedorid = reader.GetInt32("fornecedorid")

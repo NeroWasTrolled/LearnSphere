@@ -69,10 +69,9 @@ namespace LearnSphere.View
             try
             {
                 Users.InserirUser(novoUsuario);
-                LoginManager.Login(novoUsuario); // Loga o usuário automaticamente após o cadastro
+                LoginManager.Login(novoUsuario); 
                 await DisplayAlert("Sucesso", Users.StatusMessage, "OK");
 
-                // Redireciona para a PageHome após o cadastro
                 Application.Current.MainPage = new PagePrincipal();
             }
             catch (Exception ex)

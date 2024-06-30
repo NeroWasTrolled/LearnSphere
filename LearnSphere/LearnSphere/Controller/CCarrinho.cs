@@ -86,8 +86,8 @@ namespace LearnSphere.Controller
                                     estrelas = reader.GetInt32("estrelas"),
                                     criador = reader.GetString("criador"),
                                     duracao = reader.GetString("duracao"),
-                                    preco = reader.GetDecimal("preco"), // Adicionei o campo preco
-                                    conteudo = reader.GetString("conteudo") // Adicionei o campo conteudo
+                                    preco = reader.GetDecimal("preco"), 
+                                    conteudo = reader.GetString("conteudo")
                                 };
                                 cursosNoCarrinho.Add(curso);
                             }

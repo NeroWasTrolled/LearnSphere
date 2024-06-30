@@ -3,6 +3,7 @@ using LearnSphere.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace LearnSphere
@@ -13,17 +14,49 @@ namespace LearnSphere
 
         public static bool IsUserLoggedIn => loggedInUser != null;
 
-        public static void Login(Usuarios usuario)
+        public static async Task InitializeAsync()
+        {
+            var userId = await SecureStorage.GetAsync("user_id");
+            var userEmail = await SecureStorage.GetAsync("user_email");
+            var userFornecedor = await SecureStorage.GetAsync("user_fornecedor");
+            var userAdmin = await SecureStorage.GetAsync("user_admin");
+
+            if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(userEmail))
+            {
+                loggedInUser = new Usuarios
+                {
+                    id = int.Parse(userId),
+                    email = userEmail,
+                    fornecedor = bool.Parse(userFornecedor),
+                    admin = bool.Parse(userAdmin)
+                };
+
+                App.UsuarioLogado = loggedInUser;
+            }
+        }
+
+        public static async void Login(Usuarios usuario)
         {
             loggedInUser = usuario;
             App.UsuarioLogado = usuario;
+
+            await SecureStorage.SetAsync("user_id", usuario.id.ToString());
+            await SecureStorage.SetAsync("user_email", usuario.email);
+            await SecureStorage.SetAsync("user_fornecedor", usuario.fornecedor.ToString());
+            await SecureStorage.SetAsync("user_admin", usuario.admin.ToString());
+
             Console.WriteLine($"Login: UsuarioLogado = {App.UsuarioLogado.usuario}, Fornecedor = {App.UsuarioLogado.fornecedor}, Admin = {App.UsuarioLogado.admin}");
         }
 
-        public static void Logout()
+        public static async void Logout()
         {
             loggedInUser = null;
             App.UsuarioLogado = null;
+
+            SecureStorage.Remove("user_id");
+            SecureStorage.Remove("user_email");
+            SecureStorage.Remove("user_fornecedor");
+            SecureStorage.Remove("user_admin");
         }
 
         public static Usuarios GetLoggedInUser()

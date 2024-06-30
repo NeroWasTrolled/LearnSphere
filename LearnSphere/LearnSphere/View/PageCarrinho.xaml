@@ -27,7 +27,8 @@
                                                WidthRequest="100"
                                                HeightRequest="100"/>
                                         <StackLayout Orientation="Vertical"
-                                                     Spacing="5">
+                                                     Spacing="5"
+                                                     HorizontalOptions="FillAndExpand">
                                             <Label Text="{Binding titulo}"
                                                    FontAttributes="Bold"
                                                    FontSize="18"
@@ -36,12 +37,23 @@
                                                    LineBreakMode="TailTruncation"
                                                    FontSize="14"
                                                    TextColor="#666666" />
-                                            <Label Text="{Binding preco, StringFormat='R$ {0:F2}'}"
-                                                   FontAttributes="Bold"
-                                                   FontSize="16"
-                                                   TextColor="#000000" />
-                                            <Button Text="Comprar"
-                                                    Clicked="OnComprarCursoClicked" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Text="{Binding preco, StringFormat='R$ {0:F2}'}"
+                                                       FontAttributes="Bold"
+                                                       FontSize="16"
+                                                       TextColor="#000000"
+                                                       Grid.Column="0"
+                                                       VerticalOptions="Center"/>
+                                                <Button Text="Comprar"
+                                                        Clicked="OnComprarCursoClicked"
+                                                        Grid.Column="1"
+                                                        HorizontalOptions="End"
+                                                        VerticalOptions="Center"/>
+                                            </Grid>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
